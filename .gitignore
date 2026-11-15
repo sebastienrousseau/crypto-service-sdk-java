@@ -1,0 +1,16 @@
+# Maven build output
+target/
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.DS_Store
+
+# Jazzer generated corpus (fuzzing mode)
+.cifuzz-corpus/
+
+# The rendered manual (make manual)
+site/
