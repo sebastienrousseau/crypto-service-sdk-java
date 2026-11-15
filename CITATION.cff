@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+cff-version: 1.2.0
+message: "If you use crypto-service-sdk-java in research or production write-ups, please cite it as below."
+type: software
+title: "crypto-service-sdk-java: a typed Java client for the Crypto Service REST API"
+abstract: >-
+  A thin, typed Java client for the Crypto Service REST API
+  (crypto-server): hashing, MACs, key derivation, AEAD, server-held
+  Ed25519 and post-quantum keys, HPKE and KMS, all performed by the
+  server. It is proven against the server by the Crypto Service
+  conformance kit.
+authors:
+  - family-names: Rousseau
+    given-names: Sebastien
+version: "0.0.40"
+license:
+  - Apache-2.0
+  - MIT
+repository-code: "https://github.com/sebastienrousseau/crypto-service-sdk-java"
+url: "https://crypto-service.co"
+keywords:
+  - cryptography
+  - post-quantum
+  - ML-KEM
+  - ML-DSA
+  - Java
+  - SDK
