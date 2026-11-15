@@ -22,7 +22,8 @@ import org.openjdk.jmh.annotations.Warmup;
  *
  * <p>crypto-server meters every principal at 60 requests a minute, so this scenario takes single
  * timed calls (5 warm-up, 50 measured) rather than a saturating loop, and runs as a fresh principal
- * when {@code CRYPTO_SERVICE_JWT_SECRET} is set (with the API key otherwise).
+ * when {@code CRYPTO_SERVICE_JWT_SECRET} is set (with the API key otherwise). Up to three retries
+ * absorb a quota 429 whose {@code Retry-After} is within two seconds.
  */
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.SingleShotTime)
@@ -41,7 +42,8 @@ public class LoopbackBenchmark {
     if (url == null || url.isBlank()) {
       throw new IllegalStateException("set CRYPTO_SERVICE_URL to a crypto-server on loopback");
     }
-    CryptoServiceClient.Builder builder = CryptoServiceClient.builder().baseUrl(url);
+    CryptoServiceClient.Builder builder =
+        CryptoServiceClient.builder().baseUrl(url).retry(RetryOptions.of(3));
     String secret = System.getenv("CRYPTO_SERVICE_JWT_SECRET");
     if (secret != null && !secret.isBlank()) {
       builder.token(TestTokens.mint(secret, "bench-" + System.nanoTime(), List.of("crypto:hash")));

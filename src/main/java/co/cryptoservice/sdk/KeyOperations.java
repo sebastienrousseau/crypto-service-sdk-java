@@ -53,7 +53,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Generate a server-held key pair for any supported algorithm: {@code POST /v2/keys/generate};
-   * waits for {@link #generateKeyPairAsync}.
+   * waits for {@code generateKeyPairAsync}.
    *
    * @param request the request body
    * @return the result
@@ -100,8 +100,8 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Export a server-held private key: {@code POST /v2/keys/export}; waits for {@link
-   * #exportKeyAsync}.
+   * Export a server-held private key: {@code POST /v2/keys/export}; waits for {@code
+   * exportKeyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -126,7 +126,7 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Delete a server-held key: {@code POST /v2/keys/delete}; waits for {@link #deleteKeyAsync}.
+   * Delete a server-held key: {@code POST /v2/keys/delete}; waits for {@code deleteKeyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -151,7 +151,7 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Sign with Ed25519: {@code POST /v2/sign}; waits for {@link #signAsync}.
+   * Sign with Ed25519: {@code POST /v2/sign}; waits for {@code signAsync}.
    *
    * @param request the request body
    * @return the result
@@ -176,7 +176,7 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Verify an Ed25519 signature: {@code POST /v2/verify}; waits for {@link #verifyAsync}.
+   * Verify an Ed25519 signature: {@code POST /v2/verify}; waits for {@code verifyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -202,7 +202,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Batch sign messages with sub-millisecond throughput: {@code POST /v2/stream/sign}; waits for
-   * {@link #streamSignAsync}.
+   * {@code streamSignAsync}.
    *
    * @param request the request body
    * @return the result
@@ -227,8 +227,8 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Batch verify digital signatures: {@code POST /v2/stream/verify}; waits for {@link
-   * #streamVerifyAsync}.
+   * Batch verify digital signatures: {@code POST /v2/stream/verify}; waits for {@code
+   * streamVerifyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -254,7 +254,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Anonymous public-key encryption (X25519 sealed box): {@code POST /v2/sealedbox/seal}; waits for
-   * {@link #sealedboxSealAsync}.
+   * {@code sealedboxSealAsync}.
    *
    * @param request the request body
    * @return the result
@@ -279,8 +279,8 @@ abstract class KeyOperations extends CryptoOperations {
   }
 
   /**
-   * Decrypt an anonymous sealed box (X25519): {@code POST /v2/sealedbox/open}; waits for {@link
-   * #sealedboxOpenAsync}.
+   * Decrypt an anonymous sealed box (X25519): {@code POST /v2/sealedbox/open}; waits for {@code
+   * sealedboxOpenAsync}.
    *
    * @param request the request body
    * @return the plaintext as UTF-8 text
@@ -308,7 +308,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Post-quantum anonymous encryption (X25519 + ML-KEM-768 sealed box): {@code POST
-   * /v2/sealedbox/seal-pq}; waits for {@link #sealedboxSealPqAsync}.
+   * /v2/sealedbox/seal-pq}; waits for {@code sealedboxSealPqAsync}.
    *
    * @param request the request body
    * @return the result
@@ -334,7 +334,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Decrypt a post-quantum sealed box (X25519 + ML-KEM-768): {@code POST /v2/sealedbox/open-pq};
-   * waits for {@link #sealedboxOpenPqAsync}.
+   * waits for {@code sealedboxOpenPqAsync}.
    *
    * @param request the request body
    * @return the plaintext as UTF-8 text
@@ -362,7 +362,7 @@ abstract class KeyOperations extends CryptoOperations {
 
   /**
    * Encrypt for multiple recipients (hybrid key wrapping): {@code POST
-   * /v2/multi-recipient/encrypt}; waits for {@link #multiRecipientEncryptAsync}.
+   * /v2/multi-recipient/encrypt}; waits for {@code multiRecipientEncryptAsync}.
    *
    * @param request the request body
    * @return the result

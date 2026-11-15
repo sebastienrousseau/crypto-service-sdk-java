@@ -6,7 +6,8 @@
 # ceilings) and the examples' compile. The Jazzer fuzz tests run their
 # committed seeds as regression tests there too; `make fuzz` fuzzes them.
 # The conformance kit runs only through `make conformance`, which fails
-# when CRYPTO_SERVICE_URL or CRYPTO_SERVICE_API_KEY is unset.
+# when CRYPTO_SERVICE_URL, CRYPTO_SERVICE_API_KEY or
+# CRYPTO_SERVICE_JWT_SECRET is unset.
 # `make regression` builds the pinned crypto-server and runs all of it,
 # as CI's conformance job does. DEVELOPMENT.md maps every CI job to its
 # target.
@@ -104,9 +105,10 @@ test: ## Unit tests (the conformance kit skips without CRYPTO_SERVICE_URL)
 lint: ## javac warnings as errors and the PMD complexity ceilings
 	$(MVN) -B -DskipTests compile pmd:check
 
-conformance: ## Every kit vector against CRYPTO_SERVICE_URL; fails when the server variables are unset
+conformance: ## Every kit vector against CRYPTO_SERVICE_URL; fails when a server variable is unset
 	@test -n "$$CRYPTO_SERVICE_URL" || { echo "conformance: set CRYPTO_SERVICE_URL to a running crypto-server"; exit 1; }
 	@test -n "$$CRYPTO_SERVICE_API_KEY" || { echo "conformance: set CRYPTO_SERVICE_API_KEY to its CRYPTO_API_KEY"; exit 1; }
+	@test -n "$$CRYPTO_SERVICE_JWT_SECRET" || { echo "conformance: set CRYPTO_SERVICE_JWT_SECRET to its JWT_SECRET (scoped vectors, one principal per file)"; exit 1; }
 	$(MVN) -B test -Dtest='ConformanceTest,KitChecksumTest' -Dsurefire.failIfNoSpecifiedTests=false \
 	  -Dconformance.required=true -Djacoco.skip=true
 

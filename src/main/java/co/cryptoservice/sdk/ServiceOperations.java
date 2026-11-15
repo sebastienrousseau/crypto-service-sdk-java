@@ -48,7 +48,7 @@ abstract class ServiceOperations extends StreamOperations {
 
   /**
    * Create a managed key in the designated KMS provider: {@code POST /v2/kms/create-key}; waits for
-   * {@link #kmsCreateKeyAsync}.
+   * {@code kmsCreateKeyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -95,8 +95,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Wrap an existing key using a managed KMS key: {@code POST /v2/kms/wrap}; waits for {@link
-   * #kmsWrapAsync}.
+   * Wrap an existing key using a managed KMS key: {@code POST /v2/kms/wrap}; waits for {@code
+   * kmsWrapAsync}.
    *
    * @param request the request body
    * @return the result
@@ -121,8 +121,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Unwrap a wrapped key using a managed KMS key: {@code POST /v2/kms/unwrap}; waits for {@link
-   * #kmsUnwrapAsync}.
+   * Unwrap a wrapped key using a managed KMS key: {@code POST /v2/kms/unwrap}; waits for {@code
+   * kmsUnwrapAsync}.
    *
    * @param request the request body
    * @return the result
@@ -148,7 +148,7 @@ abstract class ServiceOperations extends StreamOperations {
 
   /**
    * Generate a Data Encryption Key (DEK) via KMS provider: {@code POST /v2/kms/generate-data-key};
-   * waits for {@link #kmsGenerateDataKeyAsync}.
+   * waits for {@code kmsGenerateDataKeyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -173,8 +173,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Encrypt plaintext with a managed KMS key: {@code POST /v2/kms/encrypt}; waits for {@link
-   * #kmsEncryptAsync}.
+   * Encrypt plaintext with a managed KMS key: {@code POST /v2/kms/encrypt}; waits for {@code
+   * kmsEncryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -199,8 +199,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Decrypt ciphertext with a managed KMS key: {@code POST /v2/kms/decrypt}; waits for {@link
-   * #kmsDecryptAsync}.
+   * Decrypt ciphertext with a managed KMS key: {@code POST /v2/kms/decrypt}; waits for {@code
+   * kmsDecryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -225,7 +225,7 @@ abstract class ServiceOperations extends StreamOperations {
 
   /**
    * Initiate OPAQUE credential registration: {@code POST /v2/opaque/register/init}; waits for
-   * {@link #opaqueRegisterInitAsync}.
+   * {@code opaqueRegisterInitAsync}.
    *
    * @param request the request body
    * @return the result
@@ -250,7 +250,7 @@ abstract class ServiceOperations extends StreamOperations {
 
   /**
    * Finish OPAQUE credential registration: {@code POST /v2/opaque/register/finish}; waits for
-   * {@link #opaqueRegisterFinishAsync}.
+   * {@code opaqueRegisterFinishAsync}.
    *
    * @param request the request body
    * @return the result
@@ -276,8 +276,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Initiate OPAQUE login handshake: {@code POST /v2/opaque/login/init}; waits for {@link
-   * #opaqueLoginInitAsync}.
+   * Initiate OPAQUE login handshake: {@code POST /v2/opaque/login/init}; waits for {@code
+   * opaqueLoginInitAsync}.
    *
    * @param request the request body
    * @return the result
@@ -303,8 +303,8 @@ abstract class ServiceOperations extends StreamOperations {
   }
 
   /**
-   * Finish OPAQUE login handshake: {@code POST /v2/opaque/login/finish}; waits for {@link
-   * #opaqueLoginFinishAsync}.
+   * Finish OPAQUE login handshake: {@code POST /v2/opaque/login/finish}; waits for {@code
+   * opaqueLoginFinishAsync}.
    *
    * @param request the request body
    * @return the result

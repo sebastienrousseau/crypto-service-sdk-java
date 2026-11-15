@@ -50,8 +50,8 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * Generate a server-held ML-KEM-768 key pair: {@code POST /v2/pq/keygen}; waits for {@link
-   * #mlKemGenerateKeyPairAsync}.
+   * Generate a server-held ML-KEM-768 key pair: {@code POST /v2/pq/keygen}; waits for {@code
+   * mlKemGenerateKeyPairAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -76,7 +76,7 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * ML-KEM encapsulate: {@code POST /v2/pq/encapsulate}; waits for {@link #mlKemEncapsulateAsync}.
+   * ML-KEM encapsulate: {@code POST /v2/pq/encapsulate}; waits for {@code mlKemEncapsulateAsync}.
    *
    * @param request the request body
    * @return the result
@@ -102,7 +102,7 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * ML-KEM decapsulate: {@code POST /v2/pq/decapsulate}; waits for {@link #mlKemDecapsulateAsync}.
+   * ML-KEM decapsulate: {@code POST /v2/pq/decapsulate}; waits for {@code mlKemDecapsulateAsync}.
    *
    * @param request the request body
    * @return the result
@@ -127,7 +127,7 @@ abstract class PostQuantumOperations extends KeyOperations {
 
   /**
    * Generate a server-held hybrid X25519 + ML-KEM-768 key pair: {@code POST /v2/pq/hybrid/keygen};
-   * waits for {@link #pqGenerateKeyPairAsync}.
+   * waits for {@code pqGenerateKeyPairAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -153,7 +153,7 @@ abstract class PostQuantumOperations extends KeyOperations {
 
   /**
    * Hybrid encapsulate (X25519 + ML-KEM-768): {@code POST /v2/pq/hybrid/encapsulate}; waits for
-   * {@link #pqEncapsulateAsync}.
+   * {@code pqEncapsulateAsync}.
    *
    * @param request the request body
    * @return the result
@@ -180,7 +180,7 @@ abstract class PostQuantumOperations extends KeyOperations {
 
   /**
    * Hybrid decapsulate (X25519 + ML-KEM-768): {@code POST /v2/pq/hybrid/decapsulate}; waits for
-   * {@link #pqDecapsulateAsync}.
+   * {@code pqDecapsulateAsync}.
    *
    * @param request the request body
    * @return the result
@@ -206,7 +206,7 @@ abstract class PostQuantumOperations extends KeyOperations {
 
   /**
    * Generate a server-held ML-DSA key pair (FIPS 204): {@code POST /v2/pq/dsa/keygen}; waits for
-   * {@link #pqSignKeygenAsync}.
+   * {@code pqSignKeygenAsync}.
    *
    * @param request the request body
    * @return the result
@@ -231,7 +231,7 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * Sign with ML-DSA (FIPS 204): {@code POST /v2/pq/dsa/sign}; waits for {@link #pqSignAsync}.
+   * Sign with ML-DSA (FIPS 204): {@code POST /v2/pq/dsa/sign}; waits for {@code pqSignAsync}.
    *
    * @param request the request body
    * @return the result
@@ -256,8 +256,7 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * Verify with ML-DSA (FIPS 204): {@code POST /v2/pq/dsa/verify}; waits for {@link
-   * #pqVerifyAsync}.
+   * Verify with ML-DSA (FIPS 204): {@code POST /v2/pq/dsa/verify}; waits for {@code pqVerifyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -283,7 +282,7 @@ abstract class PostQuantumOperations extends KeyOperations {
 
   /**
    * Generate a server-held SLH-DSA key pair (FIPS 205): {@code POST /v2/pq/slh-dsa/keygen}; waits
-   * for {@link #pqHashSignKeygenAsync}.
+   * for {@code pqHashSignKeygenAsync}.
    *
    * @param request the request body
    * @return the result
@@ -308,8 +307,8 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * Sign with SLH-DSA (FIPS 205): {@code POST /v2/pq/slh-dsa/sign}; waits for {@link
-   * #pqHashSignAsync}.
+   * Sign with SLH-DSA (FIPS 205): {@code POST /v2/pq/slh-dsa/sign}; waits for {@code
+   * pqHashSignAsync}.
    *
    * @param request the request body
    * @return the result
@@ -334,8 +333,8 @@ abstract class PostQuantumOperations extends KeyOperations {
   }
 
   /**
-   * Verify with SLH-DSA (FIPS 205): {@code POST /v2/pq/slh-dsa/verify}; waits for {@link
-   * #pqHashVerifyAsync}.
+   * Verify with SLH-DSA (FIPS 205): {@code POST /v2/pq/slh-dsa/verify}; waits for {@code
+   * pqHashVerifyAsync}.
    *
    * @param request the request body
    * @return the result

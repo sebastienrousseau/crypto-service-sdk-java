@@ -53,7 +53,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Encrypt with XChaCha20-Poly1305: {@code POST /v2/encrypt}; waits for {@link #encryptAsync}.
+   * Encrypt with XChaCha20-Poly1305: {@code POST /v2/encrypt}; waits for {@code encryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -78,7 +78,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Decrypt with XChaCha20-Poly1305: {@code POST /v2/decrypt}; waits for {@link #decryptAsync}.
+   * Decrypt with XChaCha20-Poly1305: {@code POST /v2/decrypt}; waits for {@code decryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -104,7 +104,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Encrypt with XChaCha20-Poly1305 (secretbox seal): {@code POST /v2/secretbox/seal}; waits for
-   * {@link #secretboxSealAsync}.
+   * {@code secretboxSealAsync}.
    *
    * @param request the request body
    * @return the result
@@ -130,7 +130,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Decrypt with XChaCha20-Poly1305 (secretbox open): {@code POST /v2/secretbox/open}; waits for
-   * {@link #secretboxOpenAsync}.
+   * {@code secretboxOpenAsync}.
    *
    * @param request the request body
    * @return the plaintext as UTF-8 text
@@ -157,7 +157,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Encrypt with password (Argon2id + XChaCha20-Poly1305): {@code POST /v2/password/encrypt}; waits
-   * for {@link #passwordEncryptAsync}.
+   * for {@code passwordEncryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -183,7 +183,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Decrypt with password (Argon2id + XChaCha20-Poly1305): {@code POST /v2/password/decrypt}; waits
-   * for {@link #passwordDecryptAsync}.
+   * for {@code passwordDecryptAsync}.
    *
    * @param request the request body
    * @return the plaintext as UTF-8 text
@@ -209,7 +209,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Wrap a key using AES-KW or AES-KWP (RFC 3394/5649): {@code POST /v2/keys/wrap}; waits for
-   * {@link #keyWrapAsync}.
+   * {@code keyWrapAsync}.
    *
    * @param request the request body
    * @return the result
@@ -235,7 +235,7 @@ abstract class CryptoOperations extends ClientCore {
 
   /**
    * Unwrap a key using AES-KW or AES-KWP (RFC 3394/5649): {@code POST /v2/keys/unwrap}; waits for
-   * {@link #keyUnwrapAsync}.
+   * {@code keyUnwrapAsync}.
    *
    * @param request the request body
    * @return the unwrapped key as hex
@@ -260,7 +260,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Compute a cryptographic hash: {@code POST /v2/hash}; waits for {@link #hashAsync}.
+   * Compute a cryptographic hash: {@code POST /v2/hash}; waits for {@code hashAsync}.
    *
    * @param request the request body
    * @return the result
@@ -285,7 +285,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Compute an HMAC: {@code POST /v2/hmac}; waits for {@link #macAsync}.
+   * Compute an HMAC: {@code POST /v2/hmac}; waits for {@code macAsync}.
    *
    * @param request the request body
    * @return the result
@@ -310,7 +310,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Verify an HMAC: {@code POST /v2/hmac/verify}; waits for {@link #macVerifyAsync}.
+   * Verify an HMAC: {@code POST /v2/hmac/verify}; waits for {@code macVerifyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -335,7 +335,7 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Derive a key from a password: {@code POST /v2/kdf}; waits for {@link #kdfAsync}.
+   * Derive a key from a password: {@code POST /v2/kdf}; waits for {@code kdfAsync}.
    *
    * @param request the request body
    * @return the result
@@ -360,8 +360,8 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Hash a password with Argon2id: {@code POST /v2/password/hash}; waits for {@link
-   * #passwordHashAsync}.
+   * Hash a password with Argon2id: {@code POST /v2/password/hash}; waits for {@code
+   * passwordHashAsync}.
    *
    * @param request the request body
    * @return the result
@@ -387,8 +387,8 @@ abstract class CryptoOperations extends ClientCore {
   }
 
   /**
-   * Verify a password against an Argon2id hash: {@code POST /v2/password/verify}; waits for {@link
-   * #passwordVerifyAsync}.
+   * Verify a password against an Argon2id hash: {@code POST /v2/password/verify}; waits for {@code
+   * passwordVerifyAsync}.
    *
    * @param request the request body
    * @return the result

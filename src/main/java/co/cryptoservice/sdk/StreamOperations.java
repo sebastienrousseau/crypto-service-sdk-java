@@ -45,7 +45,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Encrypt stream with hybrid post-quantum AEAD: {@code POST /v2/stream/pq-encrypt}; waits for
-   * {@link #streamPqEncryptAsync}.
+   * {@code streamPqEncryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -72,7 +72,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Decrypt stream with server-held hybrid post-quantum key: {@code POST /v2/stream/pq-decrypt};
-   * waits for {@link #streamPqDecryptAsync}.
+   * waits for {@code streamPqDecryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -100,7 +100,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Encrypt stream for multiple recipients with hybrid post-quantum AEAD: {@code POST
-   * /v2/stream/multi-pq-encrypt}; waits for {@link #streamMultiPqEncryptAsync}.
+   * /v2/stream/multi-pq-encrypt}; waits for {@code streamMultiPqEncryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -128,7 +128,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Decrypt multi-recipient stream with server-held hybrid post-quantum key: {@code POST
-   * /v2/stream/multi-pq-decrypt}; waits for {@link #streamMultiPqDecryptAsync}.
+   * /v2/stream/multi-pq-decrypt}; waits for {@code streamMultiPqDecryptAsync}.
    *
    * @param request the request body
    * @return the result
@@ -155,7 +155,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Verify ISO 20022 post-quantum dual-signature envelope: {@code POST /v2/stream/iso20022}; waits
-   * for {@link #iso20022VerifyAsync}.
+   * for {@code iso20022VerifyAsync}.
    *
    * @param request the request body
    * @return the result
@@ -182,7 +182,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Generate a server-held HPKE key pair (classical or post-quantum hybrid): {@code POST
-   * /v2/hpke/keygen}; waits for {@link #hpkeGenerateKeyPairAsync}.
+   * /v2/hpke/keygen}; waits for {@code hpkeGenerateKeyPairAsync}.
    *
    * @param request the request body
    * @return the result
@@ -229,8 +229,8 @@ abstract class StreamOperations extends PostQuantumOperations {
   }
 
   /**
-   * Encrypt (seal) a message using HPKE (RFC 9180): {@code POST /v2/hpke/seal}; waits for {@link
-   * #hpkeSealAsync}.
+   * Encrypt (seal) a message using HPKE (RFC 9180): {@code POST /v2/hpke/seal}; waits for {@code
+   * hpkeSealAsync}.
    *
    * @param request the request body
    * @return the result
@@ -256,7 +256,7 @@ abstract class StreamOperations extends PostQuantumOperations {
 
   /**
    * Decrypt (open) an HPKE ciphertext with a server-held key: {@code POST /v2/hpke/open}; waits for
-   * {@link #hpkeOpenAsync}.
+   * {@code hpkeOpenAsync}.
    *
    * @param request the request body
    * @return the result

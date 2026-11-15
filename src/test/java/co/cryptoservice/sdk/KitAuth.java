@@ -14,8 +14,9 @@ import java.util.Map;
 /**
  * The live server the kit runs against, and one client per credential a vector asks for.
  *
- * <p>{@code CRYPTO_SERVICE_URL} and {@code CRYPTO_SERVICE_API_KEY} are required ({@code make
- * conformance} fails without them; a plain {@code mvn verify} skips the kit). With {@code
+ * <p>{@code CRYPTO_SERVICE_URL}, {@code CRYPTO_SERVICE_API_KEY} and {@code
+ * CRYPTO_SERVICE_JWT_SECRET} are required by {@code make conformance}, which fails without them; a
+ * plain {@code mvn verify} skips the kit. With {@code
  * CRYPTO_SERVICE_JWT_SECRET} (the server's {@code JWT_SECRET}) the runner mints HS256 tokens the way
  * the reference runner does: each file runs as its own principal {@code conformance-<group>}, which
  * keeps every file under the server's 60-requests-a-minute tenant quota, and the vectors that ask
@@ -52,7 +53,11 @@ final class KitAuth {
     }
     assumeTrue(configured, "CRYPTO_SERVICE_URL is not set: the conformance kit needs a live server");
     String secret = System.getenv("CRYPTO_SERVICE_JWT_SECRET");
-    return new KitAuth(url, key, secret == null || secret.isBlank() ? null : secret, group);
+    boolean jwt = secret != null && !secret.isBlank();
+    if (!jwt && Boolean.getBoolean("conformance.required")) {
+      fail("CRYPTO_SERVICE_JWT_SECRET must be set to the server's JWT_SECRET to run every vector");
+    }
+    return new KitAuth(url, key, jwt ? secret : null, group);
   }
 
   /** The last response any of this file's clients received. */

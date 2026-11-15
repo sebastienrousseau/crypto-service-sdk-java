@@ -40,7 +40,7 @@ abstract class MetaOperations extends ServiceOperations {
   }
 
   /**
-   * Health check: {@code GET /health}; waits for {@link #healthAsync}.
+   * Health check: {@code GET /health}; waits for {@code healthAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -63,7 +63,7 @@ abstract class MetaOperations extends ServiceOperations {
   }
 
   /**
-   * Liveness probe: {@code GET /live}; waits for {@link #liveAsync}.
+   * Liveness probe: {@code GET /live}; waits for {@code liveAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -86,7 +86,7 @@ abstract class MetaOperations extends ServiceOperations {
   }
 
   /**
-   * Readiness probe: {@code GET /ready}; waits for {@link #readyAsync}.
+   * Readiness probe: {@code GET /ready}; waits for {@code readyAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -107,7 +107,7 @@ abstract class MetaOperations extends ServiceOperations {
   }
 
   /**
-   * Service metadata: {@code GET /}; waits for {@link #serviceInfoAsync}.
+   * Service metadata: {@code GET /}; waits for {@code serviceInfoAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -128,7 +128,7 @@ abstract class MetaOperations extends ServiceOperations {
   }
 
   /**
-   * List supported algorithms: {@code GET /v2/algorithms}; waits for {@link #algorithmsAsync}.
+   * List supported algorithms: {@code GET /v2/algorithms}; waits for {@code algorithmsAsync}.
    *
    * @return the algorithm names, by category
    * @throws ApiError when the server answers with an error status
@@ -151,7 +151,7 @@ abstract class MetaOperations extends ServiceOperations {
 
   /**
    * Cryptographic Bill of Materials (CBOM) in CycloneDX 1.6 format: {@code GET
-   * /v2/compliance/cbom}; waits for {@link #getCbomAsync}.
+   * /v2/compliance/cbom}; waits for {@code getCbomAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
@@ -173,7 +173,7 @@ abstract class MetaOperations extends ServiceOperations {
 
   /**
    * DORA cryptographic inventory (self-assessment): {@code GET /v2/compliance/dora}; waits for
-   * {@link #getDoraComplianceAsync}.
+   * {@code getDoraComplianceAsync}.
    *
    * @return the result
    * @throws ApiError when the server answers with an error status
