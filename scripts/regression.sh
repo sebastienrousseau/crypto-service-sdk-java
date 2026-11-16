@@ -37,6 +37,10 @@ step() { printf '\n==> %s\n' "$*"; }
 build_server() {
   local ref
   ref=$(tr -d '[:space:]' < ci/server.ref)
+  if ! [[ "$ref" =~ ^[0-9a-f]{40}$ ]]; then
+    echo "regression: ci/server.ref must hold a full 40-character commit SHA" >&2
+    exit 1
+  fi
   step "building crypto-server at $ref"
   git init -q "$work/server"
   git -C "$work/server" fetch -q --depth 1 https://github.com/sebastienrousseau/crypto-service.git "$ref"
