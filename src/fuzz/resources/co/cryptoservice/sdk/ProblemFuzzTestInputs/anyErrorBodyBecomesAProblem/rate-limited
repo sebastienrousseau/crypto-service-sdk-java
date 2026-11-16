@@ -1,0 +1,1 @@
+{"type":"urn:crypto-service:problem:rate-limited","title":"Too Many Requests","status":429,"detail":"Tenant rate limit exceeded. Limit: 60 req/min.","instance":"/v2/hash","limit":60,"resetSeconds":12}    

@@ -1,0 +1,1 @@
+{"data":{"encryption":["xchacha20-poly1305"],"hashing":["sha256","blake3"]}}

@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+# Machine-readable licensing, per the REUSE specification; `reuse lint`
+# runs in the docs-lint job. Source files carry an SPDX-License-Identifier
+# header; this file adds the copyright line to every file, and the
+# licence to the files that cannot hold a comment (JSON fixtures, fuzz
+# seeds, the demo GIF, checksum lists). conformance/ is vendored byte for
+# byte from crypto-service under the same licence.
+version = 1
+SPDX-PackageName = "crypto-service-sdk-java"
+SPDX-PackageSupplier = "Sebastien Rousseau"
+SPDX-PackageDownloadLocation = "https://github.com/sebastienrousseau/crypto-service-sdk-java"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Sebastien Rousseau"
+SPDX-License-Identifier = "Apache-2.0 OR MIT"

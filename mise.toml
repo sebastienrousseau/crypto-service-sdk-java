@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# Local toolchain: JDK 21 runs the build, which targets Java 17
+# (maven.compiler.release). Maven itself comes from ./mvnw. Node and pnpm
+# build the pinned crypto-server for `make regression`.
+[tools]
+java = "21.0.2"
+node = "24"
+pnpm = "11.9.0"
