@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to the crypto-service suite's `0.0.x`
 versioning: each release moves by `0.0.1`, in lockstep with the suite.
 
-## [0.0.40] - Unreleased
+## [0.0.40] - 2026-11-16
 
 ### Highlights
 
