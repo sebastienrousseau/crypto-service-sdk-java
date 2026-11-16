@@ -78,6 +78,8 @@ jobs:
             [ "$subject" = "crypto-service-sdk-java v$version" ] || { echo "tag message is '$subject'"; exit 1; }
             git cat-file tag "refs/tags/$REF_NAME" | grep -Eq -- '-----BEGIN (SSH|PGP) SIGNATURE-----' \
               || { echo "$REF_NAME is not signed"; exit 1; }
+            git config gpg.ssh.allowedSignersFile KEYS.asc
+            git verify-tag "$REF_NAME"
           elif [ "$DRY_INPUT" = false ]; then
             echo "a real release starts from a pushed tag, not workflow_dispatch"; exit 1
           fi
