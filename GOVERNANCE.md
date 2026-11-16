@@ -41,7 +41,7 @@ Items marked **Not yet arranged** have no continuity arrangement today.
 | :--- | :--- | :--- |
 | Source code | Apache-2.0 OR MIT, public history | Anyone can fork and continue it. |
 | GitHub repository | Owned by the maintainer's account | **Not yet arranged:** no second owner. |
-| Maven Central namespace `co.cryptoservice` | Held by the maintainer | **Not yet arranged:** no second account has publish rights. |
+| Maven Central namespace `co.crypto-service` | Held by the maintainer | **Not yet arranged:** no second account has publish rights. |
 | Central Portal token and GPG signing key | `release` environment secrets set by the maintainer | **Not yet arranged:** no escrow; a successor would publish under a new key in a reviewed change. |
 | Release process | `DEVELOPMENT.md` and `.github/workflows/release.yml` (with a dry run) | Anyone with repository and namespace rights can release from the documented process. |
 

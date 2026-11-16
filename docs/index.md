@@ -10,7 +10,7 @@ that this client and its sibling SDKs agree with it.
 
 ```xml
 <dependency>
-  <groupId>co.cryptoservice</groupId>
+  <groupId>co.crypto-service</groupId>
   <artifactId>crypto-service-sdk</artifactId>
   <version>0.0.40</version>
 </dependency>

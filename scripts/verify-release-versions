@@ -9,7 +9,7 @@
 #
 # Checked: pom.xml, CryptoServiceClient.VERSION (the User-Agent),
 # CITATION.cff, the SECURITY.md and SUPPORT.md support tables, every
-# Maven <version> snippet for co.cryptoservice:crypto-service-sdk and
+# Maven <version> snippet for co.crypto-service:crypto-service-sdk and
 # every Gradle coordinate in README.md and docs/, and a CHANGELOG.md
 # heading for it.
 set -eu
@@ -55,7 +55,7 @@ for f in README.md docs/*.md; do
       inside = 0
     }
     END { exit bad }' "$f" >&2 || fail=1
-  grep -n "co\.cryptoservice:crypto-service-sdk:[0-9]" "$f" | grep -v "crypto-service-sdk:$want" >&2 &&
+  grep -n "co\.crypto-service:crypto-service-sdk:[0-9]" "$f" | grep -v "crypto-service-sdk:$want" >&2 &&
     bad "$f names another version in a Gradle coordinate"
 done
 

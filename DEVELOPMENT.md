@@ -98,5 +98,5 @@ the JMH annotation processor warns about the JUnit annotations.
 | `release` environment secret | `CENTRAL_TOKEN_PASSWORD` | Central Portal user token password |
 | `release` environment secret | `GPG_PRIVATE_KEY` | ASCII-armoured private key that signs the Maven artifacts |
 | `release` environment secret | `GPG_PASSPHRASE` | That key's passphrase |
-| Central Portal | Namespace `co.cryptoservice` | Verified for the publishing account |
+| Central Portal | Namespace `co.crypto-service` | Verified for the publishing account |
 | Settings, Pages | Source: GitHub Actions | Lets `docs.yml` deploy the manual |

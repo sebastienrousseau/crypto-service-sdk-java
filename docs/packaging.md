@@ -6,7 +6,7 @@
 
 | Item | Value |
 | :--- | :--- |
-| Maven coordinates | `co.cryptoservice:crypto-service-sdk` |
+| Maven coordinates | `co.crypto-service:crypto-service-sdk` |
 | JPMS module name | `co.cryptoservice.sdk` (`Automatic-Module-Name`) |
 | Package | `co.cryptoservice.sdk` |
 | Java floor | 17 |

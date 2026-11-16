@@ -110,7 +110,7 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      # japicmp against the latest co.cryptoservice:crypto-service-sdk on
+      # japicmp against the latest co.crypto-service:crypto-service-sdk on
       # Maven Central. Until the first release is published there is
       # nothing to compare with, and `make api-check` says so and passes.
       - name: japicmp

@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/sebastienrousseau/crypto-service-sdk-java/actions"><img src="https://img.shields.io/github/actions/workflow/status/sebastienrousseau/crypto-service-sdk-java/ci.yml?style=for-the-badge&logo=github" alt="Build" height="28" /></a>
-  <a href="https://central.sonatype.com/artifact/co.cryptoservice/crypto-service-sdk"><img src="https://img.shields.io/maven-central/v/co.cryptoservice/crypto-service-sdk?style=for-the-badge&color=fc8d62&logo=apachemaven" alt="Registry" height="28" /></a>
+  <a href="https://central.sonatype.com/artifact/co.crypto-service/crypto-service-sdk"><img src="https://img.shields.io/maven-central/v/co.crypto-service/crypto-service-sdk?style=for-the-badge&color=fc8d62&logo=apachemaven" alt="Registry" height="28" /></a>
   <a href="https://sebastienrousseau.github.io/crypto-service-sdk-java/api/"><img src="https://img.shields.io/badge/docs-javadoc-blue?style=for-the-badge&labelColor=555555&logo=readthedocs" alt="Docs" height="28" /></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/sebastienrousseau/crypto-service-sdk-java"><img src="https://img.shields.io/ossf-scorecard/github.com/sebastienrousseau/crypto-service-sdk-java?style=for-the-badge&label=OpenSSF%20Scorecard&logo=openssf" alt="OpenSSF Scorecard" height="28" /></a>
   <a href="LICENSE-APACHE"><img src="https://img.shields.io/badge/license-Apache--2.0%20OR%20MIT-blue.svg?style=for-the-badge" alt="License: Apache-2.0 OR MIT" height="28" /></a>
@@ -29,7 +29,7 @@
 
 **Getting started**
 
-- [Install](#install): Maven Central (`co.cryptoservice:crypto-service-sdk`), Gradle, or from source
+- [Install](#install): Maven Central (`co.crypto-service:crypto-service-sdk`), Gradle, or from source
 - [Requirements](#requirements): toolchain floor, the server
 - [Quick Start](#quick-start): a digest, then a signature with a server-held key
 
@@ -63,7 +63,7 @@
 
 ```xml
 <dependency>
-  <groupId>co.cryptoservice</groupId>
+  <groupId>co.crypto-service</groupId>
   <artifactId>crypto-service-sdk</artifactId>
   <version>0.0.40</version>
 </dependency>
@@ -72,7 +72,7 @@
 Gradle (Kotlin DSL):
 
 ```kotlin
-implementation("co.cryptoservice:crypto-service-sdk:0.0.40")
+implementation("co.crypto-service:crypto-service-sdk:0.0.40")
 ```
 
 0.0.40 is the first version, in lockstep with the crypto-service suite;

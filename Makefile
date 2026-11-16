@@ -26,7 +26,7 @@ JAVA_FILES := $(shell find src examples -name '*.java' | LC_ALL=C sort)
 EXAMPLE_CP = target/classes:$$(cat target/classpath.txt)
 EXAMPLES := $(sort $(basename $(notdir $(wildcard examples/*.java))))
 LOCK_PROFILES := bench,release
-CENTRAL := https://repo1.maven.org/maven2/co/cryptoservice/crypto-service-sdk
+CENTRAL := https://repo1.maven.org/maven2/co/crypto-service/crypto-service-sdk
 DOCS_PY ?= python3
 FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest
 FUZZ_TIME ?= 60s
@@ -48,7 +48,7 @@ regression: ## Gate, conformance kit, examples, README snippets and benchmark sm
 api-check: ## japicmp against the latest release on Maven Central (no-op before the first)
 	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" 2>/dev/null | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
 	if [ -z "$$latest" ]; then \
-	  echo "api-check: no release of co.cryptoservice:crypto-service-sdk on Maven Central yet; nothing to compare"; exit 0; fi; \
+	  echo "api-check: no release of co.crypto-service:crypto-service-sdk on Maven Central yet; nothing to compare"; exit 0; fi; \
 	mkdir -p target; jar="target/japicmp-baseline.jar"; \
 	curl -fsSL -o "$$jar" "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar"; \
 	want=$$(curl -fsSL "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar.sha256" | cut -c1-64); \
