@@ -82,14 +82,14 @@ final class Backoff {
   /** {@code Retry-After} as (possibly fractional) seconds or an HTTP date; empty otherwise. */
   Optional<Duration> parseRetryAfter(String value) {
     String text = value.strip();
-    if (SECONDS.matcher(text).matches()) {
-      return Optional.of(Duration.ofNanos((long) (Double.parseDouble(text) * 1e9)));
-    }
     try {
+      if (SECONDS.matcher(text).matches()) {
+        return Optional.of(Duration.ofNanos((long) (Double.parseDouble(text) * 1e9)));
+      }
       Instant at = ZonedDateTime.parse(text, DateTimeFormatter.RFC_1123_DATE_TIME).toInstant();
       Duration wait = Duration.between(clock.instant(), at);
       return Optional.of(wait.isNegative() ? Duration.ZERO : wait);
-    } catch (DateTimeParseException e) {
+    } catch (NumberFormatException | DateTimeParseException e) {
       return Optional.empty();
     }
   }
