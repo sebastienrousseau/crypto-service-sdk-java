@@ -12,7 +12,7 @@ pull-request etiquette.
 | Tool | Version | Why |
 | :--- | :--- | :--- |
 | JDK | 17 or newer (CI: Temurin 17 and 21; `mise.toml`: 21) | The build floor is `maven.compiler.release` 17 |
-| Maven | 3.10.0 via `./mvnw` (SHA-256 checked) | Any 3.9.0+ works |
+| Maven | 3.10.1 via `./mvnw` (SHA-256 checked) | Any 3.9.0+ works |
 | Node.js and pnpm | 24 and 11.9.0 (`mise.toml`) | Building and running the pinned crypto-server |
 | Python | 3.12+ | The README snippet checker, the regression script, MkDocs |
 | GNU Make | any | The task runner |

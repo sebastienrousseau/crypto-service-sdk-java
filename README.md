@@ -97,7 +97,7 @@ The one runtime dependency is Jackson databind
 
 - Java 17 or newer; CI builds and tests on Temurin 17 and 21 on Linux
   ([toolchain policy](docs/POLICIES.md)).
-- Maven 3.9.0 or newer to build from source (`./mvnw` brings 3.10.0).
+- Maven 3.9.0 or newer to build from source (`./mvnw` brings 3.10.1).
 - A running crypto-server (`@sebastienrousseau/crypto-server`) to call.
   This SDK is a client: every cryptographic operation happens in the
   server. CI tests against the crypto-service commit pinned in

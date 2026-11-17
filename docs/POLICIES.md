@@ -9,7 +9,7 @@
   local work.
 - The floor moves only in a release whose changelog says so; the
   maintainer decides when.
-- `./mvnw` runs Maven 3.10.0, checked against its SHA-256. Any Maven
+- `./mvnw` runs Maven 3.10.1, checked against its SHA-256. Any Maven
   3.9.0 or newer also builds the project. Every plugin is pinned in
   `pom.xml`, and the enforcer fails the build on an unpinned plugin or a
   dynamic dependency version.
