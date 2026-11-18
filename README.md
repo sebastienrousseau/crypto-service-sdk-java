@@ -75,11 +75,14 @@ Gradle (Kotlin DSL):
 implementation("co.crypto-service:crypto-service-sdk:0.0.40")
 ```
 
-0.0.40 is the first version, in lockstep with the crypto-service suite;
-it is not on Maven Central until its release workflow has run. Each
-release is signed with GPG, ships a CycloneDX SBOM and `SHA256SUMS` on
-its GitHub release, and carries a build provenance attestation
-([`docs/packaging.md`](docs/packaging.md)). The JPMS module name is
+0.0.40, the first version, is on
+[Maven Central](https://central.sonatype.com/artifact/co.crypto-service/crypto-service-sdk/0.0.40);
+versions move in lockstep with the crypto-service suite. Each release
+is signed with GPG (key `278D6076E275022D05B70A3FDED76FC6E4ADC8B4`),
+ships a CycloneDX SBOM and `SHA256SUMS` on its GitHub release, carries a
+build provenance attestation, and can be rebuilt bit for bit from its
+tag ([`docs/packaging.md`](docs/packaging.md),
+[`docs/REPRODUCING.md`](docs/REPRODUCING.md)). The JPMS module name is
 `co.cryptoservice.sdk`.
 
 From a clone, build and test it into `target/`:
@@ -387,6 +390,7 @@ Also: [Architecture](docs/ARCHITECTURE.md) ·
 [Decisions](docs/adr/README.md) ·
 [Benchmarks](docs/BENCHMARKS.md) ·
 [Packaging](docs/packaging.md) ·
+[Reproducing a release](docs/REPRODUCING.md) ·
 [Roadmap](docs/ROADMAP.md) ·
 [Policies](docs/POLICIES.md) ·
 [Conformance kit](conformance/README.md) ·
@@ -403,7 +407,8 @@ lockstep with the crypto-service suite. The breaking axis is the public
 API of `co.cryptoservice.sdk` (method names and signatures, record
 components, exception types and their hierarchy); the changelog calls
 out any change to it, and a japicmp check in CI compares each build with
-the last release on Maven Central once there is one. The client sends
+the last release on Maven Central and fails on a binary or source
+incompatibility. The client sends
 the request shapes the conformance kit pins; a change to what it sends
 or to which exception a given answer raises is a breaking change even
 when no signature moves. The deprecated v1 routes are excluded from the
