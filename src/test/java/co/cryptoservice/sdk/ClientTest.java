@@ -181,6 +181,22 @@ class ClientTest {
   }
 
   @Test
+  void rawPathCannotChangeTheHost() {
+    // The path is appended to the base URL, so whatever it holds the request
+    // (and its credentials) still goes to the configured server.
+    CryptoServiceClient.Builder builder =
+        CryptoServiceClient.builder().baseUrl("https://api.example:8443/base").apiKey("k");
+    builder.build().close();
+    Transport transport = new Transport(builder, java.net.http.HttpClient.newHttpClient(), false);
+    for (String path : List.of("//evil.example/x", "/@evil.example/y", "/..//evil.example:1/z")) {
+      java.net.URI uri = transport.request(Route.of("GET", path, true), null, null).uri();
+      assertEquals("api.example", uri.getHost(), path);
+      assertEquals(8443, uri.getPort(), path);
+      assertTrue(uri.getRawPath().startsWith("/base/"), path);
+    }
+  }
+
+  @Test
   void typedPostNeedsARequest() {
     try (CryptoServiceClient client =
         CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build()) {
