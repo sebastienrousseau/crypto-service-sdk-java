@@ -39,7 +39,7 @@ public final class ApiError extends CryptoServiceException {
     return "crypto-service answered HTTP "
         + status
         + " ("
-        + problem.type()
+        + Redacted.printable(problem.type())
         + ") to "
         + route.method()
         + " "

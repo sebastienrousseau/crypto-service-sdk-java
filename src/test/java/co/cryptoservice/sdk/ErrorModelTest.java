@@ -99,6 +99,28 @@ class ErrorModelTest {
   }
 
   @Test
+  void serverTextCannotForgeLogLines() {
+    // A hostile server's problem members end up in the exception message and in
+    // Problem.toString, which callers log: control characters and Unicode line
+    // separators must come out escaped, never raw.
+    String body =
+        "{\"type\":\"urn:x\\r\\n2026-01-01 INFO forged\",\"title\":\"t\\u2028u\","
+            + "\"instance\":\"/i\\u0085j\",\"code\":\"C\\u0000D\",\"detail\":\"d\"}";
+    Problem p = parse(body, 400);
+    assertEquals("urn:x\r\n2026-01-01 INFO forged", p.type());
+    ApiError e = new ApiError(400, p, Route.of("POST", "/v2/hash", true));
+    assertEquals(
+        "crypto-service answered HTTP 400 (urn:x\\u000d\\u000a2026-01-01 INFO forged) to POST /v2/hash",
+        e.getMessage());
+    assertEquals(
+        "Problem[type=urn:x\\u000d\\u000a2026-01-01 INFO forged, title=t\\u2028u, status=400,"
+            + " detail=<redacted>, instance=/i\\u0085j, code=C\\u0000D, errors=0, extensions=[]]",
+        p.toString());
+    assertEquals("a\\u2029b\\u007f", Redacted.printable("a b\u007f"));
+    assertEquals("plain text", Redacted.printable("plain text"));
+  }
+
+  @Test
   void asyncFailuresCompleteTheFutureExceptionally() throws IOException {
     try (TestServer server = TestServer.script(Answer.json(404, "{\"detail\":\"no\"}"));
         CryptoServiceClient client = server.client().build()) {
