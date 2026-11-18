@@ -46,9 +46,9 @@ regression: ## Gate, conformance kit, examples, README snippets and benchmark sm
 	scripts/regression.sh
 
 api-check: ## japicmp against the latest release on Maven Central
-	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" 2>/dev/null | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
+	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
 	if [ -z "$$latest" ]; then \
-	  echo "api-check: no release of co.crypto-service:crypto-service-sdk on Maven Central yet; nothing to compare"; exit 0; fi; \
+	  echo "api-check: cannot read the latest release from $(CENTRAL)/maven-metadata.xml"; exit 1; fi; \
 	mkdir -p target; jar="target/japicmp-baseline.jar"; \
 	curl -fsSL -o "$$jar" "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar"; \
 	want=$$(curl -fsSL "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar.sha256" | cut -c1-64); \

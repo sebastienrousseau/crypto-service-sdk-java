@@ -27,7 +27,7 @@ pull-request etiquette.
 | CI / Reproducible build (two directories) | `make repro-check` | The jar, sources and Javadoc jars and SBOM built twice, under `target/` and `/dev/shm`, are identical |
 | CI / Conformance against crypto-server | `make regression` | The full run below |
 | CI / Benchmarks smoke | `make bench-smoke` | Every JMH scenario runs briefly; nothing asserted |
-| CI / API breakage | `make api-check`, `make api-check-selftest` | japicmp against the last release on Maven Central; then proves the check still fails on a copy with a public class made package-private |
+| CI / API breakage | `make api-check`, `make api-check-selftest` | japicmp against the last release on Maven Central; then proves the check still fails on a copy with a public class made package-private, and when it cannot fetch the baseline |
 | Fuzz | `make fuzz` | Each Jazzer target for 60 s |
 | Dependency audit | `make audit` | CycloneDX SBOM scanned by OSV-Scanner |
 | Docs / Docs lint | `make manual`, `make docs-lint` | MkDocs strict build and Javadoc (doclint all); markdownlint, codespell, REUSE, lychee |

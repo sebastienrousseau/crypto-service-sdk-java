@@ -5,8 +5,9 @@
 # working tree (without target/ and .git/) into a temporary directory,
 # makes the public class Bytes package-private there, which removes it
 # from the API, and runs `make api-check` in the copy: the script passes
-# only when that run fails with a japicmp incompatibility. CI runs it
-# after `make api-check` itself has passed on the unchanged tree.
+# only when that run fails with a japicmp incompatibility, and when
+# `make api-check` also fails if it cannot fetch the baseline. CI runs
+# it after `make api-check` itself has passed on the unchanged tree.
 #
 # The regression test for commit aa90366: api-check had stopped working
 # on every branch once 0.0.40 reached Maven Central, and a later change
@@ -39,9 +40,13 @@ if ! grep -q 'CLASS_LESS_ACCESSIBLE' "$log"; then
   echo "api-check-selftest: api-check failed, but not on the API change" >&2
   exit 1
 fi
-if grep -q 'no release of co.crypto-service:crypto-service-sdk on Maven Central yet' "$log"; then
+echo "api-check-selftest: api-check rejects a build that makes Bytes package-private"
+
+# Without a baseline (Maven Central unreachable) the check must fail, not
+# pass: a release exists, so there is always something to compare with.
+if "$MAKE" -s api-check CENTRAL=http://127.0.0.1:9/unreachable > "$log" 2>&1; then
   cat "$log"
-  echo "api-check-selftest: there is no baseline release to compare with" >&2
+  echo "api-check-selftest: api-check passed without a baseline to compare with" >&2
   exit 1
 fi
-echo "api-check-selftest: api-check rejects a build that makes Bytes package-private"
+echo "api-check-selftest: api-check fails when it cannot fetch the baseline"
