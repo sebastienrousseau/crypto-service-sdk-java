@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 # The user manual's build tools. Regenerate the hash-pinned docs/requirements.txt with:
 #   uv pip compile --generate-hashes --python-version 3.12 docs/requirements.in -o docs/requirements.txt
 mkdocs-material==9.8.0

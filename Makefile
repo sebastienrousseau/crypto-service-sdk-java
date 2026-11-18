@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # `make check` runs every local gate CI's build job runs: the version
 # check, whitespace format, file size, the Maven build (javac -Xlint:all

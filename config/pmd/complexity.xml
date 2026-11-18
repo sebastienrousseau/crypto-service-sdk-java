@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- SPDX-FileCopyrightText: 2026 Sebastien Rousseau -->
 <!--
   The suite's complexity ceilings, enforced by `mvn verify`:
   cyclomatic 10 and cognitive 15 per method, and at most 60 non-comment

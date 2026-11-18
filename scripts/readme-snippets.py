@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 """Extracts every fenced code block of README.md and checks it.
 
   python3 -I scripts/readme-snippets.py                 # compile and run

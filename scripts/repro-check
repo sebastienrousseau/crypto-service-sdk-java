@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Builds the release assets of the working tree twice and fails unless
 # the two builds are byte for byte identical: the jar, sources jar,

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Proves `make api-check` still fails on a breaking change. It copies the
 # working tree (without target/ and .git/) into a temporary directory,

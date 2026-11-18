@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Writes the GitHub release notes for VERSION to stdout, in the suite's
 # shape: Highlights, What's Changed, Checksums, Full Changelog.

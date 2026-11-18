@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # The user manual: `make manual` builds it into site/ (strict), the Docs
 # workflow builds it on every pull request and deploys it to GitHub Pages

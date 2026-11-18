@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # CodeQL static analysis of the Java sources and of the workflows
 # themselves. Build mode `none` reads the sources without running

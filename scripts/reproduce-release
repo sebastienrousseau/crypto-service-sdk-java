@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Rebuilds a published release from its signed tag and checks that every
 # asset is byte for byte the one published: the jar, sources jar, Javadoc

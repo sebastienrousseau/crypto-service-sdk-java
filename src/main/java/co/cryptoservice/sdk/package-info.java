@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 /**
  * A thin, typed Java client for the Crypto Service REST API (crypto-server).
  *

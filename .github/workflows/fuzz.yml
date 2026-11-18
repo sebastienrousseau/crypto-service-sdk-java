@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Bounded fuzzing on every pull request: each Jazzer target runs for 60
 # seconds in fuzzing mode (JAZZER_FUZZ=1), starting from its committed

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- SPDX-FileCopyrightText: 2026 Sebastien Rousseau -->
 <!--
   Maven settings for release dry runs and `make lock` only. The Central
   Portal plugin reads the `central` server even when it does not upload;

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # The user manual: MkDocs Material from docs/ (strict, so a broken nav
 # entry or snippet fails), with the Javadoc (doclint all, warnings fail)
