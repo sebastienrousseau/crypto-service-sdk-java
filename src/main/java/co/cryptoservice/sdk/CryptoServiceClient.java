@@ -46,7 +46,7 @@ import java.util.function.Supplier;
 public final class CryptoServiceClient extends MetaOperations implements AutoCloseable {
 
   /** This SDK's version, sent as {@code User-Agent: crypto-service-sdk-java/<version>}. */
-  public static final String VERSION = "0.0.40";
+  public static final String VERSION = "0.0.41";
 
   static final String USER_AGENT = "crypto-service-sdk-java/" + VERSION;
 

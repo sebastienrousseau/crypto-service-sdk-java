@@ -10,7 +10,8 @@ older `0.0.x` versions do not.
 
 | Version | Status | Receives security fixes? |
 | :--- | :--- | :--- |
-| 0.0.40 | Current | Yes |
+| 0.0.41 | Current (in preparation on `main`) | Yes |
+| 0.0.40 (the first release, 2026-11-16) | Latest released | Yes, until 0.0.41 is released |
 
 ## Reporting a vulnerability
 
