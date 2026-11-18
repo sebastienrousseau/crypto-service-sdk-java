@@ -365,10 +365,12 @@ configure. It never follows redirects, so credentials cannot reach
 another origin, and it has no option to disable TLS verification. It
 writes no files and logs nothing. Use https off loopback.
 
-Responses are untrusted input. Two Jazzer fuzz targets
-(`src/fuzz/java/`) feed arbitrary bytes to the problem parser and to
-every success decoder; their seeds replay in every build and CI fuzzes
-each target for 60 seconds on every pull request. Dependencies are
+Responses are untrusted input. Three Jazzer fuzz targets
+(`src/fuzz/java/`) feed arbitrary bytes to the problem parser, to every
+success decoder and to the `Retry-After` parser; their seeds replay in
+every build and CI fuzzes each target for 60 seconds on every pull
+request. Text the server chose is escaped before it reaches an
+exception message or `toString`, so it cannot forge log lines. Dependencies are
 pinned by SHA-256 (`.mvn/checksums/`) and audited with OSV-Scanner over
 the SBOM.
 

@@ -111,10 +111,14 @@ jobs:
           java-version: "21"
 
       # japicmp against the latest co.crypto-service:crypto-service-sdk on
-      # Maven Central. Until the first release is published there is
-      # nothing to compare with, and `make api-check` says so and passes.
+      # Maven Central (its jar checked against Central's .sha256).
       - name: japicmp
         run: make api-check
+
+      # The check itself still bites: a copy of the tree with a public
+      # class made package-private must fail it.
+      - name: api-check rejects a breaking change
+        run: make api-check-selftest
 
   conformance:
     name: Conformance against crypto-server

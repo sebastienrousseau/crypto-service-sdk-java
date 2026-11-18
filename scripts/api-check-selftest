@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+# Proves `make api-check` still fails on a breaking change. It copies the
+# working tree (without target/ and .git/) into a temporary directory,
+# makes the public class Bytes package-private there, which removes it
+# from the API, and runs `make api-check` in the copy: the script passes
+# only when that run fails with a japicmp incompatibility. CI runs it
+# after `make api-check` itself has passed on the unchanged tree.
+#
+# The regression test for commit aa90366: api-check had stopped working
+# on every branch once 0.0.40 reached Maven Central, and a later change
+# to its configuration (for example ignoreMissingNewVersion) could as
+# easily make it pass everything. The copy is deleted on exit.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+MAKE=${MAKE:-make}
+work=$(mktemp -d "${TMPDIR:-/tmp}/crypto-service-api-selftest.XXXXXX")
+trap 'rm -r -f -- "$work"' EXIT INT TERM
+
+tar --exclude=./target --exclude=./.git --exclude=./site -cf - . | tar -xf - -C "$work"
+target="$work/src/main/java/co/cryptoservice/sdk/Bytes.java"
+sed -i.orig 's/^public final class Bytes {$/final class Bytes {/' "$target"
+if cmp -s "$target" "$target.orig"; then
+  echo "api-check-selftest: could not find the Bytes declaration to break" >&2
+  exit 1
+fi
+rm -f -- "$target.orig"
+
+log="$work/api-check.log"
+if (cd "$work" && "$MAKE" api-check) > "$log" 2>&1; then
+  cat "$log"
+  echo "api-check-selftest: api-check passed a build that removes a public class" >&2
+  exit 1
+fi
+if ! grep -q 'CLASS_LESS_ACCESSIBLE' "$log"; then
+  cat "$log"
+  echo "api-check-selftest: api-check failed, but not on the API change" >&2
+  exit 1
+fi
+if grep -q 'no release of co.crypto-service:crypto-service-sdk on Maven Central yet' "$log"; then
+  cat "$log"
+  echo "api-check-selftest: there is no baseline release to compare with" >&2
+  exit 1
+fi
+echo "api-check-selftest: api-check rejects a build that makes Bytes package-private"

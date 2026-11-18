@@ -28,11 +28,11 @@ EXAMPLES := $(sort $(basename $(notdir $(wildcard examples/*.java))))
 LOCK_PROFILES := bench,release
 CENTRAL := https://repo1.maven.org/maven2/co/crypto-service/crypto-service-sdk
 DOCS_PY ?= python3
-FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest
+FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest RetryAfterFuzzTest
 FUZZ_TIME ?= 60s
 
 .PHONY: help check format-check size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
-  versions regression api-check javadoc manual docs-lint release-dry-run
+  versions regression api-check api-check-selftest javadoc manual docs-lint release-dry-run
 
 help: ## List the targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed 's/:.*## /: /'
@@ -45,7 +45,7 @@ versions: ## Every file states the version in pom.xml
 regression: ## Gate, conformance kit, examples, README snippets and benchmark smoke against a fresh server
 	scripts/regression.sh
 
-api-check: ## japicmp against the latest release on Maven Central (no-op before the first)
+api-check: ## japicmp against the latest release on Maven Central
 	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" 2>/dev/null | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
 	if [ -z "$$latest" ]; then \
 	  echo "api-check: no release of co.crypto-service:crypto-service-sdk on Maven Central yet; nothing to compare"; exit 0; fi; \
@@ -56,6 +56,9 @@ api-check: ## japicmp against the latest release on Maven Central (no-op before 
 	[ "$${got%% *}" = "$$want" ] || { echo "api-check: baseline $$latest does not match its .sha256"; exit 1; }; \
 	echo "api-check: comparing with $$latest"; \
 	$(MVN) -B -q -DskipTests package japicmp:cmp -Djapicmp.baseline.jar="$(CURDIR)/$$jar"
+
+api-check-selftest: ## api-check still fails on a breaking change (a copy with Bytes made package-private)
+	scripts/api-check-selftest
 
 javadoc: ## The Javadoc (doclint all, warnings fail) into target/reports/apidocs
 	$(MVN) -B -q -DskipTests compile javadoc:javadoc
