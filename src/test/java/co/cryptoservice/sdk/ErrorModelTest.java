@@ -124,8 +124,11 @@ class ErrorModelTest {
         "Problem[type=urn:x\\u000d\\u000a2026-01-01 INFO forged, title=t\\u2028u, status=400,"
             + " detail=<redacted>, instance=/i\\u0085j, code=C\\u0000D, errors=0, extensions=[]]",
         p.toString());
-    assertEquals("a\\u2029b\\u007f", Redacted.printable("a b\u007f"));
+    assertEquals("a\\u2029b\\u007f", Redacted.printable("a\u2029b\u007f"));
     assertEquals("plain text", Redacted.printable("plain text"));
+    assertEquals(
+        "ValidationError[field=/a\\u000a, message=m\\u000d\\u000aforged]",
+        new ValidationError("/a\n", "m\r\nforged").toString());
   }
 
   @Test
