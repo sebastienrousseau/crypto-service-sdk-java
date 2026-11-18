@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record KdfResult(String algorithm, String derivedKey, int keyLength, String salt) {
 
   /**
-   * {@link #derivedKey()} decoded from hex.
+   * {@link #derivedKey() derivedKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code derivedKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -25,7 +25,7 @@ public record KdfResult(String algorithm, String derivedKey, int keyLength, Stri
   }
 
   /**
-   * {@link #salt()} decoded from hex.
+   * {@link #salt() salt()} decoded from hex.
    *
    * @return the bytes, or null when {@code salt} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

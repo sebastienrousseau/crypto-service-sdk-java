@@ -4,9 +4,9 @@ package co.cryptoservice.sdk;
 /**
  * The server answered with a status outside 2xx.
  *
- * <p>{@link #problem()} is the RFC 9457 problem the server sent. A body that is not a problem (an
- * HTML page from a proxy, an empty body, a redirect the client refused to follow) becomes an {@code
- * about:blank} problem for the status, so the problem always has the same shape.
+ * <p>{@link #problem() problem()} is the RFC 9457 problem the server sent. A body that is not a
+ * problem (an HTML page from a proxy, an empty body, a redirect the client refused to follow)
+ * becomes an {@code about:blank} problem for the status, so the problem always has the same shape.
  *
  * <pre>{@code
  * try {

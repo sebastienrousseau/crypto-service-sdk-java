@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record KeyWrapResult(String algorithm, String wrapped) {
 
   /**
-   * {@link #wrapped()} decoded from base64.
+   * {@link #wrapped() wrapped()} decoded from base64.
    *
    * @return the bytes, or null when {@code wrapped} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

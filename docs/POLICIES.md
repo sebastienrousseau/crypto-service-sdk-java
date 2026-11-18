@@ -5,8 +5,10 @@
 ## Toolchain
 
 - The language floor is **Java 17** (`maven.compiler.release` 17). CI
-  builds and tests on Temurin 17 and 21; `mise.toml` pins JDK 21 for
-  local work.
+  builds and tests on Temurin 17 and 21, each pinned to an exact build
+  (`17.0.21+9`, `21.0.13+9`); `mise.toml` pins the same JDK 21 build for
+  local work, and releases are built with it
+  ([reproducing a release](REPRODUCING.md)).
 - The floor moves only in a release whose changelog says so; the
   maintainer decides when.
 - `./mvnw` runs Maven 3.10.1, checked against its SHA-256. Any Maven

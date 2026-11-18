@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record OpaqueRegisterInitResult(String response) {
 
   /**
-   * {@link #response()} decoded from hex.
+   * {@link #response() response()} decoded from hex.
    *
    * @return the bytes, or null when {@code response} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

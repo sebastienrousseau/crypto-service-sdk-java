@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record HpkeOpenResult(String hex, String plaintext) {
 
   /**
-   * {@link #hex()} decoded from hex.
+   * {@link #hex() hex()} decoded from hex.
    *
    * @return the bytes, or null when {@code hex} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

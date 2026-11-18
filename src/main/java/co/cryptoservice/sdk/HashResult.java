@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record HashResult(String algorithm, String digest, int length) {
 
   /**
-   * {@link #digest()} decoded from hex.
+   * {@link #digest() digest()} decoded from hex.
    *
    * @return the bytes, or null when {@code digest} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

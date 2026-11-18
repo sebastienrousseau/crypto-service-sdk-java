@@ -10,10 +10,11 @@ import java.util.concurrent.Future;
 /**
  * One logical call: its attempts, the waits between them, and its deadline.
  *
- * <p>{@link #result} completes with the last response (any status) or a {@link TransportError}.
- * Whatever completes it first wins: an attempt's outcome, the deadline timer, or the caller
- * cancelling it. Every attempt in flight and every scheduled retry or deadline is cancelled when it
- * completes, which aborts the HTTP exchange; an outcome that arrives after that is dropped.
+ * <p>{@link #result result} completes with the last response (any status) or a {@link
+ * TransportError}. Whatever completes it first wins: an attempt's outcome, the deadline timer, or
+ * the caller cancelling it. Every attempt in flight and every scheduled retry or deadline is
+ * cancelled when it completes, which aborts the HTTP exchange; an outcome that arrives after that
+ * is dropped.
  */
 final class Exchange {
 

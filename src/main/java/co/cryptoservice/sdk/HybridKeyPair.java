@@ -17,7 +17,7 @@ public record HybridKeyPair(
     String algorithm, String keyId, String mlKemPublicKey, String x25519PublicKey) {
 
   /**
-   * {@link #mlKemPublicKey()} decoded from hex.
+   * {@link #mlKemPublicKey() mlKemPublicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code mlKemPublicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -28,7 +28,7 @@ public record HybridKeyPair(
   }
 
   /**
-   * {@link #x25519PublicKey()} decoded from hex.
+   * {@link #x25519PublicKey() x25519PublicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code x25519PublicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

@@ -7,9 +7,9 @@ import java.net.http.HttpTimeoutException;
  * No usable answer arrived: the connection failed, an attempt or the overall deadline timed out,
  * the calling thread was interrupted, or a 2xx body could not be decoded.
  *
- * <p>{@link #timedOut()} tells a timeout from the other causes. The cause, when there is one, is
- * the I/O exception the HTTP client raised; a decoding failure carries none, because the parser's
- * message could quote the body.
+ * <p>{@link #timedOut() timedOut()} tells a timeout from the other causes. The cause, when there is
+ * one, is the I/O exception the HTTP client raised; a decoding failure carries none, because the
+ * parser's message could quote the body.
  */
 public final class TransportError extends CryptoServiceException {
 

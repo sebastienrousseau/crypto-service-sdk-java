@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record MacResult(String algorithm, String mac) {
 
   /**
-   * {@link #mac()} decoded from hex.
+   * {@link #mac() mac()} decoded from hex.
    *
    * @return the bytes, or null when {@code mac} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

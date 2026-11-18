@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record KmsDataKey(String ciphertext, String keyId, String plaintext, String provider) {
 
   /**
-   * {@link #plaintext()} decoded from hex.
+   * {@link #plaintext() plaintext()} decoded from hex.
    *
    * @return the bytes, or null when {@code plaintext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

@@ -32,7 +32,7 @@ FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest RetryAfterFuzzTest
 FUZZ_TIME ?= 60s
 
 .PHONY: help check format-check style format size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
-  versions regression api-check api-check-selftest javadoc manual docs-lint release-dry-run
+  versions regression api-check api-check-selftest repro-check reproduce javadoc manual docs-lint release-dry-run
 
 help: ## List the targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed 's/:.*## /: /'
@@ -59,6 +59,13 @@ api-check: ## japicmp against the latest release on Maven Central
 
 api-check-selftest: ## api-check still fails on a breaking change (a copy with Bytes made package-private)
 	scripts/api-check-selftest
+
+repro-check: ## Build the release assets twice, in two directories, and require identical bytes
+	scripts/repro-check
+
+reproduce: ## Rebuild release VERSION from its tag and check it against GitHub and Maven Central
+	@test -n "$(VERSION)" || { echo "reproduce: set VERSION, for example make reproduce VERSION=0.0.40"; exit 1; }
+	scripts/reproduce-release "$(VERSION)"
 
 javadoc: ## The Javadoc (doclint all, warnings fail) into target/reports/apidocs
 	$(MVN) -B -q -DskipTests compile javadoc:javadoc

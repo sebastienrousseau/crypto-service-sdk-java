@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record MlKemEncapsulateResult(String algorithm, String ciphertext, String sharedSecret) {
 
   /**
-   * {@link #ciphertext()} decoded from hex.
+   * {@link #ciphertext() ciphertext()} decoded from hex.
    *
    * @return the bytes, or null when {@code ciphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -24,7 +24,7 @@ public record MlKemEncapsulateResult(String algorithm, String ciphertext, String
   }
 
   /**
-   * {@link #sharedSecret()} decoded from hex.
+   * {@link #sharedSecret() sharedSecret()} decoded from hex.
    *
    * @return the bytes, or null when {@code sharedSecret} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

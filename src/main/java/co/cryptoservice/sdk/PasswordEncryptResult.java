@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record PasswordEncryptResult(String algorithm, String encrypted) {
 
   /**
-   * {@link #encrypted()} decoded from base64.
+   * {@link #encrypted() encrypted()} decoded from base64.
    *
    * @return the bytes, or null when {@code encrypted} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

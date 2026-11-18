@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record OpaqueLoginInitResult(String ke2, String sessionId) {
 
   /**
-   * {@link #ke2()} decoded from hex.
+   * {@link #ke2() ke2()} decoded from hex.
    *
    * @return the bytes, or null when {@code ke2} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

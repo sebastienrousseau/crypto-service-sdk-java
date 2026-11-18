@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record HpkeKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
-   * {@link #publicKey()} decoded from hex.
+   * {@link #publicKey() publicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code publicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

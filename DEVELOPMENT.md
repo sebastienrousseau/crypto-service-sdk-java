@@ -11,7 +11,7 @@ pull-request etiquette.
 
 | Tool | Version | Why |
 | :--- | :--- | :--- |
-| JDK | 17 or newer (CI: Temurin 17 and 21; `mise.toml`: 21) | The build floor is `maven.compiler.release` 17 |
+| JDK | 17 or newer; CI and releases: Temurin `17.0.21+9` and `21.0.13+9` exactly (`mise.toml`: `21.0.13+9`) | The build floor is `maven.compiler.release` 17; the exact build makes the jars reproducible ([REPRODUCING](docs/REPRODUCING.md)) |
 | Maven | 3.10.1 via `./mvnw` (SHA-256 checked) | Any 3.9.0+ works |
 | Node.js and pnpm | 24 and 11.9.0 (`mise.toml`) | Building and running the pinned crypto-server |
 | Python | 3.12+ | The README snippet checker, the regression script, MkDocs |
@@ -24,6 +24,7 @@ pull-request etiquette.
 | :--- | :--- | :--- |
 | CI / Lint and format | `scripts/verify-release-versions` and `make format-check size style lint` | Versions agree; no tabs, trailing spaces or CRLF; library and examples within 100 columns; 500 lines per file; every Java file as google-java-format writes it (Google Java Style); `javac -Xlint:all -Werror`; PMD ceilings |
 | CI / Build, unit tests and coverage (Java 17, 21) | `make check` | `mvn verify`: unit tests, Jazzer seeds, JaCoCo 100 % line and branch, PMD; examples and README snippets compile |
+| CI / Reproducible build (two directories) | `make repro-check` | The jar, sources and Javadoc jars and SBOM built twice, under `target/` and `/dev/shm`, are identical |
 | CI / Conformance against crypto-server | `make regression` | The full run below |
 | CI / Benchmarks smoke | `make bench-smoke` | Every JMH scenario runs briefly; nothing asserted |
 | CI / API breakage | `make api-check`, `make api-check-selftest` | japicmp against the last release on Maven Central; then proves the check still fails on a copy with a public class made package-private |
@@ -32,6 +33,7 @@ pull-request etiquette.
 | Docs / Docs lint | `make manual`, `make docs-lint` | MkDocs strict build and Javadoc (doclint all); markdownlint, codespell, REUSE, lychee |
 | CodeQL, Scorecard, DCO | (GitHub only) | Static analysis, supply-chain posture, `Signed-off-by` on every commit |
 | Release (dry run) | `make release-dry-run` | The release artifacts, unsigned, without publishing |
+| (a published release) | `make reproduce VERSION=0.0.N` | Rebuilds the tag and checks every asset against `SHA256SUMS` and Maven Central ([REPRODUCING](docs/REPRODUCING.md)) |
 
 ## Regression run
 

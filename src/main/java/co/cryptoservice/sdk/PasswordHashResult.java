@@ -17,7 +17,7 @@ public record PasswordHashResult(
     String algorithm, String hash, Argon2Params params, String phc, String salt) {
 
   /**
-   * {@link #hash()} decoded from hex.
+   * {@link #hash() hash()} decoded from hex.
    *
    * @return the bytes, or null when {@code hash} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -28,7 +28,7 @@ public record PasswordHashResult(
   }
 
   /**
-   * {@link #salt()} decoded from hex.
+   * {@link #salt() salt()} decoded from hex.
    *
    * @return the bytes, or null when {@code salt} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

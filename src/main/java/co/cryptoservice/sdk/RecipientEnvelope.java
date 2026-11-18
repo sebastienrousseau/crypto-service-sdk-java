@@ -17,7 +17,7 @@ public record RecipientEnvelope(
     String ephemeralPublicKey, String type, String wrappedKey, String mlKemCiphertext) {
 
   /**
-   * {@link #ephemeralPublicKey()} decoded from hex.
+   * {@link #ephemeralPublicKey() ephemeralPublicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code ephemeralPublicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -28,7 +28,7 @@ public record RecipientEnvelope(
   }
 
   /**
-   * {@link #wrappedKey()} decoded from base64.
+   * {@link #wrappedKey() wrappedKey()} decoded from base64.
    *
    * @return the bytes, or null when {@code wrappedKey} is absent
    * @throws IllegalArgumentException when the server sent malformed base64
@@ -39,7 +39,7 @@ public record RecipientEnvelope(
   }
 
   /**
-   * {@link #mlKemCiphertext()} decoded from hex.
+   * {@link #mlKemCiphertext() mlKemCiphertext()} decoded from hex.
    *
    * @return the bytes, or null when {@code mlKemCiphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

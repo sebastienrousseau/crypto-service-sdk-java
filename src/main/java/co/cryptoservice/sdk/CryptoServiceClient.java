@@ -83,7 +83,7 @@ public final class CryptoServiceClient extends MetaOperations implements AutoClo
   }
 
   /**
-   * Sends one request and waits for the answer; see {@link #requestAsync}.
+   * Sends one request and waits for the answer; see {@link #requestAsync requestAsync}.
    *
    * @param method the HTTP method, for example {@code POST}
    * @param path the path below the base URL, starting with {@code /}

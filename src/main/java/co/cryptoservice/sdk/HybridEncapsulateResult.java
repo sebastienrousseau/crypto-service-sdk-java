@@ -20,7 +20,7 @@ public record HybridEncapsulateResult(
     String x25519EphemeralPublic) {
 
   /**
-   * {@link #mlKemCiphertext()} decoded from hex.
+   * {@link #mlKemCiphertext() mlKemCiphertext()} decoded from hex.
    *
    * @return the bytes, or null when {@code mlKemCiphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -31,7 +31,7 @@ public record HybridEncapsulateResult(
   }
 
   /**
-   * {@link #sharedSecret()} decoded from hex.
+   * {@link #sharedSecret() sharedSecret()} decoded from hex.
    *
    * @return the bytes, or null when {@code sharedSecret} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -42,7 +42,7 @@ public record HybridEncapsulateResult(
   }
 
   /**
-   * {@link #x25519EphemeralPublic()} decoded from hex.
+   * {@link #x25519EphemeralPublic() x25519EphemeralPublic()} decoded from hex.
    *
    * @return the bytes, or null when {@code x25519EphemeralPublic} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

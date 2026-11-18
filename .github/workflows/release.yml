@@ -4,7 +4,8 @@
 #
 #   build    verifies the tag and every version, runs the full gate, builds
 #            the jar, sources and Javadoc jars, the POM and a CycloneDX
-#            SBOM (reproducibly: project.build.outputTimestamp), writes
+#            SBOM (reproducibly: project.build.outputTimestamp and one exact
+#            Temurin build, docs/REPRODUCING.md), writes
 #            SHA256SUMS and the release notes, and attests provenance.
 #   publish  (environment `release`) rebuilds the same bytes, checks them
 #            against SHA256SUMS, signs them with GPG and publishes them
@@ -57,7 +58,7 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
 
       - name: Version, tag and dry-run mode
         id: meta
@@ -145,7 +146,7 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
           server-id: central
           server-username: CENTRAL_USERNAME
           server-password: CENTRAL_PASSWORD
@@ -169,7 +170,7 @@ jobs:
         run: |
           set -euo pipefail
           base="crypto-service-sdk-$VERSION"
-          for f in "$base.jar" "$base-sources.jar"; do
+          for f in "$base.jar" "$base-sources.jar" "$base-javadoc.jar"; do
             want=$(awk -v f="$f" '$2 == f {print $1}' dist/SHA256SUMS)
             got=$(sha256sum "target/$f" | cut -c1-64)
             [ "$want" = "$got" ] || { echo "$f rebuilt differently: $got, expected $want"; exit 1; }

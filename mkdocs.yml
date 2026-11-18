@@ -74,6 +74,7 @@ nav:
       - Benchmarks: BENCHMARKS.md
       - Ecosystem comparison: COMPARISON.md
       - Packaging: packaging.md
+      - Reproducing a release: REPRODUCING.md
       - Support: support.md
   - How it works:
       - Architecture: ARCHITECTURE.md

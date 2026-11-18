@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record OpaqueLoginFinishResult(String sessionKey) {
 
   /**
-   * {@link #sessionKey()} decoded from hex.
+   * {@link #sessionKey() sessionKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code sessionKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

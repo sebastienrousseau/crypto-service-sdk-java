@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public record KmsUnwrapResult(String keyId, String provider, String unwrappedKey) {
 
   /**
-   * {@link #unwrappedKey()} decoded from hex.
+   * {@link #unwrappedKey() unwrappedKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code unwrappedKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

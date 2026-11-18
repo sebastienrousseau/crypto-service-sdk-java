@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+#
+# Rebuilds a published release from its signed tag and checks that every
+# asset is byte for byte the one published: the jar, sources jar, Javadoc
+# jar, POM and CycloneDX SBOM against the release's SHA256SUMS on GitHub,
+# and the jars and POM against Maven Central's .sha256 files.
+#
+#   scripts/reproduce-release 0.0.40        # or: make reproduce VERSION=0.0.40
+#
+# It needs the tag locally (git fetch --tags), network access to GitHub
+# and Maven Central, and the exact JDK build the release was built with
+# (the java-version in the tag's release workflow; see JDK_OF below for
+# releases cut before it was pinned). The jar bytes depend on that build:
+# another JDK 21 gives the same class files but its zlib may deflate them
+# differently. REPRODUCE_ANY_JDK=1 builds anyway and reports what
+# differs. Nothing is published or signed; the work directory is deleted
+# on exit. docs/REPRODUCING.md describes the procedure.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+version=${1:?usage: scripts/reproduce-release 0.0.N}
+tag="v$version"
+repo=https://github.com/sebastienrousseau/crypto-service-sdk-java
+central=https://repo1.maven.org/maven2/co/crypto-service/crypto-service-sdk
+
+# Releases built before release.yml named an exact JDK build: the build
+# the release run's setup-java step resolved, from its log.
+jdk_of() {
+  case $1 in
+    0.0.40) echo "21.0.13+9" ;;
+    *) echo "" ;;
+  esac
+}
+
+git rev-parse -q --verify "refs/tags/$tag" > /dev/null ||
+  { echo "reproduce-release: no tag $tag here; run git fetch --tags" >&2; exit 1; }
+git -c gpg.ssh.allowedSignersFile=KEYS.asc verify-tag "$tag"
+
+want_jdk=$(git show "$tag:.github/workflows/release.yml" |
+  sed -n 's/.*java-version: "\([0-9][0-9.]*+[0-9][0-9]*\)".*/\1/p' | head -n 1)
+want_jdk=${want_jdk:-$(jdk_of "$version")}
+have_jdk=$(java -version 2>&1 | sed -n 's/.*Temurin-\([0-9.+]*\).*/\1/p' | head -n 1)
+echo "reproduce-release: $tag was built with Temurin $want_jdk; this JDK is ${have_jdk:-not Temurin}"
+if [ "$have_jdk" != "$want_jdk" ] && [ "${REPRODUCE_ANY_JDK:-0}" != 1 ]; then
+  echo "reproduce-release: use Temurin $want_jdk (mise install java@temurin-$want_jdk)," >&2
+  echo "or set REPRODUCE_ANY_JDK=1 to build anyway" >&2
+  exit 1
+fi
+
+work=$(mktemp -d "${TMPDIR:-/tmp}/crypto-service-reproduce.XXXXXX")
+trap 'rm -r -f -- "$work"' EXIT INT TERM
+git archive "$tag" | tar -xf - -C "$work"
+
+echo "reproduce-release: building $tag in $work"
+(
+  cd "$work"
+  ./mvnw -B -q -Prelease -DskipTests -Dgpg.skip=true package
+  ./mvnw -B -q cyclonedx:makeBom -DoutputFormat=json
+)
+
+base="crypto-service-sdk-$version"
+mkdir "$work/dist"
+cp "$work/target/$base.jar" "$work/target/$base-sources.jar" "$work/target/$base-javadoc.jar" \
+  "$work/dist/"
+cp "$work/pom.xml" "$work/dist/$base.pom"
+cp "$work/target/bom.json" "$work/dist/$base.cdx.json"
+
+curl -fsSL -o "$work/SHA256SUMS" "$repo/releases/download/$tag/SHA256SUMS"
+fail=0
+echo "reproduce-release: against SHA256SUMS of the GitHub release $tag"
+(cd "$work/dist" && sha256sum -c "$work/SHA256SUMS") || fail=1
+
+echo "reproduce-release: against Maven Central"
+for f in "$base.jar" "$base-sources.jar" "$base-javadoc.jar" "$base.pom"; do
+  want=$(curl -fsSL "$central/$version/$f.sha256" | cut -c1-64)
+  got=$(sha256sum "$work/dist/$f" | cut -c1-64)
+  if [ "$want" = "$got" ]; then
+    echo "$f: OK ($got)"
+  else
+    echo "$f: DIFFERENT (built $got, Central $want)"
+    fail=1
+  fi
+done
+
+if [ "$fail" -ne 0 ]; then
+  echo "reproduce-release: $tag did not reproduce" >&2
+  exit 1
+fi
+echo "reproduce-release: every asset of $tag reproduced bit for bit"
