@@ -13,9 +13,12 @@ that this client and its sibling SDKs agree with it.
 <dependency>
   <groupId>co.crypto-service</groupId>
   <artifactId>crypto-service-sdk</artifactId>
-  <version>0.0.40</version>
+  <version>0.0.41</version>
 </dependency>
 ```
+
+The snippet names 0.0.41, the version `main` prepares; until it is
+published, use 0.0.40 from Maven Central.
 
 ## Where to go next
 

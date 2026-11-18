@@ -32,7 +32,8 @@ Do not open a public issue. Follow [SECURITY.md](SECURITY.md).
 
 | Version | Supported | Notes |
 | :--- | :--- | :--- |
-| 0.0.40 | Yes | First version; tested against the crypto-service commit in `ci/server.ref` |
+| 0.0.41 | Yes | Current, in preparation on `main`; tested against the crypto-service commit in `ci/server.ref` |
+| 0.0.40 | Yes, until 0.0.41 is released | First version, released 2026-11-16 |
 
 Only the latest `0.0.x` gets fixes while the project is pre-1.0. Support
 is best effort by a single maintainer ([GOVERNANCE.md](GOVERNANCE.md)).

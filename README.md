@@ -66,17 +66,18 @@
 <dependency>
   <groupId>co.crypto-service</groupId>
   <artifactId>crypto-service-sdk</artifactId>
-  <version>0.0.40</version>
+  <version>0.0.41</version>
 </dependency>
 ```
 
 Gradle (Kotlin DSL):
 
 ```kotlin
-implementation("co.crypto-service:crypto-service-sdk:0.0.40")
+implementation("co.crypto-service:crypto-service-sdk:0.0.41")
 ```
 
-0.0.40, the first version, is on
+The snippets name 0.0.41, the version `main` prepares; until it is
+published, use 0.0.40. 0.0.40, the first version, is on
 [Maven Central](https://central.sonatype.com/artifact/co.crypto-service/crypto-service-sdk/0.0.40);
 versions move in lockstep with the crypto-service suite. Each release
 is signed with GPG (key `278D6076E275022D05B70A3FDED76FC6E4ADC8B4`),
