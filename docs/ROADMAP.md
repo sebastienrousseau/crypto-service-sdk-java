@@ -17,7 +17,8 @@ quarter.
 - Publish benchmark results in `docs/BENCHMARKS.md` from `make bench` on
   a recorded machine, generated rather than typed.
 - A limit on the size of a response body the client will buffer, so a
-  misbehaving server cannot exhaust the caller's memory.
+  misbehaving server cannot exhaust the caller's memory (finding F-03 of
+  the [2026-11 security review](security-review-2026-11.md)).
 
 ## Within the year (to November 2027)
 

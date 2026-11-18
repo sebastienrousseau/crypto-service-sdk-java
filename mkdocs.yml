@@ -84,6 +84,8 @@ nav:
           - adr/0002-http-stack.md
           - adr/0003-error-model.md
           - adr/0004-async-model.md
+      - Assurance case: ASSURANCE.md
+      - Security review (2026-11): security-review-2026-11.md
       - Policies: POLICIES.md
       - Roadmap: ROADMAP.md
   - Project:

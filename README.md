@@ -360,7 +360,9 @@ fails if it is unset. Every gate is in [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 Report a vulnerability privately through
 [GitHub private vulnerability reporting](https://github.com/sebastienrousseau/crypto-service-sdk-java/security/advisories/new),
-never in a public issue ([SECURITY.md](SECURITY.md)).
+never in a public issue ([SECURITY.md](SECURITY.md)). The
+[assurance case](docs/ASSURANCE.md) sets out the threat model, trust
+boundaries and how each weakness is countered.
 
 The SDK implements no cryptography: keys are generated, held and used
 by the server, and the client sends what you give it to the base URL you
@@ -391,6 +393,7 @@ Also: [Architecture](docs/ARCHITECTURE.md) ·
 [Benchmarks](docs/BENCHMARKS.md) ·
 [Packaging](docs/packaging.md) ·
 [Reproducing a release](docs/REPRODUCING.md) ·
+[Assurance case](docs/ASSURANCE.md) ·
 [Roadmap](docs/ROADMAP.md) ·
 [Policies](docs/POLICIES.md) ·
 [Conformance kit](conformance/README.md) ·
