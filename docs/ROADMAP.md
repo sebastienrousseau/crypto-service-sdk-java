@@ -7,8 +7,8 @@ its tests, and only when the server and the conformance kit support it.
 
 ## Next
 
-- Publish 0.0.40 to Maven Central once the release environment is set
-  up ([packaging](packaging.md)), and render `.github/demo.gif`.
+- Render `.github/demo.gif` from `.github/demo.tape`. (0.0.40, the first
+  release, is on Maven Central; see [packaging](packaging.md).)
 - Generate `docs/BENCHMARKS.md` results from `make bench` on a recorded
   machine.
 - Follow each crypto-service release: bump `ci/server.ref`, re-vendor
