@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Machine-readable licensing, per the REUSE specification; `reuse lint`
-# runs in the docs-lint job. Source files carry an SPDX-License-Identifier
-# header; this file adds the copyright line to every file, and the
-# licence to the files that cannot hold a comment (JSON fixtures, fuzz
-# seeds, the demo GIF, checksum lists). conformance/ is vendored byte for
-# byte from crypto-service under the same licence.
+# runs in the docs-lint job. Every file that can hold a comment carries
+# SPDX-License-Identifier and SPDX-FileCopyrightText lines; this file
+# adds both to the files that cannot (JSON fixtures, fuzz seeds, the demo
+# GIF, checksum lists) and to conformance/, vendored byte for byte from
+# crypto-service under the same licence and copyright. The Maven wrapper
+# script (mvnw) keeps its Apache Software Foundation header.
 version = 1
 SPDX-PackageName = "crypto-service-sdk-java"
 SPDX-PackageSupplier = "Sebastien Rousseau"
@@ -13,6 +15,14 @@ SPDX-PackageDownloadLocation = "https://github.com/sebastienrousseau/crypto-serv
 
 [[annotations]]
 path = "**"
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2026 Sebastien Rousseau"
 SPDX-License-Identifier = "Apache-2.0 OR MIT"
+
+# The Maven wrapper script, copied from Apache Maven Wrapper; its header
+# says so.
+[[annotations]]
+path = "mvnw"
+precedence = "override"
+SPDX-FileCopyrightText = "The Apache Software Foundation"
+SPDX-License-Identifier = "Apache-2.0"

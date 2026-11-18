@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -7,9 +8,7 @@ package co.cryptoservice.sdk;
  * @param id the item's id
  * @param valid whether the item's signature is valid
  */
-public record StreamVerifyOutcome(
-    String id,
-    boolean valid) {
+public record StreamVerifyOutcome(String id, boolean valid) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -19,9 +18,6 @@ public record StreamVerifyOutcome(
    */
   @Override
   public String toString() {
-    return new Redacted("StreamVerifyOutcome")
-        .show("id", id)
-        .show("valid", valid)
-        .toString();
+    return new Redacted("StreamVerifyOutcome").show("id", id).show("valid", valid).toString();
   }
 }

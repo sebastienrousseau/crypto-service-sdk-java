@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -6,8 +7,7 @@ package co.cryptoservice.sdk;
  *
  * @param kem the KEM, or null for the server default
  */
-public record HpkeKeygenRequest(
-    HpkeKem kem) {
+public record HpkeKeygenRequest(HpkeKem kem) {
 
   /**
    * A copy with {@code kem} replaced.
@@ -27,8 +27,6 @@ public record HpkeKeygenRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("HpkeKeygenRequest")
-        .show("kem", kem)
-        .toString();
+    return new Redacted("HpkeKeygenRequest").show("kem", kem).toString();
   }
 }

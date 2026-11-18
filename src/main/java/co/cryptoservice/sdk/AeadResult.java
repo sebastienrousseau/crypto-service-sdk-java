@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,12 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext nonce (24 bytes) || ciphertext || Poly1305 tag (16 bytes); standard base64 (RFC
  *     4648 section 4), padded
  */
-public record AeadResult(
-    String algorithm,
-    String ciphertext) {
+public record AeadResult(String algorithm, String ciphertext) {
 
   /**
-   * {@link #ciphertext()} decoded from base64.
+   * {@link #ciphertext() ciphertext()} decoded from base64.
    *
    * @return the bytes, or null when {@code ciphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

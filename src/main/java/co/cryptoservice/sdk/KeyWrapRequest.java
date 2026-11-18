@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -10,10 +11,7 @@ import java.util.Objects;
  * @param keyToWrap the key to wrap, as hex
  * @param algorithm the algorithm
  */
-public record KeyWrapRequest(
-    String kek,
-    String keyToWrap,
-    KeyWrapAlgorithm algorithm) {
+public record KeyWrapRequest(String kek, String keyToWrap, KeyWrapAlgorithm algorithm) {
 
   /**
    * Checks that every required member is present.

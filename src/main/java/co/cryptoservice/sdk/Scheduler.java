@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.time.Duration;
@@ -7,9 +8,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The one timer thread the SDK uses, for retry waits and deadlines: a daemon, so it never keeps
- * the JVM alive. Cancelled tasks are removed at once, so a deadline that did not fire holds no
- * memory. Tasks only start a non-blocking send or complete a future.
+ * The one timer thread the SDK uses, for retry waits and deadlines: a daemon, so it never keeps the
+ * JVM alive. Cancelled tasks are removed at once, so a deadline that did not fire holds no memory.
+ * Tasks only start a non-blocking send or complete a future.
  */
 final class Scheduler {
 

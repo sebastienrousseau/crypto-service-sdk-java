@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 
 import co.cryptoservice.sdk.AeadResult;
 import co.cryptoservice.sdk.Bytes;

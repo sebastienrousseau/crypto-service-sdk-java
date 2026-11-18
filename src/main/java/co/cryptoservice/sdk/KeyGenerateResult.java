@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,14 +17,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param publicKey the public key; lowercase hex
  */
 public record KeyGenerateResult(
-    String algorithm,
-    String keyId,
-    String kid,
-    KeyMetadata metadata,
-    String publicKey) {
+    String algorithm, String keyId, String kid, KeyMetadata metadata, String publicKey) {
 
   /**
-   * {@link #publicKey()} decoded from hex.
+   * {@link #publicKey() publicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code publicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

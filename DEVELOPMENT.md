@@ -1,4 +1,5 @@
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- SPDX-FileCopyrightText: 2026 Sebastien Rousseau -->
 
 # Development
 
@@ -11,7 +12,7 @@ pull-request etiquette.
 
 | Tool | Version | Why |
 | :--- | :--- | :--- |
-| JDK | 17 or newer (CI: Temurin 17 and 21; `mise.toml`: 21) | The build floor is `maven.compiler.release` 17 |
+| JDK | 17 or newer; CI and releases: Temurin `17.0.21+9` and `21.0.13+9` exactly (`mise.toml`: `21.0.13+9`) | The build floor is `maven.compiler.release` 17; the exact build makes the jars reproducible ([REPRODUCING](docs/REPRODUCING.md)) |
 | Maven | 3.10.1 via `./mvnw` (SHA-256 checked) | Any 3.9.0+ works |
 | Node.js and pnpm | 24 and 11.9.0 (`mise.toml`) | Building and running the pinned crypto-server |
 | Python | 3.12+ | The README snippet checker, the regression script, MkDocs |
@@ -22,16 +23,18 @@ pull-request etiquette.
 
 | CI job | Local command | What it checks |
 | :--- | :--- | :--- |
-| CI / Lint and format | `scripts/verify-release-versions` and `make format-check size lint` | Versions agree; no tabs, trailing spaces or CRLF; library and examples within 100 columns; 500 lines per file; `javac -Xlint:all -Werror`; PMD ceilings |
+| CI / Lint and format | `scripts/verify-release-versions` and `make format-check size style lint` | Versions agree; no tabs, trailing spaces or CRLF; library and examples within 100 columns; 500 lines per file; every Java file as google-java-format writes it (Google Java Style); `javac -Xlint:all -Werror`; PMD ceilings |
 | CI / Build, unit tests and coverage (Java 17, 21) | `make check` | `mvn verify`: unit tests, Jazzer seeds, JaCoCo 100 % line and branch, PMD; examples and README snippets compile |
+| CI / Reproducible build (two directories) | `make repro-check` | The jar, sources and Javadoc jars and SBOM built twice, under `target/` and `/dev/shm`, are identical |
 | CI / Conformance against crypto-server | `make regression` | The full run below |
 | CI / Benchmarks smoke | `make bench-smoke` | Every JMH scenario runs briefly; nothing asserted |
-| CI / API breakage | `make api-check` | japicmp against the last release on Maven Central; a no-op until one exists |
+| CI / API breakage | `make api-check`, `make api-check-selftest` | japicmp against the last release on Maven Central; then proves the check still fails on a copy with a public class made package-private, and when it cannot fetch the baseline |
 | Fuzz | `make fuzz` | Each Jazzer target for 60 s |
 | Dependency audit | `make audit` | CycloneDX SBOM scanned by OSV-Scanner |
 | Docs / Docs lint | `make manual`, `make docs-lint` | MkDocs strict build and Javadoc (doclint all); markdownlint, codespell, REUSE, lychee |
 | CodeQL, Scorecard, DCO | (GitHub only) | Static analysis, supply-chain posture, `Signed-off-by` on every commit |
 | Release (dry run) | `make release-dry-run` | The release artifacts, unsigned, without publishing |
+| (a published release) | `make reproduce VERSION=0.0.N` | Rebuilds the tag and checks every asset against `SHA256SUMS` and Maven Central ([REPRODUCING](docs/REPRODUCING.md)) |
 
 ## Regression run
 
@@ -56,9 +59,25 @@ job does:
 | `ModelTest`, `OperationsTest` | Every record (JSON round trip, byte accessors, redacted `toString`) and every typed operation, async and blocking | No |
 | `KitChecksumTest` | `conformance/` matches `SHA256SUMS`; `ci/server.ref` is a full SHA | No |
 | `ConformanceTest` | Every kit vector against `CRYPTO_SERVICE_URL`, through the typed methods where they apply | Yes (skipped by `mvn verify`, required by `make conformance`) |
-| `src/fuzz/java/` | Jazzer: problem parser and success decoders; seeds run in every build | No |
+| `src/fuzz/java/` | Jazzer: problem parser, success decoders and the `Retry-After` parser; seeds run in every build | No |
 | `src/bench/java/` | JMH scenarios (profile `bench`) | `round_trip_hash` only |
 | `examples/`, README snippets | Runnable programs that exit non-zero on a wrong answer | Yes |
+
+### Regression tests
+
+Every bug fix lands with a test that fails without the fix, in the same
+commit, and the commit body says how it was seen to fail. Where no unit
+test can observe the defect (a build or documentation gate), the fix
+adds or extends the check that would have caught it, and the commit
+says which one. A fix whose defect cannot be reproduced at all says so
+and pins the intended behaviour instead. The fixes made before this
+policy was written down have these tests:
+
+| Fix | Regression test |
+| :--- | :--- |
+| `0986a9f` parse `Retry-After` seconds inside the `try` | `RetryAfterFuzzTest`: any header value yields a non-negative wait or none and never throws; its `two-points` seed fails with a `NumberFormatException` when the seconds pattern is loosened and the parse moved back outside the `try`. The original defect was not reachable through the pattern, so the test pins the contract. |
+| `cc7c1c0` Javadoc links doclint rejected; `make conformance` without a JWT secret | The Docs workflow's `make manual` builds the Javadoc with doclint `all` and warnings as errors, which is the check that failed; `make conformance` and `KitAuth` refuse to run without `CRYPTO_SERVICE_JWT_SECRET`. |
+| `aa90366` `make api-check` broken once a release existed | The CI API job runs `make api-check` on every push (it was red before the fix), then `make api-check-selftest`, which fails if the check stops rejecting a breaking change. |
 
 ### Coverage and complexity
 

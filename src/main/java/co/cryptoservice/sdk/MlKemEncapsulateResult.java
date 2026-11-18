@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext the 1088-byte ML-KEM-768 ciphertext; lowercase hex
  * @param sharedSecret the 32-byte shared secret; lowercase hex
  */
-public record MlKemEncapsulateResult(
-    String algorithm,
-    String ciphertext,
-    String sharedSecret) {
+public record MlKemEncapsulateResult(String algorithm, String ciphertext, String sharedSecret) {
 
   /**
-   * {@link #ciphertext()} decoded from hex.
+   * {@link #ciphertext() ciphertext()} decoded from hex.
    *
    * @return the bytes, or null when {@code ciphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -27,7 +25,7 @@ public record MlKemEncapsulateResult(
   }
 
   /**
-   * {@link #sharedSecret()} decoded from hex.
+   * {@link #sharedSecret() sharedSecret()} decoded from hex.
    *
    * @return the bytes, or null when {@code sharedSecret} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

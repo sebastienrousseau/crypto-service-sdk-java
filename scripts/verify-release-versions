@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Fails when any file that states the SDK's version disagrees with
 # pom.xml, the single source of truth. Run by `make check` and CI.

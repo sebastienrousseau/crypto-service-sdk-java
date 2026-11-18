@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,12 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext the AEAD ciphertext, tag included; lowercase hex
  * @param encapsulatedKey the KEM encapsulated key (enc); lowercase hex
  */
-public record HpkeSealResult(
-    String ciphertext,
-    String encapsulatedKey) {
+public record HpkeSealResult(String ciphertext, String encapsulatedKey) {
 
   /**
-   * {@link #ciphertext()} decoded from hex.
+   * {@link #ciphertext() ciphertext()} decoded from hex.
    *
    * @return the bytes, or null when {@code ciphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -25,7 +24,7 @@ public record HpkeSealResult(
   }
 
   /**
-   * {@link #encapsulatedKey()} decoded from hex.
+   * {@link #encapsulatedKey() encapsulatedKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code encapsulatedKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

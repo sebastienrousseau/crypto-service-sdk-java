@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -9,9 +10,7 @@ import java.util.Objects;
  * @param sessionId the login session identifier
  * @param ke3 the client's KE3 message as hex
  */
-public record OpaqueLoginFinishRequest(
-    String sessionId,
-    String ke3) {
+public record OpaqueLoginFinishRequest(String sessionId, String ke3) {
 
   /**
    * Checks that every required member is present.

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -10,10 +11,7 @@ package co.cryptoservice.sdk;
  * @param sunsetDate an ISO 8601 date-time, or a note such as Immediate
  */
 public record DoraDeprecation(
-    String algorithm,
-    String category,
-    String recommendedMigration,
-    String sunsetDate) {
+    String algorithm, String category, String recommendedMigration, String sunsetDate) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -9,9 +10,7 @@ import java.util.Objects;
  * @param key the 256-bit key as hex (64 characters)
  * @param plaintext the plaintext, as UTF-8 text
  */
-public record EncryptRequest(
-    String key,
-    String plaintext) {
+public record EncryptRequest(String key, String plaintext) {
 
   /**
    * Checks that every required member is present.
@@ -31,9 +30,6 @@ public record EncryptRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("EncryptRequest")
-        .hide("key", key)
-        .hide("plaintext", plaintext)
-        .toString();
+    return new Redacted("EncryptRequest").hide("key", key).hide("plaintext", plaintext).toString();
   }
 }

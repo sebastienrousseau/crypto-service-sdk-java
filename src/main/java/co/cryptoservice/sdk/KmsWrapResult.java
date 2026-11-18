@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -8,10 +9,7 @@ package co.cryptoservice.sdk;
  * @param provider the provider that served the request (local, aws, gcp, vault)
  * @param wrappedKey the wrapped key; opaque, provider-specific string; pass it back unchanged
  */
-public record KmsWrapResult(
-    String keyId,
-    String provider,
-    String wrappedKey) {
+public record KmsWrapResult(String keyId, String provider, String wrappedKey) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

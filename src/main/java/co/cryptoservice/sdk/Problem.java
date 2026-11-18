@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,8 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * An RFC 9457 problem: the body of every error the server sends ({@code
- * application/problem+json}).
+ * An RFC 9457 problem: the body of every error the server sends ({@code application/problem+json}).
  *
  * @param type {@code urn:crypto-service:problem:<slug>}, or {@code about:blank} when the server
  *     sent no problem body
@@ -123,9 +123,8 @@ public record Problem(
   }
 
   /**
-   * Names the type, status, code and instance, counts the validation errors and names the
-   * extension members; {@code detail} and the validation messages are left out, as they describe
-   * the request.
+   * Names the type, status, code and instance, counts the validation errors and names the extension
+   * members; {@code detail} and the validation messages are left out, as they describe the request.
    *
    * @return a description safe to log
    */

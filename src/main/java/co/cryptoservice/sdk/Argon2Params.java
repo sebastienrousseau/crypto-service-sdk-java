@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -8,10 +9,7 @@ package co.cryptoservice.sdk;
  * @param p lanes (parallelism)
  * @param t passes (time cost)
  */
-public record Argon2Params(
-    int m,
-    int p,
-    int t) {
+public record Argon2Params(int m, int p, int t) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -21,10 +19,6 @@ public record Argon2Params(
    */
   @Override
   public String toString() {
-    return new Redacted("Argon2Params")
-        .show("m", m)
-        .show("p", p)
-        .show("t", t)
-        .toString();
+    return new Redacted("Argon2Params").show("m", m).show("p", p).show("t", t).toString();
   }
 }

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -10,10 +11,7 @@ import java.util.Objects;
  * @param publicKey the public key as hex
  * @param signature the signature as hex
  */
-public record ClassicalSignature(
-    String algorithm,
-    String publicKey,
-    String signature) {
+public record ClassicalSignature(String algorithm, String publicKey, String signature) {
 
   /**
    * Checks that every required member is present.

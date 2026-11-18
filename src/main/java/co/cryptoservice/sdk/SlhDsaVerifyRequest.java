@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -12,10 +13,7 @@ import java.util.Objects;
  * @param signature the signature as hex
  */
 public record SlhDsaVerifyRequest(
-    SlhDsaVariant variant,
-    String publicKey,
-    String message,
-    String signature) {
+    SlhDsaVariant variant, String publicKey, String message, String signature) {
 
   /**
    * Checks that every required member is present.

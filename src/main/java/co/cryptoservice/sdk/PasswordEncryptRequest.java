@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -9,9 +10,7 @@ import java.util.Objects;
  * @param password the password
  * @param plaintext the plaintext, as UTF-8 text
  */
-public record PasswordEncryptRequest(
-    String password,
-    String plaintext) {
+public record PasswordEncryptRequest(String password, String plaintext) {
 
   /**
    * Checks that every required member is present.

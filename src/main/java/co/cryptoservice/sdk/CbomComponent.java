@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.List;
@@ -12,10 +13,7 @@ import java.util.List;
  * @param version the version, or null when absent
  */
 public record CbomComponent(
-    String name,
-    List<CbomProperty> properties,
-    String type,
-    String version) {
+    String name, List<CbomProperty> properties, String type, String version) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

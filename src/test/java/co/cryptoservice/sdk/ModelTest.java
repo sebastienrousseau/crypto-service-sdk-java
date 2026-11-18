@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -27,10 +28,33 @@ class ModelTest {
   /** Members whose values are secret, or are request or response content. */
   private static final Set<String> SECRET =
       Set.of(
-          "key", "kek", "keyToWrap", "plaintext", "password", "privateKey", "secretKey",
-          "x25519PrivateKey", "mlKemSecretKey", "derivedKey", "sharedSecret", "unwrappedKey",
-          "sessionKey", "psk", "hash", "salt", "data", "message", "signature", "ciphertext",
-          "sealed", "encrypted", "wrapped", "wrappedKey", "mac", "phc", "digest");
+          "key",
+          "kek",
+          "keyToWrap",
+          "plaintext",
+          "password",
+          "privateKey",
+          "secretKey",
+          "x25519PrivateKey",
+          "mlKemSecretKey",
+          "derivedKey",
+          "sharedSecret",
+          "unwrappedKey",
+          "sessionKey",
+          "psk",
+          "hash",
+          "salt",
+          "data",
+          "message",
+          "signature",
+          "ciphertext",
+          "sealed",
+          "encrypted",
+          "wrapped",
+          "wrappedKey",
+          "mac",
+          "phc",
+          "digest");
 
   @Test
   void everyRecordRoundTripsUnderItsWireNames() throws Exception {
@@ -55,7 +79,8 @@ class ModelTest {
       for (RecordComponent c : type.getRecordComponents()) {
         assertTrue(text.contains(c.getName() + "="), type.getSimpleName() + ": " + c.getName());
         if (SECRET.contains(c.getName()) && type != ValidationError.class) {
-          assertTrue(text.contains(c.getName() + "=<redacted>"), type.getSimpleName() + ": " + text);
+          assertTrue(
+              text.contains(c.getName() + "=<redacted>"), type.getSimpleName() + ": " + text);
         }
       }
     }
@@ -79,7 +104,8 @@ class ModelTest {
     assertArrayEquals(new byte[] {(byte) 0xab, (byte) 0xcd}, hex.digestBytes());
     AeadResult base64 = new AeadResult("xchacha20-poly1305", "AAEC");
     assertArrayEquals(new byte[] {0, 1, 2}, base64.ciphertextBytes());
-    assertNull(new KeyExportResult("a", "k", null, null, null, null, null, null, null).privateKeyBytes());
+    assertNull(
+        new KeyExportResult("a", "k", null, null, null, null, null, null, null).privateKeyBytes());
   }
 
   @Test
@@ -109,7 +135,8 @@ class ModelTest {
   void requiredRequestMembersAreChecked() {
     assertThrows(NullPointerException.class, () -> new HashRequest(null, "x"));
     assertThrows(NullPointerException.class, () -> new EncryptRequest("00", null));
-    HpkeSealRequest seal = HpkeSealRequest.of("pk", "hello").withKem(HpkeKem.X25519).withAead(HpkeAead.AES_128_GCM);
+    HpkeSealRequest seal =
+        HpkeSealRequest.of("pk", "hello").withKem(HpkeKem.X25519).withAead(HpkeAead.AES_128_GCM);
     assertEquals(HpkeKem.X25519, seal.kem());
     assertNull(seal.psk());
   }
@@ -152,7 +179,9 @@ class ModelTest {
   void unknownResponseMembersAreIgnored() throws IOException {
     HashResult r =
         Decoder.data(HashResult.class)
-            .decode("{\"data\":{\"digest\":\"00\",\"algorithm\":\"sha256\",\"length\":1,\"new\":true}}".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            .decode(
+                "{\"data\":{\"digest\":\"00\",\"algorithm\":\"sha256\",\"length\":1,\"new\":true}}"
+                    .getBytes(java.nio.charset.StandardCharsets.UTF_8));
     assertEquals(1, r.length());
   }
 }

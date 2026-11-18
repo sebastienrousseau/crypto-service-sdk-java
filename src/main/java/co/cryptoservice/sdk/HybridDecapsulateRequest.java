@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -11,9 +12,7 @@ import java.util.Objects;
  * @param mlKemCiphertext the ML-KEM ciphertext as hex
  */
 public record HybridDecapsulateRequest(
-    String keyId,
-    String x25519EphemeralPublic,
-    String mlKemCiphertext) {
+    String keyId, String x25519EphemeralPublic, String mlKemCiphertext) {
 
   /**
    * Checks that every required member is present.

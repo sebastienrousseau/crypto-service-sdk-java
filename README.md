@@ -1,4 +1,5 @@
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- SPDX-FileCopyrightText: 2026 Sebastien Rousseau -->
 
 <p align="center">
   <img src="https://cloudcdn.pro/crypto-service/v1/logos/crypto-service.svg" alt="Crypto Service logo" width="128" />
@@ -75,11 +76,14 @@ Gradle (Kotlin DSL):
 implementation("co.crypto-service:crypto-service-sdk:0.0.40")
 ```
 
-0.0.40 is the first version, in lockstep with the crypto-service suite;
-it is not on Maven Central until its release workflow has run. Each
-release is signed with GPG, ships a CycloneDX SBOM and `SHA256SUMS` on
-its GitHub release, and carries a build provenance attestation
-([`docs/packaging.md`](docs/packaging.md)). The JPMS module name is
+0.0.40, the first version, is on
+[Maven Central](https://central.sonatype.com/artifact/co.crypto-service/crypto-service-sdk/0.0.40);
+versions move in lockstep with the crypto-service suite. Each release
+is signed with GPG (key `278D6076E275022D05B70A3FDED76FC6E4ADC8B4`),
+ships a CycloneDX SBOM and `SHA256SUMS` on its GitHub release, carries a
+build provenance attestation, and can be rebuilt bit for bit from its
+tag ([`docs/packaging.md`](docs/packaging.md),
+[`docs/REPRODUCING.md`](docs/REPRODUCING.md)). The JPMS module name is
 `co.cryptoservice.sdk`.
 
 From a clone, build and test it into `target/`:
@@ -357,7 +361,9 @@ fails if it is unset. Every gate is in [`DEVELOPMENT.md`](DEVELOPMENT.md).
 
 Report a vulnerability privately through
 [GitHub private vulnerability reporting](https://github.com/sebastienrousseau/crypto-service-sdk-java/security/advisories/new),
-never in a public issue ([SECURITY.md](SECURITY.md)).
+never in a public issue ([SECURITY.md](SECURITY.md)). The
+[assurance case](docs/ASSURANCE.md) sets out the threat model, trust
+boundaries and how each weakness is countered.
 
 The SDK implements no cryptography: keys are generated, held and used
 by the server, and the client sends what you give it to the base URL you
@@ -365,10 +371,12 @@ configure. It never follows redirects, so credentials cannot reach
 another origin, and it has no option to disable TLS verification. It
 writes no files and logs nothing. Use https off loopback.
 
-Responses are untrusted input. Two Jazzer fuzz targets
-(`src/fuzz/java/`) feed arbitrary bytes to the problem parser and to
-every success decoder; their seeds replay in every build and CI fuzzes
-each target for 60 seconds on every pull request. Dependencies are
+Responses are untrusted input. Three Jazzer fuzz targets
+(`src/fuzz/java/`) feed arbitrary bytes to the problem parser, to every
+success decoder and to the `Retry-After` parser; their seeds replay in
+every build and CI fuzzes each target for 60 seconds on every pull
+request. Text the server chose is escaped before it reaches an
+exception message or `toString`, so it cannot forge log lines. Dependencies are
 pinned by SHA-256 (`.mvn/checksums/`) and audited with OSV-Scanner over
 the SBOM.
 
@@ -385,6 +393,8 @@ Also: [Architecture](docs/ARCHITECTURE.md) ·
 [Decisions](docs/adr/README.md) ·
 [Benchmarks](docs/BENCHMARKS.md) ·
 [Packaging](docs/packaging.md) ·
+[Reproducing a release](docs/REPRODUCING.md) ·
+[Assurance case](docs/ASSURANCE.md) ·
 [Roadmap](docs/ROADMAP.md) ·
 [Policies](docs/POLICIES.md) ·
 [Conformance kit](conformance/README.md) ·
@@ -401,7 +411,8 @@ lockstep with the crypto-service suite. The breaking axis is the public
 API of `co.cryptoservice.sdk` (method names and signatures, record
 components, exception types and their hierarchy); the changelog calls
 out any change to it, and a japicmp check in CI compares each build with
-the last release on Maven Central once there is one. The client sends
+the last release on Maven Central and fails on a binary or source
+incompatibility. The client sends
 the request shapes the conformance kit pins; a change to what it sends
 or to which exception a given answer raises is a breaking change even
 when no signature moves. The deprecated v1 routes are excluded from the

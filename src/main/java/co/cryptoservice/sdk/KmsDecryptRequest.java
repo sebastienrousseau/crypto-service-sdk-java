@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Map;
@@ -13,10 +14,7 @@ import java.util.Objects;
  * @param context the encryption context, or null
  */
 public record KmsDecryptRequest(
-    String keyId,
-    String ciphertext,
-    String provider,
-    Map<String, String> context) {
+    String keyId, String ciphertext, String provider, Map<String, String> context) {
 
   /**
    * Checks that every required member is present.

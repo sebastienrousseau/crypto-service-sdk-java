@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
+#
+# Builds the release assets of the working tree twice and fails unless
+# the two builds are byte for byte identical: the jar, sources jar,
+# Javadoc jar and CycloneDX SBOM, from `-Prelease package` (unsigned)
+# and `cyclonedx:makeBom`, the same goals the release workflow runs.
+#
+# The two copies live on different file systems where it can (one under
+# target/, one under /dev/shm, a tmpfs), so the order in which the build
+# lists the source files differs between them: in 0.0.40 that order
+# changed one line of the Javadoc's index-all.html. Both builds use the
+# same JDK; docs/REPRODUCING.md covers reproducing across machines.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+second_root=${REPRO_SECOND_ROOT:-/dev/shm}
+[ -d "$second_root" ] && [ -w "$second_root" ] || second_root=${TMPDIR:-/tmp}
+mkdir -p target
+first=$(mktemp -d "$PWD/target/repro.XXXXXX")
+second=$(mktemp -d "$second_root/crypto-service-repro.XXXXXX")
+trap 'rm -r -f -- "$first" "$second"' EXIT INT TERM
+
+git ls-files -z | tar --null -T - -cf - | tar -xf - -C "$first"
+git ls-files -z | tar --null -T - -cf - | tar -xf - -C "$second"
+
+build() {
+  (
+    cd "$1"
+    ./mvnw -B -q -Prelease -DskipTests -Dgpg.skip=true package
+    ./mvnw -B -q cyclonedx:makeBom -DoutputFormat=json
+    cd target
+    sha256sum -- crypto-service-sdk-*.jar bom.json
+  )
+}
+
+echo "repro-check: building in $first"
+first_sums=$(build "$first")
+echo "repro-check: building in $second"
+second_sums=$(build "$second")
+echo "$first_sums"
+if [ "$first_sums" != "$second_sums" ]; then
+  diff <(echo "$first_sums") <(echo "$second_sums") || true
+  echo "repro-check: the two builds differ" >&2
+  exit 1
+fi
+echo "repro-check: both builds are identical"

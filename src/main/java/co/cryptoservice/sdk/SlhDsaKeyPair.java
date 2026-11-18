@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,13 +13,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     decapsulation routes
  * @param publicKey the SLH-DSA public key; lowercase hex
  */
-public record SlhDsaKeyPair(
-    String algorithm,
-    String keyId,
-    String publicKey) {
+public record SlhDsaKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
-   * {@link #publicKey()} decoded from hex.
+   * {@link #publicKey() publicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code publicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

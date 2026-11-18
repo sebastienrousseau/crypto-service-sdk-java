@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,8 +56,11 @@ class ConformanceTest {
     OPEN.forEach(KitAuth::close);
     if (kit != null) {
       System.out.println(
-          "conformance: " + kit.typedRuns.get() + " vectors through typed methods, "
-              + kit.rawRuns.get() + " through the raw request");
+          "conformance: "
+              + kit.typedRuns.get()
+              + " vectors through typed methods, "
+              + kit.rawRuns.get()
+              + " through the raw request");
     }
   }
 }

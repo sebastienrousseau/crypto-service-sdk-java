@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,11 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @param sessionKey the session key; lowercase hex
  */
-public record OpaqueLoginFinishResult(
-    String sessionKey) {
+public record OpaqueLoginFinishResult(String sessionKey) {
 
   /**
-   * {@link #sessionKey()} decoded from hex.
+   * {@link #sessionKey() sessionKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code sessionKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -30,8 +30,6 @@ public record OpaqueLoginFinishResult(
    */
   @Override
   public String toString() {
-    return new Redacted("OpaqueLoginFinishResult")
-        .hide("sessionKey", sessionKey)
-        .toString();
+    return new Redacted("OpaqueLoginFinishResult").hide("sessionKey", sessionKey).toString();
   }
 }

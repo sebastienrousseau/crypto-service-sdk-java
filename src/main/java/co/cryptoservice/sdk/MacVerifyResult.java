@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -7,9 +8,7 @@ package co.cryptoservice.sdk;
  * @param algorithm the algorithm
  * @param valid whether the tag matches
  */
-public record MacVerifyResult(
-    String algorithm,
-    boolean valid) {
+public record MacVerifyResult(String algorithm, boolean valid) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

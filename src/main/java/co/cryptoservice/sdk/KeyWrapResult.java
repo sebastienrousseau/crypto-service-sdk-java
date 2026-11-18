@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,12 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param wrapped the wrapped key (RFC 3394 / RFC 5649 output); standard base64 (RFC 4648 section
  *     4), padded
  */
-public record KeyWrapResult(
-    String algorithm,
-    String wrapped) {
+public record KeyWrapResult(String algorithm, String wrapped) {
 
   /**
-   * {@link #wrapped()} decoded from base64.
+   * {@link #wrapped() wrapped()} decoded from base64.
    *
    * @return the bytes, or null when {@code wrapped} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

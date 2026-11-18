@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -13,11 +14,7 @@ import java.util.Objects;
  * @param params the parameters
  */
 public record KdfRequest(
-    KdfAlgorithm algorithm,
-    String password,
-    String salt,
-    Double keyLength,
-    KdfParams params) {
+    KdfAlgorithm algorithm, String password, String salt, Double keyLength, KdfParams params) {
 
   /**
    * Checks that every required member is present.

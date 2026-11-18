@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param combiner shared-secret combiner
  * @param sharedSecret the 32-byte shared secret; lowercase hex
  */
-public record HybridDecapsulateResult(
-    String algorithm,
-    String combiner,
-    String sharedSecret) {
+public record HybridDecapsulateResult(String algorithm, String combiner, String sharedSecret) {
 
   /**
-   * {@link #sharedSecret()} decoded from hex.
+   * {@link #sharedSecret() sharedSecret()} decoded from hex.
    *
    * @return the bytes, or null when {@code sharedSecret} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

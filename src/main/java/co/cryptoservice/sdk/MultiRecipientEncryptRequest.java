@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.List;
@@ -10,9 +11,7 @@ import java.util.Objects;
  * @param plaintext the plaintext, as UTF-8 text
  * @param recipients the recipients
  */
-public record MultiRecipientEncryptRequest(
-    String plaintext,
-    List<Recipient> recipients) {
+public record MultiRecipientEncryptRequest(String plaintext, List<Recipient> recipients) {
 
   /**
    * Checks that every required member is present.

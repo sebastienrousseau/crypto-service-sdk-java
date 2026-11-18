@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,7 +36,7 @@ public record KeyExportResult(
     String x25519PublicKey) {
 
   /**
-   * {@link #mlKemPublicKey()} decoded from hex.
+   * {@link #mlKemPublicKey() mlKemPublicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code mlKemPublicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -46,7 +47,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #mlKemSecretKey()} decoded from hex.
+   * {@link #mlKemSecretKey() mlKemSecretKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code mlKemSecretKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -57,7 +58,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #privateKey()} decoded from hex.
+   * {@link #privateKey() privateKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code privateKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -68,7 +69,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #publicKey()} decoded from hex.
+   * {@link #publicKey() publicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code publicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -79,7 +80,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #secretKey()} decoded from hex.
+   * {@link #secretKey() secretKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code secretKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -90,7 +91,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #x25519PrivateKey()} decoded from hex.
+   * {@link #x25519PrivateKey() x25519PrivateKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code x25519PrivateKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -101,7 +102,7 @@ public record KeyExportResult(
   }
 
   /**
-   * {@link #x25519PublicKey()} decoded from hex.
+   * {@link #x25519PublicKey() x25519PublicKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code x25519PublicKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

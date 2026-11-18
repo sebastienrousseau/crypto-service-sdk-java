@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,8 +13,8 @@ import java.util.List;
 
 /**
  * Fuzzes the success-response decoder: whatever a 2xx body holds, every result type's decoder
- * either returns a value or fails with an {@link IOException} (which the client turns into a
- * {@link TransportError}); no other exception escapes, and no value it returns is null.
+ * either returns a value or fails with an {@link IOException} (which the client turns into a {@link
+ * TransportError}); no other exception escapes, and no value it returns is null.
  *
  * <p>The seeds under {@code ResponseDecodingFuzzTestInputs/} run as regression tests in {@code mvn
  * verify}; with {@code JAZZER_FUZZ=1} ({@code make fuzz}) it fuzzes.

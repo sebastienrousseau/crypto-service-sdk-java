@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -36,7 +37,8 @@ class ClientTest {
       assertEquals("/v2/hash", seen.path());
       assertEquals("test-api-key", seen.header("x-api-key"));
       assertEquals("Bearer jwt-token", seen.header("Authorization"));
-      assertEquals("crypto-service-sdk-java/" + CryptoServiceClient.VERSION, seen.header("User-Agent"));
+      assertEquals(
+          "crypto-service-sdk-java/" + CryptoServiceClient.VERSION, seen.header("User-Agent"));
       assertEquals("application/json", seen.header("Content-Type"));
       assertEquals("{\"algorithm\":\"sha256\",\"data\":\"abc\"}", seen.text());
       assertNull(seen.header("traceparent"));
@@ -96,7 +98,12 @@ class ClientTest {
   void traceparentCanBeTurnedOff() throws IOException {
     try (TestServer server = TestServer.script(Answer.json(200, HASH_OK));
         CryptoServiceClient client =
-            server.client().autoTraceparent(true).autoTraceparent(false).traceparent(null).build()) {
+            server
+                .client()
+                .autoTraceparent(true)
+                .autoTraceparent(false)
+                .traceparent(null)
+                .build()) {
       client.hash(new HashRequest(HashAlgorithm.SHA256, "a"));
       assertNull(server.seen().get(0).header("traceparent"));
     }
@@ -125,18 +132,24 @@ class ClientTest {
 
   @Test
   void rawRequestReturnsAnyStatus() throws IOException {
-    Answer text = new Answer(418, java.util.Map.of("Content-Type", "text/plain; charset=utf-8"),
-        "teapot", Duration.ZERO);
+    Answer text =
+        new Answer(
+            418,
+            java.util.Map.of("Content-Type", "text/plain; charset=utf-8"),
+            "teapot",
+            Duration.ZERO);
     try (TestServer server = TestServer.script(text);
         CryptoServiceClient client = server.client().build()) {
       RawResponse response =
-          client.request("post", "/v1/encrypt", "<a/>".getBytes(StandardCharsets.UTF_8), "application/xml");
+          client.request(
+              "post", "/v1/encrypt", "<a/>".getBytes(StandardCharsets.UTF_8), "application/xml");
       assertEquals(418, response.status());
       assertEquals(Optional.of("text/plain"), response.mediaType());
       assertEquals("teapot", response.bodyText());
       assertEquals("teapot", new String(response.body(), StandardCharsets.UTF_8));
       assertTrue(response.headers().firstValue("content-type").isPresent());
-      assertEquals("RawResponse[status=418, mediaType=text/plain, body=<redacted>]", response.toString());
+      assertEquals(
+          "RawResponse[status=418, mediaType=text/plain, body=<redacted>]", response.toString());
       assertEquals("POST", server.seen().get(0).method());
       assertEquals("application/xml", server.seen().get(0).header("Content-Type"));
       assertEquals("test-api-key", server.seen().get(0).header("x-api-key"));
@@ -158,16 +171,36 @@ class ClientTest {
 
   @Test
   void rawRequestChecksItsArguments() {
-    try (CryptoServiceClient client = CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build()) {
+    try (CryptoServiceClient client =
+        CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build()) {
       assertThrows(NullPointerException.class, () -> client.requestAsync(null, "/", null, null));
-      assertThrows(IllegalArgumentException.class, () -> client.requestAsync("GET", null, null, null));
-      assertThrows(IllegalArgumentException.class, () -> client.requestAsync("GET", "health", null, null));
+      assertThrows(
+          IllegalArgumentException.class, () -> client.requestAsync("GET", null, null, null));
+      assertThrows(
+          IllegalArgumentException.class, () -> client.requestAsync("GET", "health", null, null));
+    }
+  }
+
+  @Test
+  void rawPathCannotChangeTheHost() {
+    // The path is appended to the base URL, so whatever it holds the request
+    // (and its credentials) still goes to the configured server.
+    CryptoServiceClient.Builder builder =
+        CryptoServiceClient.builder().baseUrl("https://api.example:8443/base").apiKey("k");
+    builder.build().close();
+    Transport transport = new Transport(builder, java.net.http.HttpClient.newHttpClient(), false);
+    for (String path : List.of("//evil.example/x", "/@evil.example/y", "/..//evil.example:1/z")) {
+      java.net.URI uri = transport.request(Route.of("GET", path, true), null, null).uri();
+      assertEquals("api.example", uri.getHost(), path);
+      assertEquals(8443, uri.getPort(), path);
+      assertTrue(uri.getRawPath().startsWith("/base/"), path);
     }
   }
 
   @Test
   void typedPostNeedsARequest() {
-    try (CryptoServiceClient client = CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build()) {
+    try (CryptoServiceClient client =
+        CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build()) {
       assertThrows(NullPointerException.class, () -> client.hashAsync(null));
     }
   }
@@ -175,7 +208,8 @@ class ClientTest {
   @Test
   void baseUrlIsNormalised() throws IOException {
     try (TestServer server = TestServer.script(Answer.json(200, HASH_OK));
-        CryptoServiceClient client = CryptoServiceClient.builder().baseUrl(" " + server.url() + "/ ").build()) {
+        CryptoServiceClient client =
+            CryptoServiceClient.builder().baseUrl(" " + server.url() + "/ ").build()) {
       client.hash(new HashRequest(HashAlgorithm.SHA256, "a"));
       assertEquals("/v2/hash", server.seen().get(0).path());
     }
@@ -184,7 +218,8 @@ class ClientTest {
   @Test
   void baseUrlKeepsAPathPrefix() throws IOException {
     try (TestServer server = TestServer.script(Answer.json(200, HASH_OK));
-        CryptoServiceClient client = CryptoServiceClient.builder().baseUrl(server.url() + "/crypto").build()) {
+        CryptoServiceClient client =
+            CryptoServiceClient.builder().baseUrl(server.url() + "/crypto").build()) {
       client.hash(new HashRequest(HashAlgorithm.SHA256, "a"));
       assertEquals("/crypto/v2/hash", server.seen().get(0).path());
     }
@@ -193,31 +228,50 @@ class ClientTest {
   @Test
   void builderRejectsBadSettings() {
     for (String url :
-        List.of("", " ", "ftp://host", "http://host/?q=1", "http://host/#f", "http:///path",
-            "https://user:pw@host", "mailto:x@y")) {
+        List.of(
+            "",
+            " ",
+            "ftp://host",
+            "http://host/?q=1",
+            "http://host/#f",
+            "http:///path",
+            "https://user:pw@host",
+            "mailto:x@y")) {
       CryptoServiceClient.Builder b = CryptoServiceClient.builder().baseUrl(url);
       assertThrows(IllegalArgumentException.class, b::build, url);
     }
     assertThrows(IllegalArgumentException.class, () -> CryptoServiceClient.builder().build());
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> CryptoServiceClient.builder().baseUrl("http://h").timeout(Duration.ZERO).build());
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> CryptoServiceClient.builder().baseUrl("http://h").timeout(null).build());
-    assertThrows(IllegalArgumentException.class,
-        () -> CryptoServiceClient.builder().baseUrl("http://h").timeout(Duration.ofSeconds(-1)).build());
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
+        () ->
+            CryptoServiceClient.builder()
+                .baseUrl("http://h")
+                .timeout(Duration.ofSeconds(-1))
+                .build());
+    assertThrows(
+        IllegalArgumentException.class,
         () -> CryptoServiceClient.builder().baseUrl("http://h").deadline(Duration.ZERO).build());
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> CryptoServiceClient.builder().baseUrl("http://h").apiKey("a\r\nb").build());
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> CryptoServiceClient.builder().baseUrl("http://h").token("a\nb").build());
     assertThrows(NullPointerException.class, () -> CryptoServiceClient.builder().retry(null));
   }
 
   @Test
   void injectedHttpClientMustNotFollowRedirects() {
-    HttpClient follows = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
-    CryptoServiceClient.Builder b = CryptoServiceClient.builder().baseUrl("http://h").httpClient(follows);
+    HttpClient follows =
+        HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
+    CryptoServiceClient.Builder b =
+        CryptoServiceClient.builder().baseUrl("http://h").httpClient(follows);
     assertThrows(IllegalArgumentException.class, b::build);
   }
 
@@ -241,7 +295,9 @@ class ClientTest {
         new Answer(302, java.util.Map.of("Location", "http://example.invalid/"), "", Duration.ZERO);
     try (TestServer server = TestServer.script(redirect);
         CryptoServiceClient client = server.client().build()) {
-      ApiError e = assertThrows(ApiError.class, () -> client.hash(new HashRequest(HashAlgorithm.SHA256, "a")));
+      ApiError e =
+          assertThrows(
+              ApiError.class, () -> client.hash(new HashRequest(HashAlgorithm.SHA256, "a")));
       assertEquals(302, e.status());
       assertEquals(Problem.ABOUT_BLANK, e.problem().type());
       assertEquals(1, server.seen().size());
@@ -250,10 +306,13 @@ class ClientTest {
 
   @Test
   void closedClientRefusesCalls() {
-    CryptoServiceClient client = CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build();
+    CryptoServiceClient client =
+        CryptoServiceClient.builder().baseUrl("http://127.0.0.1:9").build();
     client.close();
     client.close();
-    assertThrows(IllegalStateException.class, () -> client.hashAsync(new HashRequest(HashAlgorithm.SHA256, "a")));
+    assertThrows(
+        IllegalStateException.class,
+        () -> client.hashAsync(new HashRequest(HashAlgorithm.SHA256, "a")));
   }
 
   @Test
@@ -262,10 +321,14 @@ class ClientTest {
     Transport.closeIfCloseable((AutoCloseable) () -> closed.add("closed"));
     Transport.closeIfCloseable("not closeable");
     assertEquals(List.of("closed"), closed);
-    assertThrows(IllegalStateException.class,
-        () -> Transport.closeIfCloseable((AutoCloseable) () -> {
-          throw new IOException("boom");
-        }));
+    assertThrows(
+        IllegalStateException.class,
+        () ->
+            Transport.closeIfCloseable(
+                (AutoCloseable)
+                    () -> {
+                      throw new IOException("boom");
+                    }));
   }
 
   @Test
@@ -273,7 +336,8 @@ class ClientTest {
     List<ResponseInfo> infos = new CopyOnWriteArrayList<>();
     try (TestServer server = TestServer.script(Answer.json(200, HASH_OK));
         CryptoServiceClient client =
-            server.client()
+            server
+                .client()
                 .responseListener(
                     info -> {
                       infos.add(info);
@@ -310,7 +374,8 @@ class ClientTest {
     List<Integer> attempts = new CopyOnWriteArrayList<>();
     try (TestServer server = TestServer.script(Answer.json(503, "{}"), Answer.json(200, HASH_OK));
         CryptoServiceClient client =
-            server.client()
+            server
+                .client()
                 .retry(new RetryOptions(1, Duration.ofMillis(1), Duration.ofMillis(5)))
                 .responseListener(info -> attempts.add(info.attempt()))
                 .build()) {

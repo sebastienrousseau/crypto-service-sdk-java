@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,14 +14,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param plaintext the data key bytes; use, then discard; lowercase hex
  * @param provider the provider that served the request (local, aws, gcp, vault)
  */
-public record KmsDataKey(
-    String ciphertext,
-    String keyId,
-    String plaintext,
-    String provider) {
+public record KmsDataKey(String ciphertext, String keyId, String plaintext, String provider) {
 
   /**
-   * {@link #plaintext()} decoded from hex.
+   * {@link #plaintext() plaintext()} decoded from hex.
    *
    * @return the bytes, or null when {@code plaintext} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

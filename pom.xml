@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- SPDX-License-Identifier: Apache-2.0 OR MIT -->
+<!-- SPDX-FileCopyrightText: 2026 Sebastien Rousseau -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -232,6 +233,21 @@
               <breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
               <breakBuildOnSourceIncompatibleModifications>true</breakBuildOnSourceIncompatibleModifications>
             </parameter>
+          </configuration>
+        </plugin>
+        <plugin>
+          <!-- Google Java Style, applied by google-java-format (the version
+               this plugin bundles): `make style` checks every Java file in
+               the repository, `make format` rewrites them. -->
+          <groupId>com.spotify.fmt</groupId>
+          <artifactId>fmt-maven-plugin</artifactId>
+          <version>2.29</version>
+          <configuration>
+            <additionalSourceDirectories>
+              <additionalSourceDirectory>${project.basedir}/src/fuzz/java</additionalSourceDirectory>
+              <additionalSourceDirectory>${project.basedir}/src/bench/java</additionalSourceDirectory>
+              <additionalSourceDirectory>${project.basedir}/examples</additionalSourceDirectory>
+            </additionalSourceDirectories>
           </configuration>
         </plugin>
         <plugin>

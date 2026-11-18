@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,14 +13,15 @@ import java.util.regex.Pattern;
 /**
  * The kit's template match (conformance/README.md, "expect"): exact values, element-wise arrays,
  * objects with exactly the template's members, and {@code {"$shape": schema}} matched by the subset
- * of JSON Schema 2020-12 the kit uses ({@code type}, {@code const}, {@code pattern}, {@code
- * format} date-time and uuid, {@code required}, {@code properties}, {@code additionalProperties},
- * {@code items}).
+ * of JSON Schema 2020-12 the kit uses ({@code type}, {@code const}, {@code pattern}, {@code format}
+ * date-time and uuid, {@code required}, {@code properties}, {@code additionalProperties}, {@code
+ * items}).
  */
 final class Template {
 
   private static final Pattern UUID =
-      Pattern.compile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
+      Pattern.compile(
+          "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 
   private Template() {}
 
@@ -115,7 +117,8 @@ final class Template {
   }
 
   private static void stringRules(JsonNode schema, String text, String at, List<String> out) {
-    if (schema.has("pattern") && !Pattern.compile(schema.get("pattern").asText()).matcher(text).find()) {
+    if (schema.has("pattern")
+        && !Pattern.compile(schema.get("pattern").asText()).matcher(text).find()) {
       out.add(at + ": does not match " + schema.get("pattern").asText());
     }
     String format = schema.path("format").asText("");

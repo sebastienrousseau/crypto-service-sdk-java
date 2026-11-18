@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,12 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ke2 the serialized KE2 message; lowercase hex
  * @param sessionId single-use login session identifier; pass it to /v2/opaque/login/finish
  */
-public record OpaqueLoginInitResult(
-    String ke2,
-    String sessionId) {
+public record OpaqueLoginInitResult(String ke2, String sessionId) {
 
   /**
-   * {@link #ke2()} decoded from hex.
+   * {@link #ke2() ke2()} decoded from hex.
    *
    * @return the bytes, or null when {@code ke2} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -8,9 +9,7 @@ package co.cryptoservice.sdk;
  * @param keyId identifier of the server-held key; use it with the signing, decryption and
  *     decapsulation routes
  */
-public record KeyDeleteResult(
-    boolean deleted,
-    String keyId) {
+public record KeyDeleteResult(boolean deleted, String keyId) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -20,9 +19,6 @@ public record KeyDeleteResult(
    */
   @Override
   public String toString() {
-    return new Redacted("KeyDeleteResult")
-        .show("deleted", deleted)
-        .show("keyId", keyId)
-        .toString();
+    return new Redacted("KeyDeleteResult").show("deleted", deleted).show("keyId", keyId).toString();
   }
 }

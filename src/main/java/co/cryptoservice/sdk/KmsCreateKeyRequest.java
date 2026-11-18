@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Map;
@@ -12,10 +13,7 @@ import java.util.Map;
  * @param metadata the key metadata, or null
  */
 public record KmsCreateKeyRequest(
-    String provider,
-    String algorithm,
-    KmsKeyUsage usage,
-    Map<String, String> metadata) {
+    String provider, String algorithm, KmsKeyUsage usage, Map<String, String> metadata) {
 
   /**
    * A copy with {@code provider} replaced.

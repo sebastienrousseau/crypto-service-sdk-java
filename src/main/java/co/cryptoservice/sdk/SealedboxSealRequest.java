@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -9,9 +10,7 @@ import java.util.Objects;
  * @param recipientPublicKey the recipient's public key as hex
  * @param plaintext the plaintext, as UTF-8 text
  */
-public record SealedboxSealRequest(
-    String recipientPublicKey,
-    String plaintext) {
+public record SealedboxSealRequest(String recipientPublicKey, String plaintext) {
 
   /**
    * Checks that every required member is present.

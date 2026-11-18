@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param digest the digest; lowercase hex
  * @param length digest length in bytes
  */
-public record HashResult(
-    String algorithm,
-    String digest,
-    int length) {
+public record HashResult(String algorithm, String digest, int length) {
 
   /**
-   * {@link #digest()} decoded from hex.
+   * {@link #digest() digest()} decoded from hex.
    *
    * @return the bytes, or null when {@code digest} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

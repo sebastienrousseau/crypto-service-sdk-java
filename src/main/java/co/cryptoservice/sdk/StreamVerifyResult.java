@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.List;
@@ -12,10 +13,7 @@ import java.util.List;
  * @param validCount number of valid signatures
  */
 public record StreamVerifyResult(
-    boolean allValid,
-    int count,
-    List<StreamVerifyOutcome> results,
-    int validCount) {
+    boolean allValid, int count, List<StreamVerifyOutcome> results, int validCount) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

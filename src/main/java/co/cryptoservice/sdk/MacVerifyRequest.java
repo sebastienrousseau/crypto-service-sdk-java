@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -11,11 +12,7 @@ import java.util.Objects;
  * @param data the input, as UTF-8 text
  * @param mac the MAC as hex
  */
-public record MacVerifyRequest(
-    HmacAlgorithm algorithm,
-    String key,
-    String data,
-    String mac) {
+public record MacVerifyRequest(HmacAlgorithm algorithm, String key, String data, String mac) {
 
   /**
    * Checks that every required member is present.

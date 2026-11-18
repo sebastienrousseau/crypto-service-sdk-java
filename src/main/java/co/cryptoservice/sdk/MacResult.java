@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,12 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm the algorithm
  * @param mac the tag; lowercase hex
  */
-public record MacResult(
-    String algorithm,
-    String mac) {
+public record MacResult(String algorithm, String mac) {
 
   /**
-   * {@link #mac()} decoded from hex.
+   * {@link #mac() mac()} decoded from hex.
    *
    * @return the bytes, or null when {@code mac} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -32,9 +31,6 @@ public record MacResult(
    */
   @Override
   public String toString() {
-    return new Redacted("MacResult")
-        .show("algorithm", algorithm)
-        .hide("mac", mac)
-        .toString();
+    return new Redacted("MacResult").show("algorithm", algorithm).hide("mac", mac).toString();
   }
 }

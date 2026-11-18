@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -16,12 +17,12 @@ import java.util.Map;
  *
  * <p>{@code CRYPTO_SERVICE_URL}, {@code CRYPTO_SERVICE_API_KEY} and {@code
  * CRYPTO_SERVICE_JWT_SECRET} are required by {@code make conformance}, which fails without them; a
- * plain {@code mvn verify} skips the kit. With {@code
- * CRYPTO_SERVICE_JWT_SECRET} (the server's {@code JWT_SECRET}) the runner mints HS256 tokens the way
- * the reference runner does: each file runs as its own principal {@code conformance-<group>}, which
- * keeps every file under the server's 60-requests-a-minute tenant quota, and the vectors that ask
- * for specific scopes can run. Without it, admin vectors use the API key and scoped vectors fail.
- * Token minting ({@link TestTokens}) is test tooling; the SDK itself never signs anything.
+ * plain {@code mvn verify} skips the kit. With {@code CRYPTO_SERVICE_JWT_SECRET} (the server's
+ * {@code JWT_SECRET}) the runner mints HS256 tokens the way the reference runner does: each file
+ * runs as its own principal {@code conformance-<group>}, which keeps every file under the server's
+ * 60-requests-a-minute tenant quota, and the vectors that ask for specific scopes can run. Without
+ * it, admin vectors use the API key and scoped vectors fail. Token minting ({@link TestTokens}) is
+ * test tooling; the SDK itself never signs anything.
  */
 final class KitAuth {
 
@@ -51,7 +52,8 @@ final class KitAuth {
     if (!configured && Boolean.getBoolean("conformance.required")) {
       fail("CRYPTO_SERVICE_URL and CRYPTO_SERVICE_API_KEY must be set to run the conformance kit");
     }
-    assumeTrue(configured, "CRYPTO_SERVICE_URL is not set: the conformance kit needs a live server");
+    assumeTrue(
+        configured, "CRYPTO_SERVICE_URL is not set: the conformance kit needs a live server");
     String secret = System.getenv("CRYPTO_SERVICE_JWT_SECRET");
     boolean jwt = secret != null && !secret.isBlank();
     if (!jwt && Boolean.getBoolean("conformance.required")) {
@@ -84,7 +86,8 @@ final class KitAuth {
     boolean admin = auth == null || auth.isTextual();
     if (jwtSecret == null) {
       if (!admin) {
-        fail("this vector needs specific scopes: set CRYPTO_SERVICE_JWT_SECRET to the server's JWT_SECRET");
+        fail(
+            "this vector needs specific scopes: set CRYPTO_SERVICE_JWT_SECRET to the server's JWT_SECRET");
       }
       return b.apiKey(apiKey).build();
     }

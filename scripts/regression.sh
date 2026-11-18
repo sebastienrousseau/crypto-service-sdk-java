@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # The full regression run, the same steps as CI's conformance job: every
 # local gate (make check), the conformance kit (every vector, none

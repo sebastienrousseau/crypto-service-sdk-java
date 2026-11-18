@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -11,9 +12,7 @@ import java.util.Objects;
  * @param suite the OPAQUE suite, or null for the default
  */
 public record OpaqueRegisterFinishRequest(
-    String credentialIdentifier,
-    String record,
-    OpaqueSuite suite) {
+    String credentialIdentifier, String record, OpaqueSuite suite) {
 
   /**
    * Checks that every required member is present.

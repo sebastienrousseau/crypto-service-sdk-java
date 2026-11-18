@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 # Spelling check for the docs-lint job (`make docs-lint`). Vendored and
 # generated files are skipped; AfterAll is JUnit's annotation.
 [codespell]

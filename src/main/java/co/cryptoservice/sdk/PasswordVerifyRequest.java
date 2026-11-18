@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -12,10 +13,7 @@ import java.util.Objects;
  * @param params the parameters
  */
 public record PasswordVerifyRequest(
-    String password,
-    String hash,
-    String salt,
-    Argon2Params params) {
+    String password, String hash, String salt, Argon2Params params) {
 
   /**
    * Checks that every required member is present.

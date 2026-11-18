@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -8,8 +9,7 @@ import java.util.Objects;
  *
  * @param keyId the server-held key's identifier
  */
-public record KeyIdRequest(
-    String keyId) {
+public record KeyIdRequest(String keyId) {
 
   /**
    * Checks that every required member is present.
@@ -28,8 +28,6 @@ public record KeyIdRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("KeyIdRequest")
-        .show("keyId", keyId)
-        .toString();
+    return new Redacted("KeyIdRequest").show("keyId", keyId).toString();
   }
 }

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -9,9 +10,7 @@ import java.util.Objects;
  * @param keyId the server-held key's identifier
  * @param ciphertext the ciphertext, as the server returned it
  */
-public record MlKemDecapsulateRequest(
-    String keyId,
-    String ciphertext) {
+public record MlKemDecapsulateRequest(String keyId, String ciphertext) {
 
   /**
    * Checks that every required member is present.

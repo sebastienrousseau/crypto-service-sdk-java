@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -12,10 +13,7 @@ import java.util.Objects;
  * @param chunkSize the stream chunk size in bytes, or null for the default
  */
 public record StreamMultiPqDecryptRequest(
-    String keyId,
-    String ciphertext,
-    String recipientId,
-    Integer chunkSize) {
+    String keyId, String ciphertext, String recipientId, Integer chunkSize) {
 
   /**
    * Checks that every required member is present.

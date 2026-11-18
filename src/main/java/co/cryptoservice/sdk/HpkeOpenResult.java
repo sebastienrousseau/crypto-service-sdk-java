@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,12 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param plaintext the decrypted bytes, decoded as UTF-8 (invalid sequences become U+FFFD); UTF-8
  *     text
  */
-public record HpkeOpenResult(
-    String hex,
-    String plaintext) {
+public record HpkeOpenResult(String hex, String plaintext) {
 
   /**
-   * {@link #hex()} decoded from hex.
+   * {@link #hex() hex()} decoded from hex.
    *
    * @return the bytes, or null when {@code hex} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
@@ -34,9 +33,6 @@ public record HpkeOpenResult(
    */
   @Override
   public String toString() {
-    return new Redacted("HpkeOpenResult")
-        .hide("hex", hex)
-        .hide("plaintext", plaintext)
-        .toString();
+    return new Redacted("HpkeOpenResult").hide("hex", hex).hide("plaintext", plaintext).toString();
   }
 }

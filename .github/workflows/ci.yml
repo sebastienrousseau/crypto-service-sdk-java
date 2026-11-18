@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # Lint, build, unit tests and the 100 % coverage gate on Java 17 and 21;
 # the benchmark smoke run; the API breakage check; then the conformance
@@ -38,13 +39,16 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
 
       - name: Every file states the same version
         run: scripts/verify-release-versions
 
       - name: Whitespace format, line length and file size
         run: make format-check size
+
+      - name: Google Java Style (google-java-format)
+        run: make style
 
       - name: javac -Xlint:all -Werror and PMD complexity ceilings
         run: make lint
@@ -56,7 +60,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: ["17", "21"]
+        # The job names keep the major version; each runs an exact
+        # Temurin build (docs/REPRODUCING.md).
+        include:
+          - java: "17"
+            jdk: "17.0.21+9"
+          - java: "21"
+            jdk: "21.0.13+9"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -65,7 +75,7 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: ${{ matrix.java }}
+          java-version: ${{ matrix.jdk }}
 
       - name: Every local gate (JaCoCo fails below 100 % line and branch)
         run: make check
@@ -91,7 +101,7 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
 
       - name: Every client-side scenario briefly (not asserted)
         run: make bench-smoke
@@ -108,13 +118,36 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
 
       # japicmp against the latest co.crypto-service:crypto-service-sdk on
-      # Maven Central. Until the first release is published there is
-      # nothing to compare with, and `make api-check` says so and passes.
+      # Maven Central (its jar checked against Central's .sha256).
       - name: japicmp
         run: make api-check
+
+      # The check itself still bites: a copy of the tree with a public
+      # class made package-private must fail it.
+      - name: api-check rejects a breaking change
+        run: make api-check-selftest
+
+  reproducible:
+    name: Reproducible build (two directories)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
+
+      # The jar, sources and Javadoc jars and the SBOM, built once under
+      # target/ and once under /dev/shm, must be identical.
+      - name: Build the release assets twice and compare
+        run: make repro-check
 
   conformance:
     name: Conformance against crypto-server
@@ -152,7 +185,7 @@ jobs:
       - uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "21.0.13+9" # exact Temurin build: docs/REPRODUCING.md
 
       - name: Build crypto-server
         working-directory: crypto-service

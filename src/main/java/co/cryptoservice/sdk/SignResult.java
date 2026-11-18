@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,12 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm signature algorithm
  * @param signature the 64-byte Ed25519 signature; lowercase hex
  */
-public record SignResult(
-    String algorithm,
-    String signature) {
+public record SignResult(String algorithm, String signature) {
 
   /**
-   * {@link #signature()} decoded from hex.
+   * {@link #signature() signature()} decoded from hex.
    *
    * @return the bytes, or null when {@code signature} is absent
    * @throws IllegalArgumentException when the server sent malformed hex

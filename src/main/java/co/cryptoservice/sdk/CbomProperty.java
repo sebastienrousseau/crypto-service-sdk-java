@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -7,9 +8,7 @@ package co.cryptoservice.sdk;
  * @param name the name
  * @param value the value
  */
-public record CbomProperty(
-    String name,
-    String value) {
+public record CbomProperty(String name, String value) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -19,9 +18,6 @@ public record CbomProperty(
    */
   @Override
   public String toString() {
-    return new Redacted("CbomProperty")
-        .show("name", name)
-        .show("value", value)
-        .toString();
+    return new Redacted("CbomProperty").show("name", name).show("value", value).toString();
   }
 }

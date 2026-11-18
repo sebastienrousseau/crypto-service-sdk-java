@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,12 +13,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     ciphertext; pass it to /v2/password/decrypt as ciphertext; standard base64 (RFC 4648 section
  *     4), padded
  */
-public record PasswordEncryptResult(
-    String algorithm,
-    String encrypted) {
+public record PasswordEncryptResult(String algorithm, String encrypted) {
 
   /**
-   * {@link #encrypted()} decoded from base64.
+   * {@link #encrypted() encrypted()} decoded from base64.
    *
    * @return the bytes, or null when {@code encrypted} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

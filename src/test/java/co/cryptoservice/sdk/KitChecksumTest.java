@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +32,8 @@ class KitChecksumTest {
     }
     List<String> actual = new ArrayList<>();
     try (Stream<Path> files = Files.list(dir)) {
-      for (Path file : files.filter(f -> !f.getFileName().toString().equals("SHA256SUMS")).toList()) {
+      for (Path file :
+          files.filter(f -> !f.getFileName().toString().equals("SHA256SUMS")).toList()) {
         actual.add(file.getFileName() + " " + sha256(file));
       }
     }

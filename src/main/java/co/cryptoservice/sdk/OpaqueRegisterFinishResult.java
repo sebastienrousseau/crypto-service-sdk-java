@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -7,9 +8,7 @@ package co.cryptoservice.sdk;
  * @param credentialIdentifier the identifier, as the request gave it
  * @param status always registered
  */
-public record OpaqueRegisterFinishResult(
-    String credentialIdentifier,
-    String status) {
+public record OpaqueRegisterFinishResult(String credentialIdentifier, String status) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

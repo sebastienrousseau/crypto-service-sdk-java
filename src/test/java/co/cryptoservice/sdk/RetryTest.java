@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,11 +41,16 @@ class RetryTest {
   @Test
   void retryOptionsAreChecked() {
     assertThrows(IllegalArgumentException.class, () -> RetryOptions.of(-1));
-    assertThrows(IllegalArgumentException.class, () -> new RetryOptions(1, null, Duration.ofSeconds(1)));
-    assertThrows(IllegalArgumentException.class, () -> new RetryOptions(1, Duration.ZERO, Duration.ofSeconds(1)));
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class, () -> new RetryOptions(1, null, Duration.ofSeconds(1)));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> new RetryOptions(1, Duration.ZERO, Duration.ofSeconds(1)));
+    assertThrows(
+        IllegalArgumentException.class,
         () -> new RetryOptions(1, Duration.ofSeconds(1), Duration.ofSeconds(-1)));
-    assertThrows(IllegalArgumentException.class,
+    assertThrows(
+        IllegalArgumentException.class,
         () -> new RetryOptions(1, Duration.ofSeconds(2), Duration.ofSeconds(1)));
     assertEquals(0, RetryOptions.NONE.maxRetries());
     assertEquals(Duration.ofMillis(200), RetryOptions.of(2).initialDelay());
@@ -57,9 +63,18 @@ class RetryTest {
     assertTrue(Route.isIdempotent("POST", "/v2/hash"));
     assertTrue(Route.isIdempotent("POST", "/v2/opaque/login/init"));
     for (String path :
-        new String[] {"/v2/keys/generate", "/v2/keys/delete", "/v2/pq/keygen", "/v2/pq/dsa/keygen",
-          "/v2/pq/slh-dsa/keygen", "/v2/pq/hybrid/keygen", "/v2/hpke/keygen", "/v2/kms/create-key",
-          "/v2/opaque/register/init", "/v2/opaque/register/finish"}) {
+        new String[] {
+          "/v2/keys/generate",
+          "/v2/keys/delete",
+          "/v2/pq/keygen",
+          "/v2/pq/dsa/keygen",
+          "/v2/pq/slh-dsa/keygen",
+          "/v2/pq/hybrid/keygen",
+          "/v2/hpke/keygen",
+          "/v2/kms/create-key",
+          "/v2/opaque/register/init",
+          "/v2/opaque/register/finish"
+        }) {
       assertFalse(Route.isIdempotent("POST", path), path);
     }
   }
@@ -76,13 +91,16 @@ class RetryTest {
     Backoff bottom = new Backoff(options, () -> 0.0, EPOCH);
     assertEquals(Duration.ZERO, bottom.jitter(3));
     Backoff huge =
-        new Backoff(new RetryOptions(64, Duration.ofDays(365), Duration.ofDays(3650)), () -> 0.5, EPOCH);
+        new Backoff(
+            new RetryOptions(64, Duration.ofDays(365), Duration.ofDays(3650)), () -> 0.5, EPOCH);
     assertEquals(Duration.ofDays(1825), huge.jitter(31));
   }
 
   @Test
   void decisionsAfterAStatus() {
-    Backoff backoff = new Backoff(new RetryOptions(2, Duration.ofMillis(100), Duration.ofSeconds(2)), () -> 0.5, EPOCH);
+    Backoff backoff =
+        new Backoff(
+            new RetryOptions(2, Duration.ofMillis(100), Duration.ofSeconds(2)), () -> 0.5, EPOCH);
     Optional<String> none = Optional.empty();
     assertEquals(Optional.of(Duration.ofMillis(50)), backoff.afterStatus(1, 503, true, none));
     assertEquals(Optional.of(Duration.ofMillis(50)), backoff.afterStatus(1, 429, false, none));
@@ -91,14 +109,18 @@ class RetryTest {
     assertEquals(Optional.empty(), backoff.afterStatus(3, 503, true, none));
     assertEquals(Optional.empty(), backoff.afterStatus(1, 500, true, none));
     assertEquals(Optional.empty(), backoff.afterStatus(1, 200, true, none));
-    assertEquals(Optional.of(Duration.ofSeconds(1)), backoff.afterStatus(1, 429, true, Optional.of("1")));
+    assertEquals(
+        Optional.of(Duration.ofSeconds(1)), backoff.afterStatus(1, 429, true, Optional.of("1")));
     assertEquals(Optional.empty(), backoff.afterStatus(1, 429, true, Optional.of("3")));
-    assertEquals(Optional.of(Duration.ofMillis(50)), backoff.afterStatus(1, 429, true, Optional.of("soon")));
+    assertEquals(
+        Optional.of(Duration.ofMillis(50)), backoff.afterStatus(1, 429, true, Optional.of("soon")));
   }
 
   @Test
   void decisionsAfterAFailure() {
-    Backoff backoff = new Backoff(new RetryOptions(1, Duration.ofMillis(100), Duration.ofSeconds(2)), () -> 0.5, EPOCH);
+    Backoff backoff =
+        new Backoff(
+            new RetryOptions(1, Duration.ofMillis(100), Duration.ofSeconds(2)), () -> 0.5, EPOCH);
     assertEquals(Optional.of(Duration.ofMillis(50)), backoff.afterFailure(1, true));
     assertEquals(Optional.empty(), backoff.afterFailure(1, false));
     assertEquals(Optional.empty(), backoff.afterFailure(2, true));
@@ -109,8 +131,14 @@ class RetryTest {
     Backoff backoff = new Backoff(RetryOptions.of(1), () -> 0.5, EPOCH);
     assertEquals(Optional.of(Duration.ofSeconds(7)), backoff.parseRetryAfter(" 7 "));
     assertEquals(Optional.of(Duration.ofMillis(1500)), backoff.parseRetryAfter("1.5"));
-    assertEquals(Optional.of(Duration.ofSeconds(60)), backoff.parseRetryAfter("Thu, 1 Jan 1970 00:01:00 GMT"));
-    Backoff later = new Backoff(RetryOptions.of(1), () -> 0.5, Clock.fixed(Instant.ofEpochSecond(3600), ZoneOffset.UTC));
+    assertEquals(
+        Optional.of(Duration.ofSeconds(60)),
+        backoff.parseRetryAfter("Thu, 1 Jan 1970 00:01:00 GMT"));
+    Backoff later =
+        new Backoff(
+            RetryOptions.of(1),
+            () -> 0.5,
+            Clock.fixed(Instant.ofEpochSecond(3600), ZoneOffset.UTC));
     assertEquals(Optional.of(Duration.ZERO), later.parseRetryAfter("Thu, 1 Jan 1970 00:01:00 GMT"));
     assertEquals(Optional.empty(), backoff.parseRetryAfter("-1"));
     assertEquals(Optional.empty(), backoff.parseRetryAfter(""));
@@ -119,7 +147,9 @@ class RetryTest {
   @Test
   void retriesATransientStatusThenSucceeds() throws IOException {
     try (TestServer server =
-            TestServer.script(Answer.json(503, "{}"), Answer.json(429, "{}").with("Retry-After", "0"),
+            TestServer.script(
+                Answer.json(503, "{}"),
+                Answer.json(429, "{}").with("Retry-After", "0"),
                 Answer.json(200, HASH_OK));
         CryptoServiceClient client = server.client().retry(FAST).build()) {
       assertEquals("00", client.hash(hash()).digest());
@@ -132,7 +162,8 @@ class RetryTest {
     String problem =
         "{\"type\":\"urn:crypto-service:problem:rate-limited\",\"title\":\"Too Many Requests\","
             + "\"status\":429,\"detail\":\"Tenant rate limit exceeded.\",\"limit\":60,\"resetSeconds\":30}";
-    try (TestServer server = TestServer.script(Answer.json(429, problem).with("Retry-After", "30"));
+    try (TestServer server =
+            TestServer.script(Answer.json(429, problem).with("Retry-After", "30"));
         CryptoServiceClient client = server.client().retry(FAST).build()) {
       ApiError e = assertThrows(ApiError.class, () -> client.hash(hash()));
       assertEquals(429, e.status());
@@ -189,7 +220,8 @@ class RetryTest {
 
   @Test
   void attemptTimeoutIsATimedOutTransportError() throws IOException {
-    try (TestServer server = TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
+    try (TestServer server =
+            TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
         CryptoServiceClient client = server.client().timeout(Duration.ofMillis(200)).build()) {
       TransportError e = assertThrows(TransportError.class, () -> client.hash(hash()));
       assertTrue(e.timedOut());
@@ -199,7 +231,8 @@ class RetryTest {
 
   @Test
   void deadlineBoundsTheWholeCall() throws IOException {
-    try (TestServer server = TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
+    try (TestServer server =
+            TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
         CryptoServiceClient client = server.client().deadline(Duration.ofMillis(200)).build()) {
       TransportError e = assertThrows(TransportError.class, () -> client.hash(hash()));
       assertTrue(e.timedOut());
@@ -211,7 +244,8 @@ class RetryTest {
   void deadlineStopsRetriesThatWouldOutliveIt() throws IOException {
     RetryOptions slow = new RetryOptions(5, Duration.ofSeconds(5), Duration.ofSeconds(10));
     try (TestServer server = TestServer.script(Answer.json(503, "{}").with("Retry-After", "5"));
-        CryptoServiceClient client = server.client().retry(slow).deadline(Duration.ofSeconds(1)).build()) {
+        CryptoServiceClient client =
+            server.client().retry(slow).deadline(Duration.ofSeconds(1)).build()) {
       assertEquals(503, assertThrows(ApiError.class, () -> client.hash(hash())).status());
       assertEquals(1, server.seen().size());
     }
@@ -227,7 +261,8 @@ class RetryTest {
 
   @Test
   void cancellingTheFutureAbortsTheExchange() throws Exception {
-    try (TestServer server = TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofMillis(500)));
+    try (TestServer server =
+            TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofMillis(500)));
         CryptoServiceClient client = server.client().retry(FAST).build()) {
       CompletableFuture<HashResult> future = client.hashAsync(hash());
       while (server.seen().isEmpty()) {
@@ -242,7 +277,8 @@ class RetryTest {
 
   @Test
   void interruptingABlockingCallCancelsIt() throws Exception {
-    try (TestServer server = TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
+    try (TestServer server =
+            TestServer.script(Answer.json(200, HASH_OK).after(Duration.ofSeconds(2)));
         CryptoServiceClient client = server.client().build()) {
       CompletableFuture<Throwable> thrown = new CompletableFuture<>();
       AtomicBoolean flagKept = new AtomicBoolean();

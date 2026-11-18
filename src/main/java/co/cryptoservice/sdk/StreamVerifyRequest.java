@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.List;
@@ -9,8 +10,7 @@ import java.util.Objects;
  *
  * @param items the items
  */
-public record StreamVerifyRequest(
-    List<StreamVerifyItem> items) {
+public record StreamVerifyRequest(List<StreamVerifyItem> items) {
 
   /**
    * Checks that every required member is present.
@@ -29,8 +29,6 @@ public record StreamVerifyRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("StreamVerifyRequest")
-        .hide("items", items)
-        .toString();
+    return new Redacted("StreamVerifyRequest").hide("items", items).toString();
   }
 }

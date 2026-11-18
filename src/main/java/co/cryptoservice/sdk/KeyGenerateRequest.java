@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -7,9 +8,7 @@ package co.cryptoservice.sdk;
  * @param algorithm the algorithm
  * @param metadata the key metadata, or null
  */
-public record KeyGenerateRequest(
-    KeyAlgorithm algorithm,
-    KeyMetadata metadata) {
+public record KeyGenerateRequest(KeyAlgorithm algorithm, KeyMetadata metadata) {
 
   /**
    * A copy with {@code algorithm} replaced.

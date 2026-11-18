@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,7 +41,8 @@ class ErrorModelTest {
     assertEquals(400, p.status());
     assertEquals("/v2/hash", p.instance());
     assertNull(p.code());
-    assertEquals(List.of(new ValidationError("/data", "required"), new ValidationError("", "")), p.errors());
+    assertEquals(
+        List.of(new ValidationError("/data", "required"), new ValidationError("", "")), p.errors());
     assertEquals("abc", p.extensions().get("traceId").asText());
     assertEquals(
         "Problem[type=urn:crypto-service:problem:validation-failed, title=Validation failed,"
@@ -51,7 +53,8 @@ class ErrorModelTest {
 
   @Test
   void readsACodeAndFillsGaps() {
-    Problem p = parse("{\"detail\":\"Decryption failed\",\"code\":\"AUTH_FAILED\",\"status\":\"x\"}", 400);
+    Problem p =
+        parse("{\"detail\":\"Decryption failed\",\"code\":\"AUTH_FAILED\",\"status\":\"x\"}", 400);
     assertEquals(Problem.ABOUT_BLANK, p.type());
     assertEquals("HTTP error", p.title());
     assertEquals(400, p.status());
@@ -62,7 +65,9 @@ class ErrorModelTest {
 
   @Test
   void anythingElseBecomesAboutBlank() {
-    for (String body : List.of("", "<html>bad gateway</html>", "[1,2]", "{\"detail\":5}", "\"text\"", "null", "{")) {
+    for (String body :
+        List.of(
+            "", "<html>bad gateway</html>", "[1,2]", "{\"detail\":5}", "\"text\"", "null", "{")) {
       Problem p = parse(body, 502);
       assertEquals(Problem.ABOUT_BLANK, p.type(), body);
       assertEquals(502, p.status());
@@ -73,8 +78,11 @@ class ErrorModelTest {
   @Test
   void problemIsImmutable() {
     Problem p = Problem.blank(500);
-    assertThrows(UnsupportedOperationException.class, () -> p.errors().add(new ValidationError("a", "b")));
-    assertThrows(NullPointerException.class, () -> new Problem("t", "t", 1, "d", null, null, null, Map.of()));
+    assertThrows(
+        UnsupportedOperationException.class, () -> p.errors().add(new ValidationError("a", "b")));
+    assertThrows(
+        NullPointerException.class,
+        () -> new Problem("t", "t", 1, "d", null, null, null, Map.of()));
   }
 
   @Test
@@ -86,7 +94,8 @@ class ErrorModelTest {
     try (TestServer server = TestServer.script(Answer.json(400, body));
         CryptoServiceClient client = server.client().build()) {
       ApiError e =
-          assertThrows(ApiError.class, () -> client.decrypt(new DecryptRequest("ff", "secret-ciphertext")));
+          assertThrows(
+              ApiError.class, () -> client.decrypt(new DecryptRequest("ff", "secret-ciphertext")));
       assertEquals(400, e.status());
       assertEquals("AUTH_FAILED", e.problem().code());
       assertEquals("POST", e.method());
@@ -99,10 +108,36 @@ class ErrorModelTest {
   }
 
   @Test
+  void serverTextCannotForgeLogLines() {
+    // A hostile server's problem members end up in the exception message and in
+    // Problem.toString, which callers log: control characters and Unicode line
+    // separators must come out escaped, never raw.
+    String body =
+        "{\"type\":\"urn:x\\r\\n2026-01-01 INFO forged\",\"title\":\"t\\u2028u\","
+            + "\"instance\":\"/i\\u0085j\",\"code\":\"C\\u0000D\",\"detail\":\"d\"}";
+    Problem p = parse(body, 400);
+    assertEquals("urn:x\r\n2026-01-01 INFO forged", p.type());
+    ApiError e = new ApiError(400, p, Route.of("POST", "/v2/hash", true));
+    assertEquals(
+        "crypto-service answered HTTP 400 (urn:x\\u000d\\u000a2026-01-01 INFO forged) to POST /v2/hash",
+        e.getMessage());
+    assertEquals(
+        "Problem[type=urn:x\\u000d\\u000a2026-01-01 INFO forged, title=t\\u2028u, status=400,"
+            + " detail=<redacted>, instance=/i\\u0085j, code=C\\u0000D, errors=0, extensions=[]]",
+        p.toString());
+    assertEquals("a\\u2029b\\u007f", Redacted.printable("a\u2029b\u007f"));
+    assertEquals("plain text", Redacted.printable("plain text"));
+    assertEquals(
+        "ValidationError[field=/a\\u000a, message=m\\u000d\\u000aforged]",
+        new ValidationError("/a\n", "m\r\nforged").toString());
+  }
+
+  @Test
   void asyncFailuresCompleteTheFutureExceptionally() throws IOException {
     try (TestServer server = TestServer.script(Answer.json(404, "{\"detail\":\"no\"}"));
         CryptoServiceClient client = server.client().build()) {
-      CompletableFuture<SignResult> f = client.signAsync(new SignRequest("k_AAAAAAAAAAAAAAAAAAAAAA", "m"));
+      CompletableFuture<SignResult> f =
+          client.signAsync(new SignRequest("k_AAAAAAAAAAAAAAAAAAAAAA", "m"));
       CompletionException e = assertThrows(CompletionException.class, f::join);
       assertEquals(404, assertInstanceOf(ApiError.class, e.getCause()).status());
     }
@@ -110,11 +145,16 @@ class ErrorModelTest {
 
   @Test
   void malformedSuccessBodyIsATransportErrorWithoutTheBody() throws IOException {
-    for (String body : List.of("<html>secret-page</html>", "{\"data\":null}", "{}", "{\"data\":{\"length\":\"x\"}}")) {
+    for (String body :
+        List.of(
+            "<html>secret-page</html>", "{\"data\":null}", "{}", "{\"data\":{\"length\":\"x\"}}")) {
       try (TestServer server = TestServer.script(Answer.json(200, body));
           CryptoServiceClient client = server.client().build()) {
         TransportError e =
-            assertThrows(TransportError.class, () -> client.hash(new HashRequest(HashAlgorithm.SHA256, "a")), body);
+            assertThrows(
+                TransportError.class,
+                () -> client.hash(new HashRequest(HashAlgorithm.SHA256, "a")),
+                body);
         assertFalse(e.timedOut());
         assertNull(e.getCause());
         assertEquals("malformed response body (POST /v2/hash)", e.getMessage());
@@ -126,7 +166,8 @@ class ErrorModelTest {
   void transportErrorClassifiesTimeouts() {
     Route route = Route.of("GET", "/health", false);
     assertTrue(TransportError.of(route, new java.net.http.HttpTimeoutException("t")).timedOut());
-    assertTrue(TransportError.of(route, new java.net.http.HttpConnectTimeoutException("t")).timedOut());
+    assertTrue(
+        TransportError.of(route, new java.net.http.HttpConnectTimeoutException("t")).timedOut());
     TransportError network = TransportError.of(route, new java.net.ConnectException("refused"));
     assertFalse(network.timedOut());
     assertEquals("network error (GET /health)", network.getMessage());
@@ -151,7 +192,9 @@ class ErrorModelTest {
     CompletableFuture<String> source = new CompletableFuture<>();
     CompletableFuture<Integer> mapped = ClientCore.map(source, String::length);
     source.completeExceptionally(new CompletionException(new IllegalStateException("x")));
-    assertInstanceOf(IllegalStateException.class, assertThrows(CompletionException.class, mapped::join).getCause());
+    assertInstanceOf(
+        IllegalStateException.class,
+        assertThrows(CompletionException.class, mapped::join).getCause());
     CompletableFuture<String> pending = new CompletableFuture<>();
     ClientCore.map(pending, String::length).cancel(true);
     assertTrue(pending.isCancelled());
@@ -164,7 +207,8 @@ class ErrorModelTest {
 
   @Test
   void blockingCallUnwrapsTheCause() throws IOException {
-    try (TestServer server = TestServer.script(Answer.json(500, "{\"detail\":\"boom\"}").after(Duration.ZERO));
+    try (TestServer server =
+            TestServer.script(Answer.json(500, "{\"detail\":\"boom\"}").after(Duration.ZERO));
         CryptoServiceClient client = server.client().build()) {
       assertEquals(500, assertThrows(ApiError.class, client::algorithms).status());
     }

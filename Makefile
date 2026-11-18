@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 #
 # `make check` runs every local gate CI's build job runs: the version
 # check, whitespace format, file size, the Maven build (javac -Xlint:all
@@ -28,16 +29,16 @@ EXAMPLES := $(sort $(basename $(notdir $(wildcard examples/*.java))))
 LOCK_PROFILES := bench,release
 CENTRAL := https://repo1.maven.org/maven2/co/crypto-service/crypto-service-sdk
 DOCS_PY ?= python3
-FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest
+FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest RetryAfterFuzzTest
 FUZZ_TIME ?= 60s
 
-.PHONY: help check format-check size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
-  versions regression api-check javadoc manual docs-lint release-dry-run
+.PHONY: help check format-check style format size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
+  versions regression api-check api-check-selftest repro-check reproduce javadoc manual docs-lint release-dry-run
 
 help: ## List the targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed 's/:.*## /: /'
 
-check: versions format-check size verify example-compile readme-compile ## Every local gate
+check: versions format-check style size verify example-compile readme-compile ## Every local gate
 
 versions: ## Every file states the version in pom.xml
 	@scripts/verify-release-versions
@@ -45,10 +46,10 @@ versions: ## Every file states the version in pom.xml
 regression: ## Gate, conformance kit, examples, README snippets and benchmark smoke against a fresh server
 	scripts/regression.sh
 
-api-check: ## japicmp against the latest release on Maven Central (no-op before the first)
-	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" 2>/dev/null | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
+api-check: ## japicmp against the latest release on Maven Central
+	@latest=$$(curl -fsS "$(CENTRAL)/maven-metadata.xml" | sed -n 's:.*<release>\(.*\)</release>.*:\1:p'); \
 	if [ -z "$$latest" ]; then \
-	  echo "api-check: no release of co.crypto-service:crypto-service-sdk on Maven Central yet; nothing to compare"; exit 0; fi; \
+	  echo "api-check: cannot read the latest release from $(CENTRAL)/maven-metadata.xml"; exit 1; fi; \
 	mkdir -p target; jar="target/japicmp-baseline.jar"; \
 	curl -fsSL -o "$$jar" "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar"; \
 	want=$$(curl -fsSL "$(CENTRAL)/$$latest/crypto-service-sdk-$$latest.jar.sha256" | cut -c1-64); \
@@ -56,6 +57,16 @@ api-check: ## japicmp against the latest release on Maven Central (no-op before 
 	[ "$${got%% *}" = "$$want" ] || { echo "api-check: baseline $$latest does not match its .sha256"; exit 1; }; \
 	echo "api-check: comparing with $$latest"; \
 	$(MVN) -B -q -DskipTests package japicmp:cmp -Djapicmp.baseline.jar="$(CURDIR)/$$jar"
+
+api-check-selftest: ## api-check still fails on a breaking change (a copy with Bytes made package-private)
+	scripts/api-check-selftest
+
+repro-check: ## Build the release assets twice, in two directories, and require identical bytes
+	scripts/repro-check
+
+reproduce: ## Rebuild release VERSION from its tag and check it against GitHub and Maven Central
+	@test -n "$(VERSION)" || { echo "reproduce: set VERSION, for example make reproduce VERSION=0.0.40"; exit 1; }
+	scripts/reproduce-release "$(VERSION)"
 
 javadoc: ## The Javadoc (doclint all, warnings fail) into target/reports/apidocs
 	$(MVN) -B -q -DskipTests compile javadoc:javadoc
@@ -85,6 +96,12 @@ format-check: ## No tabs, no trailing spaces, LF endings, final newline; library
 	  if grep -q "$$(printf '\r')" "$$f"; then echo "CRLF in $$f"; bad=1; fi; \
 	  if [ -n "$$(tail -c1 "$$f")" ]; then echo "no final newline in $$f"; bad=1; fi; \
 	done; exit $$bad
+
+style: ## Google Java Style: every Java file is as google-java-format writes it
+	$(MVN) -B -q com.spotify.fmt:fmt-maven-plugin:check
+
+format: ## Rewrite every Java file with google-java-format
+	$(MVN) -B -q com.spotify.fmt:fmt-maven-plugin:format
 
 size: ## Every Java file is at most 500 lines
 	@bad=0; \
@@ -171,7 +188,7 @@ demo: build example-compile ## Render .github/demo.gif with vhs against CRYPTO_S
 lock: ## Re-record .mvn/checksums from a clean local repository
 	rm -rf .mvn/checksums $(LOCK_REPO)
 	$(MVN) -B -q -Dmaven.repo.local=$(LOCK_REPO) $(TC).record=true -P$(LOCK_PROFILES) \
-	  clean deploy pmd:check dependency:build-classpath cyclonedx:makeBom javadoc:javadoc japicmp:cmp \
+	  clean deploy pmd:check com.spotify.fmt:fmt-maven-plugin:check dependency:build-classpath cyclonedx:makeBom javadoc:javadoc japicmp:cmp \
 	  -Dmdep.outputFile=target/classpath.txt -DoutputFormat=json -DincludeTestScope=true \
 	  -Dgpg.skip=true -Dcentral.skipUpload=true -Dcentral.ignorePublished=false -Djapicmp.skip=true -s ci/dry-run-settings.xml
 	rm -rf $(LOCK_REPO)

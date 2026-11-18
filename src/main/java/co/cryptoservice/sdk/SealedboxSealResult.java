@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,12 +12,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param sealed ephemeral X25519 public key (32 bytes) || nonce (24 bytes) || ciphertext || tag (16
  *     bytes); standard base64 (RFC 4648 section 4), padded
  */
-public record SealedboxSealResult(
-    String algorithm,
-    String sealed) {
+public record SealedboxSealResult(String algorithm, String sealed) {
 
   /**
-   * {@link #sealed()} decoded from base64.
+   * {@link #sealed() sealed()} decoded from base64.
    *
    * @return the bytes, or null when {@code sealed} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

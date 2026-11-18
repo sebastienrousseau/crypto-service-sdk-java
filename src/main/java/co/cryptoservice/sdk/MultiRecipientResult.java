@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,12 +15,10 @@ import java.util.List;
  * @param recipients the recipients
  */
 public record MultiRecipientResult(
-    String algorithm,
-    String ciphertext,
-    List<RecipientEnvelope> recipients) {
+    String algorithm, String ciphertext, List<RecipientEnvelope> recipients) {
 
   /**
-   * {@link #ciphertext()} decoded from base64.
+   * {@link #ciphertext() ciphertext()} decoded from base64.
    *
    * @return the bytes, or null when {@code ciphertext} is absent
    * @throws IllegalArgumentException when the server sent malformed base64

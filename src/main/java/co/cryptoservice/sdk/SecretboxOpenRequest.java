@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import java.util.Objects;
@@ -10,10 +11,7 @@ import java.util.Objects;
  * @param ciphertext the ciphertext, as the server returned it
  * @param aad additional authenticated data, or null
  */
-public record SecretboxOpenRequest(
-    String key,
-    String ciphertext,
-    String aad) {
+public record SecretboxOpenRequest(String key, String ciphertext, String aad) {
 
   /**
    * Checks that every required member is present.

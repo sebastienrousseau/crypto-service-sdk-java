@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 /**
@@ -6,8 +7,7 @@ package co.cryptoservice.sdk;
  *
  * @param valid whether the password matches
  */
-public record PasswordVerifyResult(
-    boolean valid) {
+public record PasswordVerifyResult(boolean valid) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -17,8 +17,6 @@ public record PasswordVerifyResult(
    */
   @Override
   public String toString() {
-    return new Redacted("PasswordVerifyResult")
-        .show("valid", valid)
-        .toString();
+    return new Redacted("PasswordVerifyResult").show("valid", valid).toString();
   }
 }

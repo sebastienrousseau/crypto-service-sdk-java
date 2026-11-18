@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+// SPDX-FileCopyrightText: 2026 Sebastien Rousseau
 package co.cryptoservice.sdk;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,13 +11,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param provider the provider that served the request (local, aws, gcp, vault)
  * @param unwrappedKey the unwrapped key bytes; lowercase hex
  */
-public record KmsUnwrapResult(
-    String keyId,
-    String provider,
-    String unwrappedKey) {
+public record KmsUnwrapResult(String keyId, String provider, String unwrappedKey) {
 
   /**
-   * {@link #unwrappedKey()} decoded from hex.
+   * {@link #unwrappedKey() unwrappedKey()} decoded from hex.
    *
    * @return the bytes, or null when {@code unwrappedKey} is absent
    * @throws IllegalArgumentException when the server sent malformed hex
