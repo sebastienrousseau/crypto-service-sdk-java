@@ -271,12 +271,17 @@ client.close();
 | `baseUrl(String)` | required | The server, for example `http://127.0.0.1:3101`; http or https with a host, no user info, query or fragment |
 | `apiKey(String)` | none | Sent as `x-api-key` |
 | `token(String)` | none | A JWT, sent as `Authorization: Bearer <token>` |
-| `timeout(Duration)` | 30 seconds | Per attempt: connect and response headers |
+| `timeout(Duration)` | 30 seconds | Per attempt: connect and response headers, not the body |
 | `deadline(Duration)` | none | The whole call, retries and waits included |
 | `retry(RetryOptions)` | `RetryOptions.NONE` | `maxRetries` (0), `initialDelay` (200 ms), `maxDelay` (2 s) |
 | `traceparent(String)` / `autoTraceparent(boolean)` | none | A fixed W3C `traceparent`, or a fresh one per request |
 | `responseListener(ResponseListener)` | none | Sees each response's status and headers (never a body) |
 | `httpClient(HttpClient)` | the client's own | Inject a client for tests or a proxy; it must not follow redirects |
+
+The per-attempt `timeout` does not cover reading the response body, so a
+body that trickles in is bounded only by `deadline` (or by cancelling the
+future). Set a `deadline` on any client that talks to a server you do not
+control, as the example below does with `.deadline(Duration.ofSeconds(10))`.
 
 The blocking methods work from any thread pool, and from virtual
 threads on Java 21 without extra setup:
