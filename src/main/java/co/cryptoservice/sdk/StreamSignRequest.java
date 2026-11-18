@@ -9,8 +9,7 @@ import java.util.Objects;
  *
  * @param items the items
  */
-public record StreamSignRequest(
-    List<StreamSignItem> items) {
+public record StreamSignRequest(List<StreamSignItem> items) {
 
   /**
    * Checks that every required member is present.
@@ -29,8 +28,6 @@ public record StreamSignRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("StreamSignRequest")
-        .hide("items", items)
-        .toString();
+    return new Redacted("StreamSignRequest").hide("items", items).toString();
   }
 }

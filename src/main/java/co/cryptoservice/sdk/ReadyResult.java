@@ -9,9 +9,7 @@ import java.util.Map;
  * @param checks each check, true when it passes
  * @param status the status
  */
-public record ReadyResult(
-    Map<String, Boolean> checks,
-    String status) {
+public record ReadyResult(Map<String, Boolean> checks, String status) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -21,9 +19,6 @@ public record ReadyResult(
    */
   @Override
   public String toString() {
-    return new Redacted("ReadyResult")
-        .show("checks", checks)
-        .show("status", status)
-        .toString();
+    return new Redacted("ReadyResult").show("checks", checks).show("status", status).toString();
   }
 }

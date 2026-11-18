@@ -10,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param combiner shared-secret combiner
  * @param sharedSecret the 32-byte shared secret; lowercase hex
  */
-public record HybridDecapsulateResult(
-    String algorithm,
-    String combiner,
-    String sharedSecret) {
+public record HybridDecapsulateResult(String algorithm, String combiner, String sharedSecret) {
 
   /**
    * {@link #sharedSecret()} decoded from hex.

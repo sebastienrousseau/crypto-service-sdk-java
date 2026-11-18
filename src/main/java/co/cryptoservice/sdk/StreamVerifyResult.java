@@ -12,10 +12,7 @@ import java.util.List;
  * @param validCount number of valid signatures
  */
 public record StreamVerifyResult(
-    boolean allValid,
-    int count,
-    List<StreamVerifyOutcome> results,
-    int validCount) {
+    boolean allValid, int count, List<StreamVerifyOutcome> results, int validCount) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

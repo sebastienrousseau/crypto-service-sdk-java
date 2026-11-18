@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param publicKey the public key as hex
  * @param signature the signature as hex
  */
-public record PostQuantumSignature(
-    String algorithm,
-    String publicKey,
-    String signature) {
+public record PostQuantumSignature(String algorithm, String publicKey, String signature) {
 
   /**
    * Checks that every required member is present.

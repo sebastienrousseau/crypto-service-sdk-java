@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param recipientId the recipient's identifier
  * @param x25519PublicKey the X25519 public key as hex
  */
-public record StreamRecipient(
-    String mlKemPublicKey,
-    String recipientId,
-    String x25519PublicKey) {
+public record StreamRecipient(String mlKemPublicKey, String recipientId, String x25519PublicKey) {
 
   /**
    * Checks that every required member is present.

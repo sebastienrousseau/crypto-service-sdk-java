@@ -12,10 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     (RFC 4648 section 4), padded
  * @param recipientCount number of recipients
  */
-public record StreamMultiPqEncryptResult(
-    String algorithm,
-    String ciphertext,
-    int recipientCount) {
+public record StreamMultiPqEncryptResult(String algorithm, String ciphertext, int recipientCount) {
 
   /**
    * {@link #ciphertext()} decoded from base64.

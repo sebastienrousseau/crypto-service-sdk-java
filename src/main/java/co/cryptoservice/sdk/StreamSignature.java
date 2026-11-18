@@ -10,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param id the item's id
  * @param signature the 64-byte Ed25519 signature; lowercase hex
  */
-public record StreamSignature(
-    String algorithm,
-    String id,
-    String signature) {
+public record StreamSignature(String algorithm, String id, String signature) {
 
   /**
    * {@link #signature()} decoded from hex.

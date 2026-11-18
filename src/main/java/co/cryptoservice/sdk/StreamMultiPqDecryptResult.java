@@ -9,9 +9,7 @@ package co.cryptoservice.sdk;
  *     text
  * @param recipientId the recipient slot that opened the ciphertext
  */
-public record StreamMultiPqDecryptResult(
-    String plaintext,
-    String recipientId) {
+public record StreamMultiPqDecryptResult(String plaintext, String recipientId) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

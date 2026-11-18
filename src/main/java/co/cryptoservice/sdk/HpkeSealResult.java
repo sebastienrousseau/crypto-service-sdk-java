@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext the AEAD ciphertext, tag included; lowercase hex
  * @param encapsulatedKey the KEM encapsulated key (enc); lowercase hex
  */
-public record HpkeSealResult(
-    String ciphertext,
-    String encapsulatedKey) {
+public record HpkeSealResult(String ciphertext, String encapsulatedKey) {
 
   /**
    * {@link #ciphertext()} decoded from hex.

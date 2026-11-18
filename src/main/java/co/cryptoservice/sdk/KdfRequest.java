@@ -13,11 +13,7 @@ import java.util.Objects;
  * @param params the parameters
  */
 public record KdfRequest(
-    KdfAlgorithm algorithm,
-    String password,
-    String salt,
-    Double keyLength,
-    KdfParams params) {
+    KdfAlgorithm algorithm, String password, String salt, Double keyLength, KdfParams params) {
 
   /**
    * Checks that every required member is present.

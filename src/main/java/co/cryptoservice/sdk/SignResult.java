@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm signature algorithm
  * @param signature the 64-byte Ed25519 signature; lowercase hex
  */
-public record SignResult(
-    String algorithm,
-    String signature) {
+public record SignResult(String algorithm, String signature) {
 
   /**
    * {@link #signature()} decoded from hex.

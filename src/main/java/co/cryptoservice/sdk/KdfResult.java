@@ -11,11 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param keyLength derived key length in bytes
  * @param salt the salt used: the request's, or 16 random bytes; lowercase hex
  */
-public record KdfResult(
-    String algorithm,
-    String derivedKey,
-    int keyLength,
-    String salt) {
+public record KdfResult(String algorithm, String derivedKey, int keyLength, String salt) {
 
   /**
    * {@link #derivedKey()} decoded from hex.

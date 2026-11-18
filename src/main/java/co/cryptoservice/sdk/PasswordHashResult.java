@@ -14,11 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param salt the random 16-byte salt; lowercase hex
  */
 public record PasswordHashResult(
-    String algorithm,
-    String hash,
-    Argon2Params params,
-    String phc,
-    String salt) {
+    String algorithm, String hash, Argon2Params params, String phc, String salt) {
 
   /**
    * {@link #hash()} decoded from hex.

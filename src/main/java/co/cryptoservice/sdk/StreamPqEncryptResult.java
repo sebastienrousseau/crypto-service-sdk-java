@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext the chunked STREAM ciphertext with its header; standard base64 (RFC 4648
  *     section 4), padded
  */
-public record StreamPqEncryptResult(
-    String algorithm,
-    String ciphertext) {
+public record StreamPqEncryptResult(String algorithm, String ciphertext) {
 
   /**
    * {@link #ciphertext()} decoded from base64.

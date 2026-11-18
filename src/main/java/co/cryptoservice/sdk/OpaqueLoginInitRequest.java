@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param ke1 the client's KE1 message as hex
  * @param suite the OPAQUE suite, or null for the default
  */
-public record OpaqueLoginInitRequest(
-    String credentialIdentifier,
-    String ke1,
-    OpaqueSuite suite) {
+public record OpaqueLoginInitRequest(String credentialIdentifier, String ke1, OpaqueSuite suite) {
 
   /**
    * Checks that every required member is present.

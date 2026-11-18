@@ -8,8 +8,7 @@ import java.util.Objects;
  *
  * @param publicKey the public key as hex
  */
-public record MlKemEncapsulateRequest(
-    String publicKey) {
+public record MlKemEncapsulateRequest(String publicKey) {
 
   /**
    * Checks that every required member is present.
@@ -28,8 +27,6 @@ public record MlKemEncapsulateRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("MlKemEncapsulateRequest")
-        .hide("publicKey", publicKey)
-        .toString();
+    return new Redacted("MlKemEncapsulateRequest").hide("publicKey", publicKey).toString();
   }
 }

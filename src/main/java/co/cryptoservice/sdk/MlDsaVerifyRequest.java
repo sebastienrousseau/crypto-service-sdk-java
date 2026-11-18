@@ -12,10 +12,7 @@ import java.util.Objects;
  * @param signature the signature as hex
  */
 public record MlDsaVerifyRequest(
-    MlDsaLevel level,
-    String publicKey,
-    String message,
-    String signature) {
+    MlDsaLevel level, String publicKey, String message, String signature) {
 
   /**
    * Checks that every required member is present.

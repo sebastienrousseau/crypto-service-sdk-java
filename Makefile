@@ -31,13 +31,13 @@ DOCS_PY ?= python3
 FUZZ_TARGETS ?= ProblemFuzzTest ResponseDecodingFuzzTest RetryAfterFuzzTest
 FUZZ_TIME ?= 60s
 
-.PHONY: help check format-check size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
+.PHONY: help check format-check style format size verify build test lint conformance classpath example-compile examples readme-snippets readme-compile bench-build bench bench-smoke demo fuzz lock sbom audit clean \
   versions regression api-check api-check-selftest javadoc manual docs-lint release-dry-run
 
 help: ## List the targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed 's/:.*## /: /'
 
-check: versions format-check size verify example-compile readme-compile ## Every local gate
+check: versions format-check style size verify example-compile readme-compile ## Every local gate
 
 versions: ## Every file states the version in pom.xml
 	@scripts/verify-release-versions
@@ -88,6 +88,12 @@ format-check: ## No tabs, no trailing spaces, LF endings, final newline; library
 	  if grep -q "$$(printf '\r')" "$$f"; then echo "CRLF in $$f"; bad=1; fi; \
 	  if [ -n "$$(tail -c1 "$$f")" ]; then echo "no final newline in $$f"; bad=1; fi; \
 	done; exit $$bad
+
+style: ## Google Java Style: every Java file is as google-java-format writes it
+	$(MVN) -B -q com.spotify.fmt:fmt-maven-plugin:check
+
+format: ## Rewrite every Java file with google-java-format
+	$(MVN) -B -q com.spotify.fmt:fmt-maven-plugin:format
 
 size: ## Every Java file is at most 500 lines
 	@bad=0; \
@@ -174,7 +180,7 @@ demo: build example-compile ## Render .github/demo.gif with vhs against CRYPTO_S
 lock: ## Re-record .mvn/checksums from a clean local repository
 	rm -rf .mvn/checksums $(LOCK_REPO)
 	$(MVN) -B -q -Dmaven.repo.local=$(LOCK_REPO) $(TC).record=true -P$(LOCK_PROFILES) \
-	  clean deploy pmd:check dependency:build-classpath cyclonedx:makeBom javadoc:javadoc japicmp:cmp \
+	  clean deploy pmd:check com.spotify.fmt:fmt-maven-plugin:check dependency:build-classpath cyclonedx:makeBom javadoc:javadoc japicmp:cmp \
 	  -Dmdep.outputFile=target/classpath.txt -DoutputFormat=json -DincludeTestScope=true \
 	  -Dgpg.skip=true -Dcentral.skipUpload=true -Dcentral.ignorePublished=false -Djapicmp.skip=true -s ci/dry-run-settings.xml
 	rm -rf $(LOCK_REPO)

@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param plaintext the plaintext, as UTF-8 text
  * @param aad additional authenticated data, or null
  */
-public record SecretboxSealRequest(
-    String key,
-    String plaintext,
-    String aad) {
+public record SecretboxSealRequest(String key, String plaintext, String aad) {
 
   /**
    * Checks that every required member is present.

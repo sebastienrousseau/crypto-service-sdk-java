@@ -14,10 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     when absent
  */
 public record RecipientEnvelope(
-    String ephemeralPublicKey,
-    String type,
-    String wrappedKey,
-    String mlKemCiphertext) {
+    String ephemeralPublicKey, String type, String wrappedKey, String mlKemCiphertext) {
 
   /**
    * {@link #ephemeralPublicKey()} decoded from hex.

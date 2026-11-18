@@ -12,10 +12,7 @@ import java.util.Objects;
  * @param params the parameters
  */
 public record PasswordVerifyRequest(
-    String password,
-    String hash,
-    String salt,
-    Argon2Params params) {
+    String password, String hash, String salt, Argon2Params params) {
 
   /**
    * Checks that every required member is present.

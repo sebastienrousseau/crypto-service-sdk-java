@@ -8,8 +8,7 @@ import java.util.Objects;
  *
  * @param variant the parameter set
  */
-public record SlhDsaKeygenRequest(
-    SlhDsaVariant variant) {
+public record SlhDsaKeygenRequest(SlhDsaVariant variant) {
 
   /**
    * Checks that every required member is present.
@@ -28,8 +27,6 @@ public record SlhDsaKeygenRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("SlhDsaKeygenRequest")
-        .show("variant", variant)
-        .toString();
+    return new Redacted("SlhDsaKeygenRequest").show("variant", variant).toString();
   }
 }

@@ -12,10 +12,7 @@ import java.util.Objects;
  * @param parallelism the Argon2id lanes, or null for the default
  */
 public record PasswordHashRequest(
-    String password,
-    Integer timeCost,
-    Integer memoryCost,
-    Integer parallelism) {
+    String password, Integer timeCost, Integer memoryCost, Integer parallelism) {
 
   /**
    * Checks that every required member is present.

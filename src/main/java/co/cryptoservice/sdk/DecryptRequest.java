@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param key the 256-bit key as hex (64 characters)
  * @param ciphertext the ciphertext, as the server returned it
  */
-public record DecryptRequest(
-    String key,
-    String ciphertext) {
+public record DecryptRequest(String key, String ciphertext) {
 
   /**
    * Checks that every required member is present.

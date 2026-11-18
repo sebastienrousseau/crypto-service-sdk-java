@@ -23,12 +23,12 @@ import java.util.stream.Stream;
  * Runs the vendored conformance kit ({@code conformance/}, see its README): file by file, vector by
  * vector, with {@code ${name}} captures kept for the rest of the file.
  *
- * <p>A vector goes through the SDK's public typed method for its route when one exists and its
- * body binds to the method's request type without loss; otherwise (unknown route, malformed body,
- * a member the request type does not model, the v1 routes, {@code /metrics}) it goes through
- * {@link CryptoServiceClient#request}. A typed answer is turned back into JSON (the result record,
- * wrapped in {@code data} where the route wraps it, or the problem of an {@link ApiError}) and
- * matched against the template, so the record must carry every member the server sends.
+ * <p>A vector goes through the SDK's public typed method for its route when one exists and its body
+ * binds to the method's request type without loss; otherwise (unknown route, malformed body, a
+ * member the request type does not model, the v1 routes, {@code /metrics}) it goes through {@link
+ * CryptoServiceClient#request}. A typed answer is turned back into JSON (the result record, wrapped
+ * in {@code data} where the route wraps it, or the problem of an {@link ApiError}) and matched
+ * against the template, so the record must carry every member the server sends.
  */
 final class ConformanceKit {
 
@@ -41,9 +41,11 @@ final class ConformanceKit {
   private final Map<String, List<Method>> typed;
 
   /** Vectors run through a typed method, and through the raw request. */
-  final java.util.concurrent.atomic.AtomicInteger typedRuns = new java.util.concurrent.atomic.AtomicInteger();
+  final java.util.concurrent.atomic.AtomicInteger typedRuns =
+      new java.util.concurrent.atomic.AtomicInteger();
 
-  final java.util.concurrent.atomic.AtomicInteger rawRuns = new java.util.concurrent.atomic.AtomicInteger();
+  final java.util.concurrent.atomic.AtomicInteger rawRuns =
+      new java.util.concurrent.atomic.AtomicInteger();
 
   ConformanceKit(Map<String, List<Method>> typed) {
     this.typed = typed;
@@ -77,10 +79,12 @@ final class ConformanceKit {
     }
     JsonNode copy = node.deepCopy();
     if (copy.isObject()) {
-      node.properties().forEach(e -> ((ObjectNode) copy).set(e.getKey(), substitute(e.getValue(), captured)));
+      node.properties()
+          .forEach(e -> ((ObjectNode) copy).set(e.getKey(), substitute(e.getValue(), captured)));
     } else if (copy.isArray()) {
       for (int i = 0; i < node.size(); i++) {
-        ((com.fasterxml.jackson.databind.node.ArrayNode) copy).set(i, substitute(node.get(i), captured));
+        ((com.fasterxml.jackson.databind.node.ArrayNode) copy)
+            .set(i, substitute(node.get(i), captured));
       }
     }
     return copy;
@@ -91,14 +95,16 @@ final class ConformanceKit {
     JsonNode request = substitute(vector.get("request"), captured);
     JsonNode expect = substitute(vector.get("expect"), captured);
     CryptoServiceClient client = auth.client(vector.get("auth"));
-    Observed seen = typedCall(client, request, auth).orElseGet(() -> rawCall(client, request, auth));
+    Observed seen =
+        typedCall(client, request, auth).orElseGet(() -> rawCall(client, request, auth));
     (seen.typed() ? typedRuns : rawRuns).incrementAndGet();
     List<String> problems = new ArrayList<>();
     if (seen.status() != expect.get("status").asInt()) {
       problems.add("status " + seen.status() + ", expected " + expect.get("status").asInt());
     }
     if (!expect.get("mediaType").asText().equals(seen.mediaType())) {
-      problems.add("media type " + seen.mediaType() + ", expected " + expect.get("mediaType").asText());
+      problems.add(
+          "media type " + seen.mediaType() + ", expected " + expect.get("mediaType").asText());
     }
     for (Map.Entry<String, JsonNode> h : expect.path("headers").properties()) {
       Optional<String> value = seen.info().headers().firstValue(h.getKey());
@@ -149,7 +155,8 @@ final class ConformanceKit {
     }
   }
 
-  private static Observed invoke(Method m, CryptoServiceClient client, Object[] args, KitAuth auth) {
+  private static Observed invoke(
+      Method m, CryptoServiceClient client, Object[] args, KitAuth auth) {
     try {
       Object result = m.invoke(client, args);
       JsonNode tree = Json.MAPPER.valueToTree(result);
@@ -160,7 +167,8 @@ final class ConformanceKit {
     } catch (InvocationTargetException e) {
       if (e.getCause() instanceof ApiError error) {
         ResponseInfo info = auth.lastResponse();
-        return new Observed(error.status(), info.mediaType().orElse(""), info, problemJson(error.problem()), true);
+        return new Observed(
+            error.status(), info.mediaType().orElse(""), info, problemJson(error.problem()), true);
       }
       throw new IllegalStateException(e.getCause());
     } catch (IllegalAccessException e) {
@@ -171,7 +179,10 @@ final class ConformanceKit {
   /** A problem as the JSON the server sent. */
   static JsonNode problemJson(Problem p) {
     ObjectNode out = Json.MAPPER.createObjectNode();
-    out.put("type", p.type()).put("title", p.title()).put("status", p.status()).put("detail", p.detail());
+    out.put("type", p.type())
+        .put("title", p.title())
+        .put("status", p.status())
+        .put("detail", p.detail());
     if (p.instance() != null) {
       out.put("instance", p.instance());
     }
@@ -193,7 +204,8 @@ final class ConformanceKit {
       body = Json.encode(request.get("body"));
     }
     String type = request.path("headers").path("content-type").asText(null);
-    RawResponse r = client.request(request.get("method").asText(), request.get("path").asText(), body, type);
+    RawResponse r =
+        client.request(request.get("method").asText(), request.get("path").asText(), body, type);
     String mediaType = r.mediaType().orElse("");
     JsonNode parsed = TextNode.valueOf(r.bodyText());
     if (mediaType.endsWith("json")) {

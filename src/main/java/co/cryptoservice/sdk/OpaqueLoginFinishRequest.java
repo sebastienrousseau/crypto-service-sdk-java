@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param sessionId the login session identifier
  * @param ke3 the client's KE3 message as hex
  */
-public record OpaqueLoginFinishRequest(
-    String sessionId,
-    String ke3) {
+public record OpaqueLoginFinishRequest(String sessionId, String ke3) {
 
   /**
    * Checks that every required member is present.

@@ -11,9 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param sealed ephemeral X25519 public key (32 bytes) || nonce (24 bytes) || ciphertext || tag (16
  *     bytes); standard base64 (RFC 4648 section 4), padded
  */
-public record SealedboxSealResult(
-    String algorithm,
-    String sealed) {
+public record SealedboxSealResult(String algorithm, String sealed) {
 
   /**
    * {@link #sealed()} decoded from base64.

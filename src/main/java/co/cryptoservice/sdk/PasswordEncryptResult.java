@@ -12,9 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     ciphertext; pass it to /v2/password/decrypt as ciphertext; standard base64 (RFC 4648 section
  *     4), padded
  */
-public record PasswordEncryptResult(
-    String algorithm,
-    String encrypted) {
+public record PasswordEncryptResult(String algorithm, String encrypted) {
 
   /**
    * {@link #encrypted()} decoded from base64.

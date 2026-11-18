@@ -12,10 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     decapsulation routes
  * @param publicKey the KEM public key; lowercase hex
  */
-public record HpkeKeyPair(
-    String algorithm,
-    String keyId,
-    String publicKey) {
+public record HpkeKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
    * {@link #publicKey()} decoded from hex.

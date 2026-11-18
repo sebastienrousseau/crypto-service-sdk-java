@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param recipientPublicKey the recipient's public key as hex
  * @param plaintext the plaintext, as UTF-8 text
  */
-public record SealedboxSealRequest(
-    String recipientPublicKey,
-    String plaintext) {
+public record SealedboxSealRequest(String recipientPublicKey, String plaintext) {
 
   /**
    * Checks that every required member is present.

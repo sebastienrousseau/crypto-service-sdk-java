@@ -12,10 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     decapsulation routes
  * @param publicKey the SLH-DSA public key; lowercase hex
  */
-public record SlhDsaKeyPair(
-    String algorithm,
-    String keyId,
-    String publicKey) {
+public record SlhDsaKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
    * {@link #publicKey()} decoded from hex.

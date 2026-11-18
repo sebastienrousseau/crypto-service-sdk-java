@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @param sessionKey the session key; lowercase hex
  */
-public record OpaqueLoginFinishResult(
-    String sessionKey) {
+public record OpaqueLoginFinishResult(String sessionKey) {
 
   /**
    * {@link #sessionKey()} decoded from hex.
@@ -30,8 +29,6 @@ public record OpaqueLoginFinishResult(
    */
   @Override
   public String toString() {
-    return new Redacted("OpaqueLoginFinishResult")
-        .hide("sessionKey", sessionKey)
-        .toString();
+    return new Redacted("OpaqueLoginFinishResult").hide("sessionKey", sessionKey).toString();
   }
 }

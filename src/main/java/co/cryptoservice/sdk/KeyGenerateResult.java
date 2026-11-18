@@ -16,11 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param publicKey the public key; lowercase hex
  */
 public record KeyGenerateResult(
-    String algorithm,
-    String keyId,
-    String kid,
-    KeyMetadata metadata,
-    String publicKey) {
+    String algorithm, String keyId, String kid, KeyMetadata metadata, String publicKey) {
 
   /**
    * {@link #publicKey()} decoded from hex.

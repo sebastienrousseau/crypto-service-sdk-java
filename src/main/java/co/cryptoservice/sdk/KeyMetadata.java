@@ -8,10 +8,7 @@ package co.cryptoservice.sdk;
  * @param kid the key identifier
  * @param use {@code sig} or {@code enc}, or null
  */
-public record KeyMetadata(
-    String exp,
-    String kid,
-    String use) {
+public record KeyMetadata(String exp, String kid, String use) {
 
   /**
    * A copy with {@code exp} replaced.

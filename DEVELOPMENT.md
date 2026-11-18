@@ -22,7 +22,7 @@ pull-request etiquette.
 
 | CI job | Local command | What it checks |
 | :--- | :--- | :--- |
-| CI / Lint and format | `scripts/verify-release-versions` and `make format-check size lint` | Versions agree; no tabs, trailing spaces or CRLF; library and examples within 100 columns; 500 lines per file; `javac -Xlint:all -Werror`; PMD ceilings |
+| CI / Lint and format | `scripts/verify-release-versions` and `make format-check size style lint` | Versions agree; no tabs, trailing spaces or CRLF; library and examples within 100 columns; 500 lines per file; every Java file as google-java-format writes it (Google Java Style); `javac -Xlint:all -Werror`; PMD ceilings |
 | CI / Build, unit tests and coverage (Java 17, 21) | `make check` | `mvn verify`: unit tests, Jazzer seeds, JaCoCo 100 % line and branch, PMD; examples and README snippets compile |
 | CI / Conformance against crypto-server | `make regression` | The full run below |
 | CI / Benchmarks smoke | `make bench-smoke` | Every JMH scenario runs briefly; nothing asserted |

@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm the algorithm
  * @param signature the ML-DSA signature; lowercase hex
  */
-public record MlDsaSignResult(
-    String algorithm,
-    String signature) {
+public record MlDsaSignResult(String algorithm, String signature) {
 
   /**
    * {@link #signature()} decoded from hex.

@@ -11,11 +11,7 @@ import java.util.Objects;
  * @param publicKey the public key as hex
  * @param signature the signature as hex
  */
-public record StreamVerifyItem(
-    String id,
-    String message,
-    String publicKey,
-    String signature) {
+public record StreamVerifyItem(String id, String message, String publicKey, String signature) {
 
   /**
    * Checks that every required member is present.

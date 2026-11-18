@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param wrappedKey the wrapped key, as the server returned it
  * @param algorithm the algorithm
  */
-public record KeyUnwrapRequest(
-    String kek,
-    String wrappedKey,
-    KeyWrapAlgorithm algorithm) {
+public record KeyUnwrapRequest(String kek, String wrappedKey, KeyWrapAlgorithm algorithm) {
 
   /**
    * Checks that every required member is present.

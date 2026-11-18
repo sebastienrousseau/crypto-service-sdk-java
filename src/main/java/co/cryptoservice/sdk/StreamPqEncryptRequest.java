@@ -12,10 +12,7 @@ import java.util.Objects;
  * @param chunkSize the stream chunk size in bytes, or null for the default
  */
 public record StreamPqEncryptRequest(
-    String x25519PublicKey,
-    String mlKemPublicKey,
-    String plaintext,
-    Integer chunkSize) {
+    String x25519PublicKey, String mlKemPublicKey, String plaintext, Integer chunkSize) {
 
   /**
    * Checks that every required member is present.

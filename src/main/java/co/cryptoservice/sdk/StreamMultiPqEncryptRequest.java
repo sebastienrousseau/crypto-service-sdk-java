@@ -12,9 +12,7 @@ import java.util.Objects;
  * @param chunkSize the stream chunk size in bytes, or null for the default
  */
 public record StreamMultiPqEncryptRequest(
-    String plaintext,
-    List<StreamRecipient> recipients,
-    Integer chunkSize) {
+    String plaintext, List<StreamRecipient> recipients, Integer chunkSize) {
 
   /**
    * Checks that every required member is present.

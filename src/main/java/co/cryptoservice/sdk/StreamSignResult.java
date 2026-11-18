@@ -9,9 +9,7 @@ import java.util.List;
  * @param count number of signatures
  * @param signatures the signatures
  */
-public record StreamSignResult(
-    int count,
-    List<StreamSignature> signatures) {
+public record StreamSignResult(int count, List<StreamSignature> signatures) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

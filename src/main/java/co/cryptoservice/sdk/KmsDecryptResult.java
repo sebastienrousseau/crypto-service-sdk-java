@@ -12,11 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     text
  * @param provider the provider that served the request (local, aws, gcp, vault)
  */
-public record KmsDecryptResult(
-    String hex,
-    String keyId,
-    String plaintext,
-    String provider) {
+public record KmsDecryptResult(String hex, String keyId, String plaintext, String provider) {
 
   /**
    * {@link #hex()} decoded from hex.

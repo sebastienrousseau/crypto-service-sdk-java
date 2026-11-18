@@ -10,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext the 1088-byte ML-KEM-768 ciphertext; lowercase hex
  * @param sharedSecret the 32-byte shared secret; lowercase hex
  */
-public record MlKemEncapsulateResult(
-    String algorithm,
-    String ciphertext,
-    String sharedSecret) {
+public record MlKemEncapsulateResult(String algorithm, String ciphertext, String sharedSecret) {
 
   /**
    * {@link #ciphertext()} decoded from hex.

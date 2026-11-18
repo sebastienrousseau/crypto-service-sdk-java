@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @param response the serialized RegistrationResponse; lowercase hex
  */
-public record OpaqueRegisterInitResult(
-    String response) {
+public record OpaqueRegisterInitResult(String response) {
 
   /**
    * {@link #response()} decoded from hex.
@@ -30,8 +29,6 @@ public record OpaqueRegisterInitResult(
    */
   @Override
   public String toString() {
-    return new Redacted("OpaqueRegisterInitResult")
-        .hide("response", response)
-        .toString();
+    return new Redacted("OpaqueRegisterInitResult").hide("response", response).toString();
   }
 }

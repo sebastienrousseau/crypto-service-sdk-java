@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param keyId the server-held key's identifier
  * @param message the message, as UTF-8 text
  */
-public record StreamSignItem(
-    String id,
-    String keyId,
-    String message) {
+public record StreamSignItem(String id, String keyId, String message) {
 
   /**
    * Checks that every required member is present.

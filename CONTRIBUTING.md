@@ -37,6 +37,33 @@ Maven refuses any dependency or plugin whose SHA-256 is not recorded in
 `.mvn/checksums/`. After changing a version, including a Dependabot
 bump, run `make lock` and commit the diff with the change.
 
+## Coding style
+
+The project follows the
+[Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
+Layout is not a matter of taste here: every Java file (library, tests,
+fuzz targets, benchmarks and examples) must be exactly what
+google-java-format writes, the version bundled with the pinned
+`fmt-maven-plugin` in `pom.xml`. `make format` rewrites the files and
+`make style` checks them; CI's Lint and format job runs `make style`.
+
+On top of the guide, the build enforces:
+
+- no tabs, trailing spaces or CRLF, a final newline, and at most 100
+  columns in the library and examples (`make format-check`,
+  `.editorconfig`);
+- at most 500 lines per Java file (`make size`);
+- `javac -Xlint:all -Werror`: a new compiler warning fails the build;
+- PMD ceilings per method: cyclomatic complexity 10, cognitive
+  complexity 15, 60 statements (`config/pmd/complexity.xml`);
+- Javadoc on every public type and member, checked by doclint `all`
+  with warnings as errors (`make javadoc`).
+
+The parts of the guide no tool checks (naming, the order of members,
+Javadoc wording) are checked in review. The rules that are particular
+to this SDK, such as no cryptography in `src/main` and no secrets in
+any message or `toString`, are in [AGENTS.md](AGENTS.md).
+
 ## Updating the server contract
 
 1. Put the new crypto-service commit SHA in `ci/server.ref`.

@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 
 /**
  * Synthetic values for reflective tests: every SDK record and enum, and an instance of any record
- * with every member set. The values are placeholders ({@code "abcd"} is valid hex and base64), never
- * real keys.
+ * with every member set. The values are placeholders ({@code "abcd"} is valid hex and base64),
+ * never real keys.
  */
 final class Synthetic {
 

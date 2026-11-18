@@ -31,7 +31,8 @@ class KitChecksumTest {
     }
     List<String> actual = new ArrayList<>();
     try (Stream<Path> files = Files.list(dir)) {
-      for (Path file : files.filter(f -> !f.getFileName().toString().equals("SHA256SUMS")).toList()) {
+      for (Path file :
+          files.filter(f -> !f.getFileName().toString().equals("SHA256SUMS")).toList()) {
         actual.add(file.getFileName() + " " + sha256(file));
       }
     }

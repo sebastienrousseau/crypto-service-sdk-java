@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param wrapped the wrapped key (RFC 3394 / RFC 5649 output); standard base64 (RFC 4648 section
  *     4), padded
  */
-public record KeyWrapResult(
-    String algorithm,
-    String wrapped) {
+public record KeyWrapResult(String algorithm, String wrapped) {
 
   /**
    * {@link #wrapped()} decoded from base64.

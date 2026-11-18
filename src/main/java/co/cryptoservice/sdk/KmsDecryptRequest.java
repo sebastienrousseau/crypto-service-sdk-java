@@ -13,10 +13,7 @@ import java.util.Objects;
  * @param context the encryption context, or null
  */
 public record KmsDecryptRequest(
-    String keyId,
-    String ciphertext,
-    String provider,
-    Map<String, String> context) {
+    String keyId, String ciphertext, String provider, Map<String, String> context) {
 
   /**
    * Checks that every required member is present.

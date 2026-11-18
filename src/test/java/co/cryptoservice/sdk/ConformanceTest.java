@@ -55,8 +55,11 @@ class ConformanceTest {
     OPEN.forEach(KitAuth::close);
     if (kit != null) {
       System.out.println(
-          "conformance: " + kit.typedRuns.get() + " vectors through typed methods, "
-              + kit.rawRuns.get() + " through the raw request");
+          "conformance: "
+              + kit.typedRuns.get()
+              + " vectors through typed methods, "
+              + kit.rawRuns.get()
+              + " through the raw request");
     }
   }
 }

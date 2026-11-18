@@ -10,12 +10,7 @@ package co.cryptoservice.sdk;
  * @param p the scrypt parallelism, or null
  * @param r the scrypt block size, or null
  */
-public record KdfParams(
-    Integer N,
-    String info,
-    Integer iterations,
-    Integer p,
-    Integer r) {
+public record KdfParams(Integer N, String info, Integer iterations, Integer p, Integer r) {
 
   /**
    * A copy with {@code N} replaced.

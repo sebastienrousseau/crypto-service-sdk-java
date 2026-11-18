@@ -8,10 +8,7 @@ package co.cryptoservice.sdk;
  * @param statusCode the statusCode
  * @param uptime process uptime in seconds
  */
-public record HealthResult(
-    String status,
-    int statusCode,
-    double uptime) {
+public record HealthResult(String status, int statusCode, double uptime) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

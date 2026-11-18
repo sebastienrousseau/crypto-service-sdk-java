@@ -10,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param digest the digest; lowercase hex
  * @param length digest length in bytes
  */
-public record HashResult(
-    String algorithm,
-    String digest,
-    int length) {
+public record HashResult(String algorithm, String digest, int length) {
 
   /**
    * {@link #digest()} decoded from hex.

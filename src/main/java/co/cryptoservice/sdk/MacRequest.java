@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param key the 256-bit key as hex (64 characters)
  * @param data the input, as UTF-8 text
  */
-public record MacRequest(
-    HmacAlgorithm algorithm,
-    String key,
-    String data) {
+public record MacRequest(HmacAlgorithm algorithm, String key, String data) {
 
   /**
    * Checks that every required member is present.

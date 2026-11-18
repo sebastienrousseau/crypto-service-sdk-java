@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param ciphertext the ciphertext, as the server returned it
  * @param chunkSize the stream chunk size in bytes, or null for the default
  */
-public record StreamPqDecryptRequest(
-    String keyId,
-    String ciphertext,
-    Integer chunkSize) {
+public record StreamPqDecryptRequest(String keyId, String ciphertext, Integer chunkSize) {
 
   /**
    * Checks that every required member is present.

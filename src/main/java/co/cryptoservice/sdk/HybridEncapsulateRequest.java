@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param x25519PublicKey the X25519 public key as hex
  * @param mlKemPublicKey the ML-KEM public key as hex
  */
-public record HybridEncapsulateRequest(
-    String x25519PublicKey,
-    String mlKemPublicKey) {
+public record HybridEncapsulateRequest(String x25519PublicKey, String mlKemPublicKey) {
 
   /**
    * Checks that every required member is present.

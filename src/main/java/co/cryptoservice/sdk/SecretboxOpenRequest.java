@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param ciphertext the ciphertext, as the server returned it
  * @param aad additional authenticated data, or null
  */
-public record SecretboxOpenRequest(
-    String key,
-    String ciphertext,
-    String aad) {
+public record SecretboxOpenRequest(String key, String ciphertext, String aad) {
 
   /**
    * Checks that every required member is present.

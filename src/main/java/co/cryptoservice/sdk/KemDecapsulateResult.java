@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm KEM algorithm
  * @param sharedSecret the 32-byte shared secret; lowercase hex
  */
-public record KemDecapsulateResult(
-    String algorithm,
-    String sharedSecret) {
+public record KemDecapsulateResult(String algorithm, String sharedSecret) {
 
   /**
    * {@link #sharedSecret()} decoded from hex.

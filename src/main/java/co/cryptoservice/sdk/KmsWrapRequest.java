@@ -13,10 +13,7 @@ import java.util.Objects;
  * @param context the encryption context, or null
  */
 public record KmsWrapRequest(
-    String keyId,
-    String unwrappedKey,
-    String provider,
-    Map<String, String> context) {
+    String keyId, String unwrappedKey, String provider, Map<String, String> context) {
 
   /**
    * Checks that every required member is present.

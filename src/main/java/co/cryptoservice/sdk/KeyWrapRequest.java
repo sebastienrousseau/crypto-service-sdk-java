@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param keyToWrap the key to wrap, as hex
  * @param algorithm the algorithm
  */
-public record KeyWrapRequest(
-    String kek,
-    String keyToWrap,
-    KeyWrapAlgorithm algorithm) {
+public record KeyWrapRequest(String kek, String keyToWrap, KeyWrapAlgorithm algorithm) {
 
   /**
    * Checks that every required member is present.

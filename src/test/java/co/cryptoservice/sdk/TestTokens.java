@@ -26,8 +26,10 @@ final class TestTokens {
     claims.put("iat", now).put("exp", now + 600);
     optional(claims, "iss", "CRYPTO_SERVICE_JWT_ISSUER");
     optional(claims, "aud", "CRYPTO_SERVICE_JWT_AUDIENCE");
-    String input = b64("{\"alg\":\"HS256\",\"typ\":\"JWT\"}".getBytes(StandardCharsets.UTF_8))
-        + "." + b64(claims.toString().getBytes(StandardCharsets.UTF_8));
+    String input =
+        b64("{\"alg\":\"HS256\",\"typ\":\"JWT\"}".getBytes(StandardCharsets.UTF_8))
+            + "."
+            + b64(claims.toString().getBytes(StandardCharsets.UTF_8));
     return input + "." + b64(hmac(secret, input));
   }
 

@@ -11,9 +11,7 @@ import java.util.Objects;
  * @param plaintext the plaintext, as UTF-8 text
  */
 public record SealedboxSealPqRequest(
-    String x25519PublicKey,
-    String mlKemPublicKey,
-    String plaintext) {
+    String x25519PublicKey, String mlKemPublicKey, String plaintext) {
 
   /**
    * Checks that every required member is present.

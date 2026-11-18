@@ -7,9 +7,7 @@ package co.cryptoservice.sdk;
  * @param algorithm the algorithm
  * @param valid whether the signature is valid
  */
-public record MlDsaVerifyResult(
-    String algorithm,
-    boolean valid) {
+public record MlDsaVerifyResult(String algorithm, boolean valid) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

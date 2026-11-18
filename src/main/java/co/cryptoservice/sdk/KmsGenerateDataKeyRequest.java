@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param keySpec the data-key specification, or null for the default
  * @param provider the KMS provider, or null for the default
  */
-public record KmsGenerateDataKeyRequest(
-    String keyId,
-    String keySpec,
-    String provider) {
+public record KmsGenerateDataKeyRequest(String keyId, String keySpec, String provider) {
 
   /**
    * Checks that every required member is present.

@@ -14,9 +14,7 @@ import java.util.List;
  * @param recipients the recipients
  */
 public record MultiRecipientResult(
-    String algorithm,
-    String ciphertext,
-    List<RecipientEnvelope> recipients) {
+    String algorithm, String ciphertext, List<RecipientEnvelope> recipients) {
 
   /**
    * {@link #ciphertext()} decoded from base64.

@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param algorithm the algorithm
  * @param data the input, as UTF-8 text
  */
-public record HashRequest(
-    HashAlgorithm algorithm,
-    String data) {
+public record HashRequest(HashAlgorithm algorithm, String data) {
 
   /**
    * Checks that every required member is present.
@@ -31,9 +29,6 @@ public record HashRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("HashRequest")
-        .show("algorithm", algorithm)
-        .hide("data", data)
-        .toString();
+    return new Redacted("HashRequest").show("algorithm", algorithm).hide("data", data).toString();
   }
 }

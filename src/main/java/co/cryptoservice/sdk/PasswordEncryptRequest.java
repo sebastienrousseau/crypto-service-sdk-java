@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param password the password
  * @param plaintext the plaintext, as UTF-8 text
  */
-public record PasswordEncryptRequest(
-    String password,
-    String plaintext) {
+public record PasswordEncryptRequest(String password, String plaintext) {
 
   /**
    * Checks that every required member is present.

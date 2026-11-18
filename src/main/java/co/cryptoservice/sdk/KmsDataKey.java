@@ -13,11 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param plaintext the data key bytes; use, then discard; lowercase hex
  * @param provider the provider that served the request (local, aws, gcp, vault)
  */
-public record KmsDataKey(
-    String ciphertext,
-    String keyId,
-    String plaintext,
-    String provider) {
+public record KmsDataKey(String ciphertext, String keyId, String plaintext, String provider) {
 
   /**
    * {@link #plaintext()} decoded from hex.

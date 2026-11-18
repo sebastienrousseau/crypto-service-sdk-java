@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param algorithm the algorithm
  * @param mac the tag; lowercase hex
  */
-public record MacResult(
-    String algorithm,
-    String mac) {
+public record MacResult(String algorithm, String mac) {
 
   /**
    * {@link #mac()} decoded from hex.
@@ -32,9 +30,6 @@ public record MacResult(
    */
   @Override
   public String toString() {
-    return new Redacted("MacResult")
-        .show("algorithm", algorithm)
-        .hide("mac", mac)
-        .toString();
+    return new Redacted("MacResult").show("algorithm", algorithm).hide("mac", mac).toString();
   }
 }

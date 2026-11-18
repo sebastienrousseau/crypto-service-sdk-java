@@ -12,10 +12,7 @@ import java.util.List;
  * @param version the version, or null when absent
  */
 public record CbomComponent(
-    String name,
-    List<CbomProperty> properties,
-    String type,
-    String version) {
+    String name, List<CbomProperty> properties, String type, String version) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

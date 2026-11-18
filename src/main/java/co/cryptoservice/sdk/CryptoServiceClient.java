@@ -38,9 +38,9 @@ import java.util.function.Supplier;
  * virtual thread per call costs no platform thread while it waits.
  *
  * <p><b>Security.</b> Redirects are never followed (a 3xx is an {@link ApiError}), so credentials
- * cannot leak to another origin. TLS uses the JVM's default trust store and hostname
- * verification; the SDK has no option to turn either off. Credentials, keys, plaintexts and bodies
- * never appear in exception messages or in any {@code toString}.
+ * cannot leak to another origin. TLS uses the JVM's default trust store and hostname verification;
+ * the SDK has no option to turn either off. Credentials, keys, plaintexts and bodies never appear
+ * in exception messages or in any {@code toString}.
  */
 public final class CryptoServiceClient extends MetaOperations implements AutoCloseable {
 
@@ -175,8 +175,8 @@ public final class CryptoServiceClient extends MetaOperations implements AutoClo
     }
 
     /**
-     * The limit on a whole call, retries and waits included; none when not set. When it passes,
-     * the call fails with a {@link TransportError} whose {@code timedOut()} is true.
+     * The limit on a whole call, retries and waits included; none when not set. When it passes, the
+     * call fails with a {@link TransportError} whose {@code timedOut()} is true.
      *
      * @param deadline a positive duration, or null for none
      * @return this builder
@@ -249,9 +249,9 @@ public final class CryptoServiceClient extends MetaOperations implements AutoClo
      * Builds the client.
      *
      * @return the client, thread-safe
-     * @throws IllegalArgumentException when the base URL is missing or malformed, a duration is
-     *     not positive, a credential is not a valid header value, or the injected HTTP client
-     *     follows redirects
+     * @throws IllegalArgumentException when the base URL is missing or malformed, a duration is not
+     *     positive, a credential is not a valid header value, or the injected HTTP client follows
+     *     redirects
      */
     public CryptoServiceClient build() {
       baseUrl = normalise(baseUrl);

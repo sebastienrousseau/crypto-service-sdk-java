@@ -12,10 +12,7 @@ import java.util.Objects;
  * @param signature the signature as hex
  */
 public record SlhDsaVerifyRequest(
-    SlhDsaVariant variant,
-    String publicKey,
-    String message,
-    String signature) {
+    SlhDsaVariant variant, String publicKey, String message, String signature) {
 
   /**
    * Checks that every required member is present.

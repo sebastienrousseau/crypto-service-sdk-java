@@ -20,10 +20,19 @@ final class TypedRoutes {
 
   /** Result types the API does not wrap in {@code data}. */
   static final Set<Class<?>> BARE =
-      Set.of(HealthResult.class, LiveResult.class, ReadyResult.class, ServiceInfo.class, CbomDocument.class);
+      Set.of(
+          HealthResult.class,
+          LiveResult.class,
+          ReadyResult.class,
+          ServiceInfo.class,
+          CbomDocument.class);
 
   private static final Set<String> STRING_DATA =
-      Set.of("/v2/secretbox/open", "/v2/sealedbox/open", "/v2/sealedbox/open-pq", "/v2/password/decrypt",
+      Set.of(
+          "/v2/secretbox/open",
+          "/v2/sealedbox/open",
+          "/v2/sealedbox/open-pq",
+          "/v2/password/decrypt",
           "/v2/keys/unwrap");
 
   private TypedRoutes() {}
@@ -44,9 +53,11 @@ final class TypedRoutes {
         int before = server.seen().size();
         ((CompletableFuture<?>) invoke(m, client, args)).join();
         TestServer.Seen seen = server.seen().get(before);
-        Method blocking = CryptoServiceClient.class.getMethod(
-            m.getName().substring(0, m.getName().length() - 5), m.getParameterTypes());
-        List<Method> list = routes.computeIfAbsent(seen.method() + " " + seen.path(), k -> new ArrayList<>());
+        Method blocking =
+            CryptoServiceClient.class.getMethod(
+                m.getName().substring(0, m.getName().length() - 5), m.getParameterTypes());
+        List<Method> list =
+            routes.computeIfAbsent(seen.method() + " " + seen.path(), k -> new ArrayList<>());
         list.add(blocking);
         list.sort((a, b) -> b.getParameterCount() - a.getParameterCount());
       }

@@ -43,7 +43,8 @@ follow them too. Read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 ## The gate
 
 - `make check`: versions, whitespace format (library and examples within
-  100 columns), the 500-line file limit and `mvn -B verify` (javac
+  100 columns), Google Java Style (`make style`; `make format` applies
+  it), the 500-line file limit and `mvn -B verify` (javac
   `-Xlint:all -Werror`, unit tests and fuzz seeds, JaCoCo at 100 % line
   and branch coverage, PMD ceilings: cyclomatic 10, cognitive 15, 60
   statements per method), plus the compile of every example and README

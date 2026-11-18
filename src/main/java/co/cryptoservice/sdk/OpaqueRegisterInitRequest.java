@@ -11,9 +11,7 @@ import java.util.Objects;
  * @param suite the OPAQUE suite, or null for the default
  */
 public record OpaqueRegisterInitRequest(
-    String credentialIdentifier,
-    String request,
-    OpaqueSuite suite) {
+    String credentialIdentifier, String request, OpaqueSuite suite) {
 
   /**
    * Checks that every required member is present.

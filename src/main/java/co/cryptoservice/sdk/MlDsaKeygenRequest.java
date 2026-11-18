@@ -8,8 +8,7 @@ import java.util.Objects;
  *
  * @param level the security level
  */
-public record MlDsaKeygenRequest(
-    MlDsaLevel level) {
+public record MlDsaKeygenRequest(MlDsaLevel level) {
 
   /**
    * Checks that every required member is present.
@@ -28,8 +27,6 @@ public record MlDsaKeygenRequest(
    */
   @Override
   public String toString() {
-    return new Redacted("MlDsaKeygenRequest")
-        .show("level", level)
-        .toString();
+    return new Redacted("MlDsaKeygenRequest").show("level", level).toString();
   }
 }

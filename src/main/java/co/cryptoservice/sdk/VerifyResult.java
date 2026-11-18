@@ -7,9 +7,7 @@ package co.cryptoservice.sdk;
  * @param algorithm signature algorithm
  * @param valid whether the signature is valid
  */
-public record VerifyResult(
-    String algorithm,
-    boolean valid) {
+public record VerifyResult(String algorithm, boolean valid) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are

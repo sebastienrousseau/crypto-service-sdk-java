@@ -46,6 +46,9 @@ jobs:
       - name: Whitespace format, line length and file size
         run: make format-check size
 
+      - name: Google Java Style (google-java-format)
+        run: make style
+
       - name: javac -Xlint:all -Werror and PMD complexity ceilings
         run: make lint
 

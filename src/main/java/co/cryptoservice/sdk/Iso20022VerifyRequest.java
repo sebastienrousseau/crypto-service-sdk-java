@@ -12,9 +12,7 @@ import java.util.Objects;
  * @param trustedKeys the keys the signatures must verify under
  */
 public record Iso20022VerifyRequest(
-    JsonNode payload,
-    Iso20022Envelope envelope,
-    TrustedKeys trustedKeys) {
+    JsonNode payload, Iso20022Envelope envelope, TrustedKeys trustedKeys) {
 
   /**
    * Checks that every required member is present.

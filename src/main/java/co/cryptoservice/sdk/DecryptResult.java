@@ -7,8 +7,7 @@ package co.cryptoservice.sdk;
  * @param plaintext the decrypted bytes, decoded as UTF-8 (invalid sequences become U+FFFD); UTF-8
  *     text
  */
-public record DecryptResult(
-    String plaintext) {
+public record DecryptResult(String plaintext) {
 
   /**
    * Names the members; values that may be secret (keys, plaintexts, passwords, signatures) are
@@ -18,8 +17,6 @@ public record DecryptResult(
    */
   @Override
   public String toString() {
-    return new Redacted("DecryptResult")
-        .hide("plaintext", plaintext)
-        .toString();
+    return new Redacted("DecryptResult").hide("plaintext", plaintext).toString();
   }
 }

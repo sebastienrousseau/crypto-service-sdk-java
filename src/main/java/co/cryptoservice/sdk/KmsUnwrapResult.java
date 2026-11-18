@@ -10,10 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param provider the provider that served the request (local, aws, gcp, vault)
  * @param unwrappedKey the unwrapped key bytes; lowercase hex
  */
-public record KmsUnwrapResult(
-    String keyId,
-    String provider,
-    String unwrappedKey) {
+public record KmsUnwrapResult(String keyId, String provider, String unwrappedKey) {
 
   /**
    * {@link #unwrappedKey()} decoded from hex.

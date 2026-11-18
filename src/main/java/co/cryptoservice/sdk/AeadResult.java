@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ciphertext nonce (24 bytes) || ciphertext || Poly1305 tag (16 bytes); standard base64 (RFC
  *     4648 section 4), padded
  */
-public record AeadResult(
-    String algorithm,
-    String ciphertext) {
+public record AeadResult(String algorithm, String ciphertext) {
 
   /**
    * {@link #ciphertext()} decoded from base64.

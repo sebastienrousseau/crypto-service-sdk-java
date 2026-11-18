@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param ke2 the serialized KE2 message; lowercase hex
  * @param sessionId single-use login session identifier; pass it to /v2/opaque/login/finish
  */
-public record OpaqueLoginInitResult(
-    String ke2,
-    String sessionId) {
+public record OpaqueLoginInitResult(String ke2, String sessionId) {
 
   /**
    * {@link #ke2()} decoded from hex.

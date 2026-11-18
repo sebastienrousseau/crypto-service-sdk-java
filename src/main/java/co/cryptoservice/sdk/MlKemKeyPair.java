@@ -11,10 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     decapsulation routes
  * @param publicKey the 1184-byte ML-KEM-768 public key; lowercase hex
  */
-public record MlKemKeyPair(
-    String algorithm,
-    String keyId,
-    String publicKey) {
+public record MlKemKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
    * {@link #publicKey()} decoded from hex.

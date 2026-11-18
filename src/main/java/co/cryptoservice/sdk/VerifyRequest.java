@@ -10,10 +10,7 @@ import java.util.Objects;
  * @param message the message, as UTF-8 text
  * @param signature the signature as hex
  */
-public record VerifyRequest(
-    String publicKey,
-    String message,
-    String signature) {
+public record VerifyRequest(String publicKey, String message, String signature) {
 
   /**
    * Checks that every required member is present.

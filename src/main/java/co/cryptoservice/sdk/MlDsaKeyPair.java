@@ -11,10 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *     decapsulation routes
  * @param publicKey the ML-DSA public key; lowercase hex
  */
-public record MlDsaKeyPair(
-    String algorithm,
-    String keyId,
-    String publicKey) {
+public record MlDsaKeyPair(String algorithm, String keyId, String publicKey) {
 
   /**
    * {@link #publicKey()} decoded from hex.

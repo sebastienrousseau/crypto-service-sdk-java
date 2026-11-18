@@ -10,9 +10,7 @@ import java.util.Objects;
  * @param plaintext the plaintext, as UTF-8 text
  * @param recipients the recipients
  */
-public record MultiRecipientEncryptRequest(
-    String plaintext,
-    List<Recipient> recipients) {
+public record MultiRecipientEncryptRequest(String plaintext, List<Recipient> recipients) {
 
   /**
    * Checks that every required member is present.

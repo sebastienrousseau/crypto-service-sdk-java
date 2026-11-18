@@ -14,10 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param x25519PublicKey the 32-byte X25519 public key; lowercase hex
  */
 public record HybridKeyPair(
-    String algorithm,
-    String keyId,
-    String mlKemPublicKey,
-    String x25519PublicKey) {
+    String algorithm, String keyId, String mlKemPublicKey, String x25519PublicKey) {
 
   /**
    * {@link #mlKemPublicKey()} decoded from hex.

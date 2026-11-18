@@ -9,9 +9,7 @@ import java.util.Objects;
  * @param password the password
  * @param ciphertext the ciphertext, as the server returned it
  */
-public record PasswordDecryptRequest(
-    String password,
-    String ciphertext) {
+public record PasswordDecryptRequest(String password, String ciphertext) {
 
   /**
    * Checks that every required member is present.

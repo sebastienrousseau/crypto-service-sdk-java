@@ -10,9 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @param sealed nonce (24 bytes) || ciphertext || Poly1305 tag (16 bytes); standard base64 (RFC
  *     4648 section 4), padded
  */
-public record SecretboxSealResult(
-    String algorithm,
-    String sealed) {
+public record SecretboxSealResult(String algorithm, String sealed) {
 
   /**
    * {@link #sealed()} decoded from base64.
